@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "state": {
     "users": [
       {
@@ -76,13 +76,13 @@
       },
       {
         "id": "u7",
-        "name": "Mahlet Worku",
-        "email": "mkt.junior@ethiopost.et",
-        "role": "junior_officer",
-        "unit": "marketing",
-        "managerId": "u4",
+        "name": "Desta ",
+        "email": "Desta@ethio.post",
+        "role": "supervisor",
+        "unit": "bd",
+        "managerId": "u3",
         "avatarColor": "#0891b2",
-        "title": "Junior Marketing Officer",
+        "title": "Marketing Research Officer",
         "password": "ethiopost",
         "mustChangePassword": false
       },
