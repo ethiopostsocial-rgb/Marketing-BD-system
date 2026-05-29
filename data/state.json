@@ -1,5 +1,5 @@
 {
-  "version": 16,
+  "version": 17,
   "state": {
     "users": [
       {
@@ -127,21 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t4",
-        "title": "Cross-Unit: E-commerce Partner Pitch",
-        "description": "Joint pitch deck combining marketing positioning + BD commercials.",
-        "startDate": "2026-05-25",
-        "dueDate": "2026-06-05",
-        "status": "in_progress",
-        "createdBy": "u1",
-        "assignedTo": "u6",
-        "assignees": [
-          "u6"
-        ],
-        "crossFunctional": true,
         "comments": []
       },
       {
