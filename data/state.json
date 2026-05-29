@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "state": {
     "users": [
       {
@@ -52,13 +52,13 @@
       },
       {
         "id": "u5",
-        "name": "Lily Tesfaye",
-        "email": "bd.supervisor@ethiopost.et",
-        "role": "supervisor",
-        "unit": "bd",
-        "managerId": "u3",
+        "name": "Daniel Tirfe",
+        "email": "Daniel.Tirfe@ethiopost.et",
+        "role": "senior_officer",
+        "unit": "marketing",
+        "managerId": "u2",
         "avatarColor": "#db2777",
-        "title": "BD Supervisor",
+        "title": "Sr. Brand officer ",
         "password": "ethiopost",
         "mustChangePassword": false
       },
