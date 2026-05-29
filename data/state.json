@@ -1,5 +1,5 @@
 {
-  "version": 14,
+  "version": 15,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t2",
-        "title": "Corporate Client Outreach — Banking Sector",
-        "description": "Identify 15 banking sector prospects for logistics partnership.",
-        "startDate": "2026-05-22",
-        "dueDate": "2026-05-28",
-        "status": "awaiting_approval",
-        "createdBy": "u3",
-        "assignedTo": "u8",
-        "assignees": [
-          "u8"
-        ],
         "comments": []
       },
       {
