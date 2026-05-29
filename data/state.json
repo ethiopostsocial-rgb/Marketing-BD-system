@@ -1,5 +1,5 @@
 {
-  "version": 13,
+  "version": 14,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t1",
-        "title": "Q3 Postal Service Campaign Brief",
-        "description": "Draft campaign brief for nationwide postal service awareness.",
-        "startDate": "2026-05-24",
-        "dueDate": "2026-05-31",
-        "status": "in_progress",
-        "createdBy": "u2",
-        "assignedTo": "u6",
-        "assignees": [
-          "u6"
-        ],
         "comments": []
       },
       {
