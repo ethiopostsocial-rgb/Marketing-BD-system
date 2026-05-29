@@ -1,10 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-
+ 
 const DATA_PATH = "data/state.json";
-const GITHUB_TOKEN  = process.env.GITHUB_TOKEN  ?? "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";
+const GITHUB_TOKEN  = process.env.GITHUB_TOKEN  ?? "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";
 const GITHUB_REPO   = process.env.GITHUB_REPO   ?? "ethiopostsocial-rgb/Marketing-BD-system";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
-
+ 
 function headers(): Record<string, string> {
   return {
     Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -14,7 +14,7 @@ function headers(): Record<string, string> {
     "Content-Type": "application/json",
   };
 }
-
+ 
 async function readFile() {
   const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_PATH}?ref=${encodeURIComponent(GITHUB_BRANCH)}`;
   const res = await fetch(url, { headers: headers() });
@@ -25,7 +25,7 @@ async function readFile() {
   const parsed = JSON.parse(decoded) as { version: number; state: unknown };
   return { content: parsed.state, sha: json.sha, version: parsed.version ?? 0 };
 }
-
+ 
 async function writeFile(state: unknown, sha: string | undefined, version: number) {
   const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_PATH}`;
   const content = Buffer.from(JSON.stringify({ version, state }, null, 2)).toString("base64");
@@ -38,13 +38,13 @@ async function writeFile(state: unknown, sha: string | undefined, version: numbe
   const res = await fetch(url, { method: "PUT", headers: headers(), body: JSON.stringify(body) });
   if (!res.ok) throw new Error(`GitHub PUT ${res.status}: ${(await res.text()).slice(0, 200)}`);
 }
-
+ 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
-
+ 
   if (req.method === "GET") {
     try {
       const { content, version } = await readFile();
@@ -55,7 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ ok: false, error: String(e) });
     }
   }
-
+ 
   if (req.method === "POST") {
     try {
       const body = req.body as { state?: unknown };
@@ -68,6 +68,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ ok: false, error: String(e) });
     }
   }
-
+ 
   return res.status(405).json({ ok: false, error: "Method not allowed" });
 }
+ 
