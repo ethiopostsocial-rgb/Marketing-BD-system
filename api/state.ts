@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
  
 const DATA_PATH = "data/state.json";
-const GITHUB_TOKEN  = process.env.GITHUB_TOKEN  ?? "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";
+const GITHUB_TOKEN  = process.env.GITHUB_TOKEN  ?? "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";
 const GITHUB_REPO   = process.env.GITHUB_REPO   ?? "ethiopostsocial-rgb/Marketing-BD-system";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
  
