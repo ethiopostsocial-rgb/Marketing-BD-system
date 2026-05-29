@@ -1,5 +1,5 @@
 {
-  "version": 18,
+  "version": 19,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t6",
-        "title": "Lead Qualification — SME Segment",
-        "description": "Qualify 30 inbound SME leads and score them.",
-        "startDate": "2026-05-27",
-        "dueDate": "2026-06-02",
-        "status": "in_progress",
-        "createdBy": "u5",
-        "assignedTo": "u9",
-        "assignees": [
-          "u9"
-        ],
         "comments": []
       },
       {
