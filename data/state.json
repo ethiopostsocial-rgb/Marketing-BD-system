@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "state": {
     "users": [
       {
@@ -64,11 +64,11 @@
       },
       {
         "id": "u6",
-        "name": "Samuel Alemu",
-        "email": "mkt.senior@ethiopost.et",
+        "name": "Roza Essayas",
+        "email": "Roza.Essayas@ethiopost.et",
         "role": "senior_officer",
-        "unit": "marketing",
-        "managerId": "u4",
+        "unit": "bd",
+        "managerId": "u7",
         "avatarColor": "#7c3aed",
         "title": "Senior Marketing Officer",
         "password": "ethiopost",
