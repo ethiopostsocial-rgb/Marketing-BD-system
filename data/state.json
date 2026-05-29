@@ -1,5 +1,5 @@
 {
-  "version": 17,
+  "version": 18,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t5",
-        "title": "Branch Visibility Audit — Addis Region",
-        "description": "Photograph and report on branding compliance at 8 branches.",
-        "startDate": "2026-05-19",
-        "dueDate": "2026-05-27",
-        "status": "awaiting_approval",
-        "createdBy": "u4",
-        "assignedTo": "u7",
-        "assignees": [
-          "u7"
-        ],
         "comments": []
       },
       {
