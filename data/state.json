@@ -1,16 +1,16 @@
 {
-  "version": 1,
+  "version": 2,
   "state": {
     "users": [
-      { "id": "u1", "name": "Belayneh Mamush", "email": "belayneh.mamush@ethio.post", "role": "director", "unit": "both", "managerId": null, "avatarColor": "#4338ca", "title": "M&C Director", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u2", "name": "Kirubel Misrak", "email": "kirubel.misrak@ethio.post", "role": "marketing_manager", "unit": "marketing", "managerId": "u1", "avatarColor": "#0ea5e9", "title": "Marketing Manager", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u3", "name": "Feven Bekele", "email": "feven.bekele@ethio.post", "role": "bd_manager", "unit": "bd", "managerId": "u1", "avatarColor": "#16a34a", "title": "Business Development Manager", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u4", "name": "Didimos Tadesse", "email": "didimos.tadesse@ethio.post", "role": "supervisor", "unit": "marketing", "managerId": "u2", "avatarColor": "#f59e0b", "title": "Marketing Supervisor", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u5", "name": "Lily Tesfaye", "email": "bd.supervisor@ethiopost.et", "role": "supervisor", "unit": "bd", "managerId": "u3", "avatarColor": "#db2777", "title": "BD Supervisor", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u6", "name": "Samuel Alemu", "email": "mkt.senior@ethiopost.et", "role": "senior_officer", "unit": "marketing", "managerId": "u4", "avatarColor": "#7c3aed", "title": "Senior Marketing Officer", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u7", "name": "Mahlet Worku", "email": "mkt.junior@ethiopost.et", "role": "junior_officer", "unit": "marketing", "managerId": "u4", "avatarColor": "#0891b2", "title": "Junior Marketing Officer", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u8", "name": "Daniel Haile", "email": "bd.senior@ethiopost.et", "role": "senior_officer", "unit": "bd", "managerId": "u5", "avatarColor": "#9333ea", "title": "Senior BD Officer", "password": "ethiopost", "mustChangePassword": true },
-      { "id": "u9", "name": "Rahel Mekonnen", "email": "bd.junior@ethiopost.et", "role": "junior_officer", "unit": "bd", "managerId": "u5", "avatarColor": "#ea580c", "title": "Junior BD Officer", "password": "ethiopost", "mustChangePassword": true }
+      { "id": "u1", "name": "Belayneh Mamush", "email": "belayneh.mamush@ethio.post", "role": "director", "unit": "both", "managerId": null, "avatarColor": "#4338ca", "title": "M&C Director", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u2", "name": "Kirubel Misrak", "email": "kirubel.misrak@ethio.post", "role": "marketing_manager", "unit": "marketing", "managerId": "u1", "avatarColor": "#0ea5e9", "title": "Marketing Manager", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u3", "name": "Feven Bekele", "email": "feven.bekele@ethio.post", "role": "bd_manager", "unit": "bd", "managerId": "u1", "avatarColor": "#16a34a", "title": "Business Development Manager", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u4", "name": "Didimos Tadesse", "email": "didimos.tadesse@ethio.post", "role": "supervisor", "unit": "marketing", "managerId": "u2", "avatarColor": "#f59e0b", "title": "Marketing Supervisor", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u5", "name": "Lily Tesfaye", "email": "bd.supervisor@ethiopost.et", "role": "supervisor", "unit": "bd", "managerId": "u3", "avatarColor": "#db2777", "title": "BD Supervisor", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u6", "name": "Samuel Alemu", "email": "mkt.senior@ethiopost.et", "role": "senior_officer", "unit": "marketing", "managerId": "u4", "avatarColor": "#7c3aed", "title": "Senior Marketing Officer", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u7", "name": "Mahlet Worku", "email": "mkt.junior@ethiopost.et", "role": "junior_officer", "unit": "marketing", "managerId": "u4", "avatarColor": "#0891b2", "title": "Junior Marketing Officer", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u8", "name": "Daniel Haile", "email": "bd.senior@ethiopost.et", "role": "senior_officer", "unit": "bd", "managerId": "u5", "avatarColor": "#9333ea", "title": "Senior BD Officer", "password": "ethiopost", "mustChangePassword": false },
+      { "id": "u9", "name": "Rahel Mekonnen", "email": "bd.junior@ethiopost.et", "role": "junior_officer", "unit": "bd", "managerId": "u5", "avatarColor": "#ea580c", "title": "Junior BD Officer", "password": "ethiopost", "mustChangePassword": false }
     ],
     "tasks": [
       { "id": "t1", "title": "Q3 Postal Service Campaign Brief", "description": "Draft campaign brief for nationwide postal service awareness.", "startDate": "2026-05-24", "dueDate": "2026-05-31", "status": "in_progress", "createdBy": "u2", "assignedTo": "u6", "assignees": ["u6"], "comments": [] },
