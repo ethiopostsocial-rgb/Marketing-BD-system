@@ -1,5 +1,5 @@
 {
-  "version": 15,
+  "version": 16,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t3",
-        "title": "Social Media Calendar — November",
-        "description": "Build content calendar for FB/X/IG across the month.",
-        "startDate": "2026-05-26",
-        "dueDate": "2026-06-03",
-        "status": "todo",
-        "createdBy": "u4",
-        "assignedTo": "u7",
-        "assignees": [
-          "u7"
-        ],
         "comments": []
       },
       {
