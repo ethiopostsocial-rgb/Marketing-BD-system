@@ -1,5 +1,5 @@
 {
-  "version": 11,
+  "version": 12,
   "state": {
     "users": [
       {
@@ -100,11 +100,11 @@
       },
       {
         "id": "u9",
-        "name": "Rahel Mekonnen",
-        "email": "bd.junior@ethiopost.et",
-        "role": "junior_officer",
+        "name": "Meseret assefa",
+        "email": "Meseret.assefa@ethiopost.et",
+        "role": "senior_officer",
         "unit": "bd",
-        "managerId": "u5",
+        "managerId": "u7",
         "avatarColor": "#ea580c",
         "title": "Junior BD Officer",
         "password": "ethiopost",
