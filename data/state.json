@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": 20,
   "state": {
     "users": [
       {
@@ -127,20 +127,6 @@
         ],
         "crossFunctional": false,
         "id": "l1rmkc1z",
-        "comments": []
-      },
-      {
-        "id": "t7",
-        "title": "Press Release — New EMS Service",
-        "description": "Draft, review, and distribute press release.",
-        "startDate": "2026-05-14",
-        "dueDate": "2026-05-24",
-        "status": "done",
-        "createdBy": "u2",
-        "assignedTo": "u6",
-        "assignees": [
-          "u6"
-        ],
         "comments": []
       },
       {
