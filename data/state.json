@@ -1,5 +1,5 @@
 {
-  "version": 21,
+  "version": 22,
   "state": {
     "users": [
       {
@@ -111,22 +111,7 @@
         "mustChangePassword": false
       }
     ],
-    "tasks": [
-      {
-        "id": "t8",
-        "title": "Competitor Pricing Analysis",
-        "description": "Compare DHL/Aramex courier pricing for 6 SKUs.",
-        "startDate": "2026-05-23",
-        "dueDate": "2026-05-30",
-        "status": "todo",
-        "createdBy": "u3",
-        "assignedTo": "u8",
-        "assignees": [
-          "u8"
-        ],
-        "comments": []
-      }
-    ],
+    "tasks": [],
     "routines": [
       {
         "id": "r1",
