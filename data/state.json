@@ -1,5 +1,5 @@
 {
-  "version": 26,
+  "version": 27,
   "state": {
     "users": [
       {
@@ -161,9 +161,9 @@
     "routines": [
       {
         "id": "r1",
-        "title": "Daily lead pipeline review",
-        "description": "Check CRM pipeline and update lead statuses.",
-        "cadence": "daily",
+        "title": "Weekly lead pipeline review",
+        "description": "Check potential pipeline and update lead statuses every week on friday",
+        "cadence": "weekly",
         "unit": "bd",
         "assignedRoleScope": [
           "senior_officer",
