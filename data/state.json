@@ -1,5 +1,5 @@
 {
-  "version": 29,
+  "version": 30,
   "state": {
     "users": [
       {
@@ -231,12 +231,11 @@
       {
         "id": "r3",
         "title": "Weekly performance sync",
-        "description": "Submit weekly KPI summary to supervisor.",
+        "description": "Submit weekly KPI summary to Manager.",
         "cadence": "weekly",
         "unit": "both",
         "assignedRoleScope": [
-          "supervisor",
-          "senior_officer"
+          "supervisor"
         ],
         "createdBy": "u1",
         "checkIns": {
