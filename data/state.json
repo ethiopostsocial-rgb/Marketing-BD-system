@@ -1,5 +1,5 @@
 {
-  "version": 27,
+  "version": 28,
   "state": {
     "users": [
       {
@@ -198,8 +198,7 @@
         "cadence": "daily",
         "unit": "marketing",
         "assignedRoleScope": [
-          "senior_officer",
-          "junior_officer"
+          "supervisor"
         ],
         "createdBy": "u2",
         "checkIns": {
