@@ -1,5 +1,5 @@
 {
-  "version": 28,
+  "version": 29,
   "state": {
     "users": [
       {
@@ -159,6 +159,18 @@
       }
     ],
     "routines": [
+      {
+        "title": "digital media marketing",
+        "description": "prepare contents and art work\n- 5 static content/ week\n- 3 motion graphics/ week\n- 2 video/week\n\nfor all Ethiopost, postgebeya, Postfinance pages",
+        "cadence": "weekly",
+        "unit": "marketing",
+        "assignedRoleScope": [
+          "supervisor"
+        ],
+        "createdBy": "u1",
+        "id": "z4we38za",
+        "checkIns": {}
+      },
       {
         "id": "r1",
         "title": "Weekly lead pipeline review",
