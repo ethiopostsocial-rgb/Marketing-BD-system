@@ -1,5 +1,5 @@
 {
-  "version": 23,
+  "version": 24,
   "state": {
     "users": [
       {
@@ -111,7 +111,26 @@
         "mustChangePassword": false
       }
     ],
-    "tasks": [],
+    "tasks": [
+      {
+        "title": "operational signage installation",
+        "description": "operational signnages installation",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u5",
+        "assignees": [
+          "u5",
+          "u2",
+          "u8"
+        ],
+        "crossFunctional": false,
+        "id": "ue0hbkoj",
+        "comments": []
+      }
+    ],
     "routines": [
       {
         "id": "r1",
