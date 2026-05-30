@@ -1,5 +1,5 @@
 {
-  "version": 20,
+  "version": 21,
   "state": {
     "users": [
       {
@@ -112,23 +112,6 @@
       }
     ],
     "tasks": [
-      {
-        "title": "operational signage",
-        "description": "",
-        "startDate": "2026-05-29",
-        "dueDate": "2026-06-05",
-        "status": "todo",
-        "attachment": null,
-        "createdBy": "u1",
-        "assignedTo": "u1",
-        "assignees": [
-          "u1",
-          "u2"
-        ],
-        "crossFunctional": false,
-        "id": "l1rmkc1z",
-        "comments": []
-      },
       {
         "id": "t8",
         "title": "Competitor Pricing Analysis",
