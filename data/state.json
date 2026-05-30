@@ -1,5 +1,5 @@
 {
-  "version": 25,
+  "version": 26,
   "state": {
     "users": [
       {
@@ -122,6 +122,23 @@
       }
     ],
     "tasks": [
+      {
+        "title": "prepare final year printing materials",
+        "description": "Q4 zena posta, impact analysis , compitator anlaysis",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-06",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2",
+          "u4"
+        ],
+        "crossFunctional": false,
+        "id": "9hlnlpmi",
+        "comments": []
+      },
       {
         "title": "operational signage installation",
         "description": "operational signnages installation",
