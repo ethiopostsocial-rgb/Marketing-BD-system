@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 25,
   "state": {
     "users": [
       {
@@ -88,15 +88,25 @@
       },
       {
         "id": "u8",
-        "name": "Daniel Haile",
-        "email": "bd.senior@ethiopost.et",
-        "role": "senior_officer",
-        "unit": "bd",
-        "managerId": "u5",
+        "name": "Kalkidan legesse",
+        "email": "Kalkidan.legesse@ethio.post",
+        "role": "marketing_manager",
+        "unit": "marketing",
+        "managerId": "u2",
         "avatarColor": "#9333ea",
-        "title": "Senior BD Officer",
+        "title": "Graphics designer",
         "password": "ethiopost",
-        "mustChangePassword": false
+        "mustChangePassword": false,
+        "visibleTabs": [
+          "dashboard",
+          "tasks",
+          "external_requests",
+          "routines",
+          "announcements",
+          "profile",
+          "users",
+          "inventory"
+        ]
       },
       {
         "id": "u9",
