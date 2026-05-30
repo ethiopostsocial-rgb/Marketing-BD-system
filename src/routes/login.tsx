@@ -6,23 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Loader2 } from "lucide-react";
+import { loadState } from "@/lib/sync.client";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
 const BANNER_ITEMS = [
-  "Plan campaigns",
-  "Track KPIs in real time",
-  "Approve subordinate work",
-  "Run daily check-ups",
-  "Broadcast announcements",
-  "Manage cross-functional tasks",
-  "Distribute marketing materials",
-  "Monitor district inventory",
-  "Compare Marketing vs BD",
-  "Secure role-based access",
+  "Plan campaigns", "Track KPIs in real time", "Approve subordinate work",
+  "Run daily check-ups", "Broadcast announcements", "Manage cross-functional tasks",
+  "Distribute marketing materials", "Monitor district inventory",
+  "Compare Marketing vs BD", "Secure role-based access",
 ];
 
 function Marquee({ reverse = false }: { reverse?: boolean }) {
@@ -45,23 +40,44 @@ function Marquee({ reverse = false }: { reverse?: boolean }) {
 }
 
 function LoginPage() {
-  const login = useStore((s) => s.login);
+  const login        = useStore((s) => s.login);
   const currentUserId = useStore((s) => s.currentUserId);
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const navigate     = useNavigate();
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   if (currentUserId) return <Navigate to="/dashboard" />;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      // Always pull latest state from GitHub before logging in
+      // This ensures password changes and mustChangePassword flag are up to date
+      const result = await loadState();
+      if (result?.state) {
+        useStore.setState(result.state as Parameters<typeof useStore.setState>[0], false);
+      }
+    } catch {
+      // Network error — fall back to local state silently
+    }
+
     const u = login(email, password);
+    setLoading(false);
+
     if (!u) {
       setError("Invalid email or password. Please try again.");
       return;
     }
+
     toast.success(`Welcome, ${u.name.split(" ")[0]}`);
+
+    // Only redirect to change-password if mustChangePassword is still true
+    // after pulling the latest state from GitHub
     if (u.mustChangePassword) {
       navigate({ to: "/change-password" });
     } else {
@@ -116,6 +132,7 @@ function LoginPage() {
                   id="email" type="email" autoComplete="email" required
                   placeholder="name@ethiopost.et"
                   value={email} onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                 />
               </div>
               <div className="space-y-2">
@@ -123,10 +140,18 @@ function LoginPage() {
                 <Input
                   id="password" type="password" autoComplete="current-password" required
                   value={password} onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
                 />
               </div>
               {error && <p className="text-sm text-destructive">{error}</p>}
-              <Button type="submit" className="h-11 w-full">Sign in</Button>
+              <Button type="submit" className="h-11 w-full" disabled={loading}>
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Signing in...
+                  </span>
+                ) : "Sign in"}
+              </Button>
             </form>
 
             <p className="mt-6 text-center text-xs text-muted-foreground">
@@ -136,7 +161,6 @@ function LoginPage() {
         </div>
       </div>
 
-      {/* Interactive banner footer */}
       <footer className="mt-auto">
         <Marquee />
         <Marquee reverse />
