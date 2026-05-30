@@ -1,5 +1,5 @@
 {
-  "version": 34,
+  "version": 35,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "civil service business follow up",
+        "description": "",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u3",
+        "assignees": [
+          "u3"
+        ],
+        "crossFunctional": false,
+        "id": "j6dkzuat",
+        "comments": []
+      },
       {
         "title": "WU business follow up",
         "description": "",
