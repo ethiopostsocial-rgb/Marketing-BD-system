@@ -1,5 +1,5 @@
 {
-  "version": 32,
+  "version": 33,
   "state": {
     "users": [
       {
@@ -122,6 +122,23 @@
       }
     ],
     "tasks": [
+      {
+        "title": "branch branding",
+        "description": "- branch signages\n- screen placment\n- flyer and flyer holder",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-06",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u1",
+        "assignees": [
+          "u1",
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "f7s6nrbt",
+        "comments": []
+      },
       {
         "title": "Ecom studio esablishement",
         "description": "- accept the room \n- receive purchased materials from store and install them\n- follow up with procumnet for itms that are not purchased",
