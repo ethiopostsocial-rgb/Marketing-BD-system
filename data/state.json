@@ -1,5 +1,5 @@
 {
-  "version": 31,
+  "version": 32,
   "state": {
     "users": [
       {
@@ -122,6 +122,24 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Ecom studio esablishement",
+        "description": "- accept the room \n- receive purchased materials from store and install them\n- follow up with procumnet for itms that are not purchased",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-05",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u1",
+        "assignees": [
+          "u1",
+          "u2",
+          "u5"
+        ],
+        "crossFunctional": false,
+        "id": "li6r2iuw",
+        "comments": []
+      },
       {
         "title": "prepare final year printing materials",
         "description": "Q4 zena posta, impact analysis , compitator anlaysis",
