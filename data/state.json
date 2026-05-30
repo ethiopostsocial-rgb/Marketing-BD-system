@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 31,
   "state": {
     "users": [
       {
@@ -159,6 +159,18 @@
       }
     ],
     "routines": [
+      {
+        "title": "brand assesment",
+        "description": "asses brnad evaluation of 8 brnaches per week and submit report",
+        "cadence": "weekly",
+        "unit": "marketing",
+        "assignedRoleScope": [
+          "senior_officer"
+        ],
+        "createdBy": "u1",
+        "id": "qbzkqksl",
+        "checkIns": {}
+      },
       {
         "title": "digital media marketing",
         "description": "prepare contents and art work\n- 5 static content/ week\n- 3 motion graphics/ week\n- 2 video/week\n\nfor all Ethiopost, postgebeya, Postfinance pages",
