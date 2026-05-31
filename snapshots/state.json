@@ -1,0 +1,625 @@
+{
+  "version": 1,
+  "state": {
+    "users": [
+      {
+        "id": "u1",
+        "name": "Belayneh Mamush",
+        "email": "belayneh.mamush@ethio.post",
+        "role": "director",
+        "unit": "both",
+        "managerId": null,
+        "avatarColor": "#4338ca",
+        "title": "M&C Director",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u2",
+        "name": "Kirubel Misrak",
+        "email": "kirubel.misrak@ethio.post",
+        "role": "marketing_manager",
+        "unit": "marketing",
+        "managerId": "u1",
+        "avatarColor": "#0ea5e9",
+        "title": "Marketing Manager",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u3",
+        "name": "Feven Bekele",
+        "email": "feven.bekele@ethio.post",
+        "role": "bd_manager",
+        "unit": "bd",
+        "managerId": "u1",
+        "avatarColor": "#16a34a",
+        "title": "Business Development Manager",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u4",
+        "name": "Didimos Tadesse",
+        "email": "didimos.tadesse@ethio.post",
+        "role": "supervisor",
+        "unit": "marketing",
+        "managerId": "u2",
+        "avatarColor": "#f59e0b",
+        "title": "Marketing Supervisor",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u5",
+        "name": "Daniel Tirfe",
+        "email": "Daniel.Tirfe@ethiopost.et",
+        "role": "senior_officer",
+        "unit": "marketing",
+        "managerId": "u2",
+        "avatarColor": "#db2777",
+        "title": "Sr. Brand officer ",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u6",
+        "name": "Roza Essayas",
+        "email": "Roza.Essayas@ethiopost.et",
+        "role": "senior_officer",
+        "unit": "bd",
+        "managerId": "u7",
+        "avatarColor": "#7c3aed",
+        "title": "Senior Marketing Officer",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u7",
+        "name": "Desta ",
+        "email": "Desta@ethio.post",
+        "role": "supervisor",
+        "unit": "bd",
+        "managerId": "u3",
+        "avatarColor": "#0891b2",
+        "title": "Marketing Research Officer",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      },
+      {
+        "id": "u8",
+        "name": "Kalkidan legesse",
+        "email": "Kalkidan.legesse@ethio.post",
+        "role": "marketing_manager",
+        "unit": "marketing",
+        "managerId": "u2",
+        "avatarColor": "#9333ea",
+        "title": "Graphics designer",
+        "password": "ethiopost",
+        "mustChangePassword": false,
+        "visibleTabs": [
+          "dashboard",
+          "tasks",
+          "external_requests",
+          "routines",
+          "announcements",
+          "profile",
+          "users",
+          "inventory"
+        ]
+      },
+      {
+        "id": "u9",
+        "name": "Meseret assefa",
+        "email": "Meseret.assefa@ethiopost.et",
+        "role": "senior_officer",
+        "unit": "bd",
+        "managerId": "u7",
+        "avatarColor": "#ea580c",
+        "title": "Junior BD Officer",
+        "password": "ethiopost",
+        "mustChangePassword": false
+      }
+    ],
+    "tasks": [
+      {
+        "title": "ICS bussiness follow up",
+        "description": "",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u3",
+        "assignees": [
+          "u3"
+        ],
+        "crossFunctional": false,
+        "id": "3wy9fn7k",
+        "comments": []
+      },
+      {
+        "title": "civil service business follow up",
+        "description": "",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u3",
+        "assignees": [
+          "u3"
+        ],
+        "crossFunctional": false,
+        "id": "j6dkzuat",
+        "comments": []
+      },
+      {
+        "title": "WU business follow up",
+        "description": "",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u3",
+        "assignees": [
+          "u3"
+        ],
+        "crossFunctional": false,
+        "id": "h7vo99ve",
+        "comments": []
+      },
+      {
+        "title": "branch branding",
+        "description": "- branch signages\n- screen placment\n- flyer and flyer holder",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-06",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u1",
+        "assignees": [
+          "u1",
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "f7s6nrbt",
+        "comments": []
+      },
+      {
+        "title": "Ecom studio esablishement",
+        "description": "- accept the room \n- receive purchased materials from store and install them\n- follow up with procumnet for itms that are not purchased",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-05",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u1",
+        "assignees": [
+          "u1",
+          "u2",
+          "u5"
+        ],
+        "crossFunctional": false,
+        "id": "li6r2iuw",
+        "comments": []
+      },
+      {
+        "title": "prepare final year printing materials",
+        "description": "Q4 zena posta, impact analysis , compitator anlaysis",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-06",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2",
+          "u4"
+        ],
+        "crossFunctional": false,
+        "id": "9hlnlpmi",
+        "comments": []
+      },
+      {
+        "title": "operational signage installation",
+        "description": "operational signnages installation",
+        "startDate": "2026-05-30",
+        "dueDate": "2026-06-01",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u5",
+        "assignees": [
+          "u5",
+          "u2",
+          "u8"
+        ],
+        "crossFunctional": false,
+        "id": "ue0hbkoj",
+        "comments": []
+      }
+    ],
+    "routines": [
+      {
+        "title": "brand assesment",
+        "description": "asses brnad evaluation of 8 brnaches per week and submit report",
+        "cadence": "weekly",
+        "unit": "marketing",
+        "assignedRoleScope": [
+          "senior_officer"
+        ],
+        "createdBy": "u1",
+        "id": "qbzkqksl",
+        "checkIns": {}
+      },
+      {
+        "title": "digital media marketing",
+        "description": "prepare contents and art work\n- 5 static content/ week\n- 3 motion graphics/ week\n- 2 video/week\n\nfor all Ethiopost, postgebeya, Postfinance pages",
+        "cadence": "weekly",
+        "unit": "marketing",
+        "assignedRoleScope": [
+          "supervisor"
+        ],
+        "createdBy": "u1",
+        "id": "z4we38za",
+        "checkIns": {}
+      },
+      {
+        "id": "r1",
+        "title": "Weekly lead pipeline review",
+        "description": "Check potential pipeline and update lead statuses every week on friday",
+        "cadence": "weekly",
+        "unit": "bd",
+        "assignedRoleScope": [
+          "senior_officer",
+          "junior_officer",
+          "supervisor"
+        ],
+        "createdBy": "u3",
+        "checkIns": {
+          "u8": [
+            "2026-05-29",
+            "2026-05-28",
+            "2026-05-27",
+            "2026-05-26"
+          ],
+          "u9": [
+            "2026-05-28",
+            "2026-05-27"
+          ],
+          "u5": [
+            "2026-05-29",
+            "2026-05-28",
+            "2026-05-27",
+            "2026-05-26",
+            "2026-05-25"
+          ]
+        }
+      },
+      {
+        "id": "r2",
+        "title": "Social media monitoring",
+        "description": "Monitor mentions, respond to comments and DMs.",
+        "cadence": "daily",
+        "unit": "marketing",
+        "assignedRoleScope": [
+          "supervisor"
+        ],
+        "createdBy": "u2",
+        "checkIns": {
+          "u6": [
+            "2026-05-29",
+            "2026-05-28",
+            "2026-05-27",
+            "2026-05-26",
+            "2026-05-25"
+          ],
+          "u7": [
+            "2026-05-29",
+            "2026-05-28",
+            "2026-05-27"
+          ]
+        }
+      },
+      {
+        "id": "r3",
+        "title": "Weekly performance sync",
+        "description": "Submit weekly KPI summary to Manager.",
+        "cadence": "weekly",
+        "unit": "both",
+        "assignedRoleScope": [
+          "supervisor"
+        ],
+        "createdBy": "u1",
+        "checkIns": {
+          "u4": [
+            "2026-05-29"
+          ],
+          "u5": [
+            "2026-05-29"
+          ],
+          "u6": [],
+          "u8": [
+            "2026-05-29"
+          ]
+        }
+      }
+    ],
+    "announcements": [
+      {
+        "id": "a1",
+        "title": "Q4 Strategy Kickoff — All Hands",
+        "body": "All Marketing and Business Development staff are required to attend the Q4 kickoff on Friday, 9:00 AM at the HQ auditorium.",
+        "authorId": "u1",
+        "audience": "both",
+        "urgency": "high",
+        "createdAt": "2026-05-28"
+      },
+      {
+        "id": "a2",
+        "title": "New CRM rollout next week",
+        "body": "BD team — please complete onboarding modules before Monday.",
+        "authorId": "u3",
+        "audience": "bd",
+        "urgency": "normal",
+        "createdAt": "2026-05-26"
+      },
+      {
+        "id": "a3",
+        "title": "Brand asset refresh available",
+        "body": "Updated Ethiopost brand kit is live on the shared drive. Please use the new logo across all materials.",
+        "authorId": "u2",
+        "audience": "marketing",
+        "urgency": "normal",
+        "createdAt": "2026-05-24"
+      },
+      {
+        "id": "a4",
+        "title": "Holiday schedule reminder",
+        "body": "Office closes early on Friday for the national holiday.",
+        "authorId": "u1",
+        "audience": "both",
+        "urgency": "low",
+        "createdAt": "2026-05-21"
+      }
+    ],
+    "inventory": [
+      {
+        "id": "i1",
+        "name": "EMS Promotional Brochure (A4, Tri-fold)",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 10000,
+        "createdAt": "2026-04-29",
+        "createdBy": "u2",
+        "description": "Tri-fold brochure highlighting EMS services and rates.",
+        "distributions": [
+          {
+            "id": "d1",
+            "district": "addis_ababa",
+            "quantity": 2000,
+            "date": "2026-05-09",
+            "recipient": "GPO branch lead",
+            "byUserId": "u2"
+          },
+          {
+            "id": "d2",
+            "district": "gpo",
+            "quantity": 1500,
+            "date": "2026-05-11",
+            "recipient": "GPO counter",
+            "byUserId": "u4"
+          },
+          {
+            "id": "d3",
+            "district": "north_1",
+            "quantity": 800,
+            "date": "2026-05-17",
+            "recipient": "Bahir Dar hub",
+            "byUserId": "u4"
+          },
+          {
+            "id": "d4",
+            "district": "south",
+            "quantity": 700,
+            "date": "2026-05-20",
+            "recipient": "Hawassa hub",
+            "byUserId": "u6"
+          }
+        ]
+      },
+      {
+        "id": "i2",
+        "name": "Branded Roll-up Banner (2m)",
+        "category": "Display",
+        "unit": "pcs",
+        "totalQuantity": 80,
+        "createdAt": "2026-04-14",
+        "createdBy": "u2",
+        "description": "Pull-up banners for branch and event activations.",
+        "distributions": [
+          {
+            "id": "d5",
+            "district": "east",
+            "quantity": 6,
+            "date": "2026-05-04",
+            "recipient": "Dire Dawa branch",
+            "byUserId": "u4"
+          },
+          {
+            "id": "d6",
+            "district": "west",
+            "quantity": 5,
+            "date": "2026-05-07",
+            "recipient": "Nekemte branch",
+            "byUserId": "u4"
+          },
+          {
+            "id": "d7",
+            "district": "central",
+            "quantity": 8,
+            "date": "2026-05-15",
+            "recipient": "Adama hub",
+            "byUserId": "u2"
+          },
+          {
+            "id": "d8",
+            "district": "addis_ababa",
+            "quantity": 10,
+            "date": "2026-05-19",
+            "recipient": "HQ lobby",
+            "byUserId": "u2"
+          }
+        ]
+      },
+      {
+        "id": "i3",
+        "name": "Corporate Gift Pack",
+        "category": "Giveaway",
+        "unit": "box",
+        "totalQuantity": 200,
+        "createdAt": "2026-05-14",
+        "createdBy": "u3",
+        "description": "Branded notebook + pen + USB for client meetings.",
+        "distributions": [
+          {
+            "id": "d9",
+            "district": "addis_ababa",
+            "quantity": 40,
+            "date": "2026-05-21",
+            "recipient": "BD team — banking outreach",
+            "byUserId": "u3"
+          },
+          {
+            "id": "d10",
+            "district": "north_2",
+            "quantity": 15,
+            "date": "2026-05-24",
+            "recipient": "Mekelle BD officer",
+            "byUserId": "u5"
+          }
+        ]
+      },
+      {
+        "id": "i4",
+        "name": "Outdoor Vinyl Poster (A1)",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 500,
+        "createdAt": "2026-05-09",
+        "createdBy": "u4",
+        "distributions": [
+          {
+            "id": "d11",
+            "district": "south",
+            "quantity": 60,
+            "date": "2026-05-22",
+            "recipient": "Arba Minch branch",
+            "byUserId": "u6"
+          },
+          {
+            "id": "d12",
+            "district": "gpo",
+            "quantity": 80,
+            "date": "2026-05-23",
+            "recipient": "GPO facade",
+            "byUserId": "u4"
+          }
+        ]
+      }
+    ],
+    "externalRequests": [
+      {
+        "id": "er1",
+        "title": "Booth setup for trade expo",
+        "description": "Need facility team to set up branded booth at Millennium Hall.",
+        "department": "supply_facility",
+        "contactPerson": "Facility Desk",
+        "requestedBy": "u2",
+        "requestedDate": "2026-05-23",
+        "dueDate": "2026-06-01",
+        "status": "acknowledged"
+      },
+      {
+        "id": "er2",
+        "title": "Budget approval — Q4 campaign",
+        "description": "Approval for ETB 850,000 media spend.",
+        "department": "finance",
+        "requestedBy": "u1",
+        "requestedDate": "2026-05-26",
+        "dueDate": "2026-05-31",
+        "status": "pending"
+      },
+      {
+        "id": "er3",
+        "title": "Legal review of partnership MoU",
+        "description": "Review draft MoU with logistics partner.",
+        "department": "legal",
+        "requestedBy": "u3",
+        "requestedDate": "2026-05-19",
+        "dueDate": "2026-05-27",
+        "status": "fulfilled",
+        "responseNote": "Approved with minor changes."
+      }
+    ],
+    "proposals": [
+      {
+        "id": "p1",
+        "title": "Logistics partnership — CBE",
+        "client": "Commercial Bank of Ethiopia",
+        "description": "Nationwide document distribution agreement.",
+        "stage": "negotiation",
+        "value": 4500000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "createdBy": "u3",
+        "createdAt": "2026-05-04",
+        "expectedCloseDate": "2026-06-12",
+        "contactPerson": "Ato Yonas (Procurement)"
+      },
+      {
+        "id": "p2",
+        "title": "EMS bulk contract — Awash Insurance",
+        "client": "Awash Insurance",
+        "description": "Monthly EMS pickup and delivery contract.",
+        "stage": "submitted",
+        "value": 1200000,
+        "currency": "ETB",
+        "ownerId": "u9",
+        "createdBy": "u5",
+        "createdAt": "2026-05-17",
+        "expectedCloseDate": "2026-06-08",
+        "contactPerson": "W/ro Hanna"
+      },
+      {
+        "id": "p3",
+        "title": "E-commerce fulfillment — Qefira",
+        "client": "Qefira",
+        "description": "Last-mile fulfillment proposal.",
+        "stage": "drafting",
+        "value": 800000,
+        "currency": "ETB",
+        "ownerId": "u8",
+        "createdBy": "u3",
+        "createdAt": "2026-05-24",
+        "expectedCloseDate": "2026-06-18"
+      },
+      {
+        "id": "p4",
+        "title": "Government printing tender",
+        "client": "Ministry of Education",
+        "description": "Bid for textbook distribution tender.",
+        "stage": "opportunity",
+        "value": 9000000,
+        "currency": "ETB",
+        "ownerId": "u5",
+        "createdBy": "u1",
+        "createdAt": "2026-05-27",
+        "expectedCloseDate": "2026-07-13"
+      }
+    ],
+    "customRoles": []
+  }
+}
