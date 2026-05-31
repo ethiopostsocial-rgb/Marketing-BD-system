@@ -67,9 +67,56 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 /** Normalise multi-assignee fields so `assignedTo` always equals `assignees[0]`. */
 function normaliseTaskAssignees<T extends { assignedTo: string; assignees?: string[] }>(t: T): T {
   if (!t.assignees || t.assignees.length === 0) return t;
-  // De-duplicate while preserving order
   const unique = Array.from(new Set(t.assignees));
   return { ...t, assignees: unique, assignedTo: unique[0] };
+}
+
+/** Push state directly to GitHub — used for critical updates like password changes. */
+async function forceSyncToGitHub(state: Omit<State, keyof ReturnType<typeof createActions>>) {
+  try {
+    const payload = {
+      users: state.users,
+      tasks: state.tasks,
+      routines: state.routines,
+      announcements: state.announcements,
+      inventory: state.inventory,
+      externalRequests: state.externalRequests,
+      proposals: state.proposals,
+      customRoles: state.customRoles,
+    };
+    await fetch("/api/state", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state: payload }),
+    });
+  } catch (e) {
+    console.error("Force sync failed:", e);
+  }
+}
+
+function createActions(set: any, get: any) {
+  return {
+    login: (email: string, password: string) => {
+      const u = get().users.find((x: User) => x.email.toLowerCase() === email.toLowerCase());
+      if (!u) return null;
+      if (u.password !== password) return null;
+      set({ currentUserId: u.id });
+      return u;
+    },
+    logout: () => set({ currentUserId: null }),
+
+    changePassword: (userId: string, newPassword: string) => {
+      // 1. Update local state immediately
+      set((s: State) => ({
+        users: s.users.map((u) =>
+          u.id === userId ? { ...u, password: newPassword, mustChangePassword: false } : u,
+        ),
+      }));
+      // 2. Force push to GitHub immediately — don't wait for SyncProvider debounce
+      const updatedState = get();
+      forceSyncToGitHub(updatedState);
+    },
+  };
 }
 
 export const useStore = create<State>()(
@@ -85,26 +132,13 @@ export const useStore = create<State>()(
       customRoles: CUSTOM_ROLES,
       currentUserId: null,
 
-      login: (email, password) => {
-        const u = get().users.find((x) => x.email.toLowerCase() === email.toLowerCase());
-        if (!u) return null;
-        if (u.password !== password) return null;
-        set({ currentUserId: u.id });
-        return u;
-      },
-      logout: () => set({ currentUserId: null }),
-      changePassword: (userId, newPassword) =>
-        set((s) => ({
-          users: s.users.map((u) =>
-            u.id === userId ? { ...u, password: newPassword, mustChangePassword: false } : u,
-          ),
-        })),
+      ...createActions(set, get),
 
       createTask: (t) =>
-        set((s) => ({ tasks: [{ ...normaliseTaskAssignees(t), id: uid(), comments: [] }, ...s.tasks] })),
+        set((s: State) => ({ tasks: [{ ...normaliseTaskAssignees(t), id: uid(), comments: [] }, ...s.tasks] })),
 
       updateTaskStatus: (id, status, comment) =>
-        set((s) => ({
+        set((s: State) => ({
           tasks: s.tasks.map((t) =>
             t.id === id
               ? {
@@ -119,10 +153,10 @@ export const useStore = create<State>()(
         })),
 
       approveTask: (id) =>
-        set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, status: "done" as TaskStatus, rejectionReason: null } : t)) })),
+        set((s: State) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, status: "done" as TaskStatus, rejectionReason: null } : t)) })),
 
       rejectTask: (id, reason) =>
-        set((s) => ({
+        set((s: State) => ({
           tasks: s.tasks.map((t) =>
             t.id === id
               ? {
@@ -136,7 +170,7 @@ export const useStore = create<State>()(
         })),
 
       updateTask: (id, patch) =>
-        set((s) => ({
+        set((s: State) => ({
           tasks: s.tasks.map((t) => {
             if (t.id !== id) return t;
             const next = { ...t, ...patch } as Task;
@@ -144,17 +178,17 @@ export const useStore = create<State>()(
           }),
         })),
 
-      deleteTask: (id) => set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
+      deleteTask: (id) => set((s: State) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
 
-      createRoutine: (r) => set((s) => ({ routines: [{ ...r, id: uid(), checkIns: {} }, ...s.routines] })),
+      createRoutine: (r) => set((s: State) => ({ routines: [{ ...r, id: uid(), checkIns: {} }, ...s.routines] })),
 
       updateRoutine: (id, patch) =>
-        set((s) => ({ routines: s.routines.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
+        set((s: State) => ({ routines: s.routines.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
 
-      deleteRoutine: (id) => set((s) => ({ routines: s.routines.filter((r) => r.id !== id) })),
+      deleteRoutine: (id) => set((s: State) => ({ routines: s.routines.filter((r) => r.id !== id) })),
 
       toggleRoutineCheckIn: (routineId, userId, dateISO) =>
-        set((s) => ({
+        set((s: State) => ({
           routines: s.routines.map((r) => {
             if (r.id !== routineId) return r;
             const current = r.checkIns[userId] ?? [];
@@ -167,16 +201,16 @@ export const useStore = create<State>()(
         })),
 
       createAnnouncement: (a) =>
-        set((s) => ({ announcements: [{ ...a, id: uid(), createdAt: new Date().toISOString().slice(0, 10) }, ...s.announcements] })),
+        set((s: State) => ({ announcements: [{ ...a, id: uid(), createdAt: new Date().toISOString().slice(0, 10) }, ...s.announcements] })),
 
       updateAnnouncement: (id, patch) =>
-        set((s) => ({ announcements: s.announcements.map((a) => (a.id === id ? { ...a, ...patch } : a)) })),
+        set((s: State) => ({ announcements: s.announcements.map((a) => (a.id === id ? { ...a, ...patch } : a)) })),
 
       deleteAnnouncement: (id) =>
-        set((s) => ({ announcements: s.announcements.filter((a) => a.id !== id) })),
+        set((s: State) => ({ announcements: s.announcements.filter((a) => a.id !== id) })),
 
       createUser: (u) =>
-        set((s) => ({
+        set((s: State) => ({
           users: [
             ...s.users,
             { ...u, id: uid(), avatarColor: u.avatarColor ?? AVATAR_COLORS[s.users.length % AVATAR_COLORS.length] },
@@ -184,10 +218,10 @@ export const useStore = create<State>()(
         })),
 
       updateUser: (id, patch) =>
-        set((s) => ({ users: s.users.map((u) => (u.id === id ? { ...u, ...patch } : u)) })),
+        set((s: State) => ({ users: s.users.map((u) => (u.id === id ? { ...u, ...patch } : u)) })),
 
       deleteUser: (id) =>
-        set((s) => {
+        set((s: State) => {
           const removed = s.users.find((u) => u.id === id);
           const newManagerId = removed?.managerId ?? null;
           return {
@@ -198,7 +232,7 @@ export const useStore = create<State>()(
         }),
 
       createInventoryItem: (i) =>
-        set((s) => ({
+        set((s: State) => ({
           inventory: [
             {
               ...i,
@@ -212,22 +246,22 @@ export const useStore = create<State>()(
         })),
 
       updateInventoryItem: (id, patch) =>
-        set((s) => ({
+        set((s: State) => ({
           inventory: s.inventory.map((it) => (it.id === id ? { ...it, ...patch } : it)),
         })),
 
       deleteInventoryItem: (id) =>
-        set((s) => ({ inventory: s.inventory.filter((it) => it.id !== id) })),
+        set((s: State) => ({ inventory: s.inventory.filter((it) => it.id !== id) })),
 
       addDistribution: (itemId, dist) => {
         const state = get();
-        const item = state.inventory.find((i) => i.id === itemId);
+        const item = state.inventory.find((i: InventoryItem) => i.id === itemId);
         if (!item) return { ok: false, error: "Item not found" };
-        const distributed = item.distributions.reduce((a, d) => a + d.quantity, 0);
+        const distributed = item.distributions.reduce((a: number, d: any) => a + d.quantity, 0);
         const remaining = item.totalQuantity - distributed;
         if (dist.quantity <= 0) return { ok: false, error: "Quantity must be greater than 0" };
         if (dist.quantity > remaining) return { ok: false, error: `Only ${remaining} ${item.unit} available` };
-        set((s) => ({
+        set((s: State) => ({
           inventory: s.inventory.map((it) =>
             it.id === itemId
               ? {
@@ -244,7 +278,7 @@ export const useStore = create<State>()(
       },
 
       removeDistribution: (itemId, distId) =>
-        set((s) => ({
+        set((s: State) => ({
           inventory: s.inventory.map((it) =>
             it.id === itemId
               ? { ...it, distributions: it.distributions.filter((d) => d.id !== distId) }
@@ -253,53 +287,53 @@ export const useStore = create<State>()(
         })),
 
       createExternalRequest: (r) =>
-        set((s) => ({
+        set((s: State) => ({
           externalRequests: [
             { ...r, id: uid(), requestedBy: s.currentUserId ?? "", requestedDate: new Date().toISOString().slice(0, 10), status: "pending" },
             ...s.externalRequests,
           ],
         })),
       updateExternalRequest: (id, patch) =>
-        set((s) => ({ externalRequests: s.externalRequests.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
+        set((s: State) => ({ externalRequests: s.externalRequests.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
       setExternalRequestStatus: (id, status, note) =>
-        set((s) => ({
+        set((s: State) => ({
           externalRequests: s.externalRequests.map((r) =>
             r.id === id ? { ...r, status, responseNote: note ?? r.responseNote } : r,
           ),
         })),
       deleteExternalRequest: (id) =>
-        set((s) => ({ externalRequests: s.externalRequests.filter((r) => r.id !== id) })),
+        set((s: State) => ({ externalRequests: s.externalRequests.filter((r) => r.id !== id) })),
 
       createProposal: (p) =>
-        set((s) => ({
+        set((s: State) => ({
           proposals: [
             { ...p, id: uid(), createdAt: new Date().toISOString().slice(0, 10), createdBy: s.currentUserId ?? "" },
             ...s.proposals,
           ],
         })),
       updateProposal: (id, patch) =>
-        set((s) => ({ proposals: s.proposals.map((p) => (p.id === id ? { ...p, ...patch } : p)) })),
+        set((s: State) => ({ proposals: s.proposals.map((p) => (p.id === id ? { ...p, ...patch } : p)) })),
       setProposalStage: (id, stage) =>
-        set((s) => ({ proposals: s.proposals.map((p) => (p.id === id ? { ...p, stage } : p)) })),
+        set((s: State) => ({ proposals: s.proposals.map((p) => (p.id === id ? { ...p, stage } : p)) })),
       deleteProposal: (id) =>
-        set((s) => ({ proposals: s.proposals.filter((p) => p.id !== id) })),
+        set((s: State) => ({ proposals: s.proposals.filter((p) => p.id !== id) })),
 
       createCustomRole: (r) =>
-        set((s) => ({
+        set((s: State) => ({
           customRoles: [
             { ...r, id: uid(), createdAt: new Date().toISOString().slice(0, 10), createdBy: s.currentUserId ?? "" },
             ...s.customRoles,
           ],
         })),
       updateCustomRole: (id, patch) =>
-        set((s) => ({ customRoles: s.customRoles.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
+        set((s: State) => ({ customRoles: s.customRoles.map((r) => (r.id === id ? { ...r, ...patch } : r)) })),
       deleteCustomRole: (id) =>
-        set((s) => ({ customRoles: s.customRoles.filter((r) => r.id !== id) })),
+        set((s: State) => ({ customRoles: s.customRoles.filter((r) => r.id !== id) })),
     }),
 
     {
       name: "ethiopost-mbd-store",
-      version: 6,
+      version: 7,
       migrate: (_persisted: unknown, _version: number) => {
         return {
           users: USERS,
@@ -355,9 +389,8 @@ export function roleRank(role: Role, customRoles: CustomRole[]): number {
 
 export function canAssignTo(actor: User, target: User, users: User[]): boolean {
   if (actor.id === target.id) return true;
-  // Use built-in rank for assignment privileges; custom roles default to rank 1 (cannot assign others).
   const actorRank = actor.role in ROLE_RANK ? ROLE_RANK[actor.role as BuiltInRole] : 1;
-  if (actorRank < 4) return false; // only supervisor+
+  if (actorRank < 4) return false;
   if (actor.role === "director") return true;
   const subs = getSubordinateIds(actor.id, users);
   if (subs.includes(target.id)) return true;
@@ -368,11 +401,9 @@ export function canAssignTo(actor: User, target: User, users: User[]): boolean {
 }
 
 export function canApproveTask(actor: User, task: Task, users: User[]): boolean {
-  // Assignees cannot approve their own task
   if (isTaskOwner(actor.id, task)) return false;
   const primary = users.find((u) => u.id === task.assignedTo);
   if (!primary) return false;
-  // Approval routes to the primary assignee's direct line manager.
   if (primary.managerId && actor.id === primary.managerId) return true;
   if (actor.role === "director" && !primary.managerId) return true;
   return false;
@@ -382,7 +413,6 @@ export function unitOf(user: User): Unit {
   return user.unit;
 }
 
-/** Whether the current user can mutate the status of a task. */
 export function canChangeTaskStatus(actor: User, task: Task): boolean {
   return isTaskOwner(actor.id, task);
 }
@@ -406,34 +436,27 @@ export const TAB_LABELS: Record<TabKey, string> = {
   profile: "Profile Settings",
 };
 
-/** Default tab access by role when a user has no explicit visibleTabs override. */
 export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): TabKey[] {
-  // Custom roles use their stored defaultTabs.
   if (!(user.role in ROLE_LABELS)) {
     const custom = customRoles.find((r) => r.key === user.role);
     if (custom) return custom.defaultTabs;
   }
 
   const base: TabKey[] = ["dashboard", "tasks", "external_requests", "routines", "announcements", "profile"];
-  // Inventory: only Director, Marketing Manager, and Marketing Senior Officer
   const inventoryAllowed =
     user.role === "director" ||
     user.role === "marketing_manager" ||
     (user.role === "senior_officer" && (user.unit === "marketing" || user.unit === "both"));
   if (inventoryAllowed) base.push("inventory");
-  // Opportunities & Proposals: M&C Director + all BD unit members
   const opportunitiesAllowed =
     user.role === "director" || user.unit === "bd" || user.unit === "both";
   if (opportunitiesAllowed) base.push("opportunities");
-  // Commercial Dashboard: director + managers
   if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
     base.push("commercial_dashboard");
   }
-  // User Management: director + managers
   if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
     base.push("users");
   }
-  // Roles section: director only
   if (user.role === "director") base.push("roles");
   return base;
 }
