@@ -32,6 +32,7 @@ export type TabKey =
   | "routines"
   | "inventory"
   | "announcements"
+  | "commercial_dashboard"
   | "users"
   | "roles"
   | "profile";
