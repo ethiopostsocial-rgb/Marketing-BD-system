@@ -22,6 +22,7 @@ import { Route as AppOpportunitiesRouteImport } from './routes/_app.opportunitie
 import { Route as AppInventoryRouteImport } from './routes/_app.inventory'
 import { Route as AppExternalRequestsRouteImport } from './routes/_app.external-requests'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppCommercialDashboardRouteImport } from './routes/_app.commercial-dashboard'
 import { Route as AppAnnouncementsRouteImport } from './routes/_app.announcements'
 
 const LoginRoute = LoginRouteImport.update({
@@ -88,6 +89,11 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCommercialDashboardRoute = AppCommercialDashboardRouteImport.update({
+  id: '/commercial-dashboard',
+  path: '/commercial-dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppAnnouncementsRoute = AppAnnouncementsRouteImport.update({
   id: '/announcements',
   path: '/announcements',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
   '/announcements': typeof AppAnnouncementsRoute
+  '/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/dashboard': typeof AppDashboardRoute
   '/external-requests': typeof AppExternalRequestsRoute
   '/inventory': typeof AppInventoryRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
   '/announcements': typeof AppAnnouncementsRoute
+  '/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/dashboard': typeof AppDashboardRoute
   '/external-requests': typeof AppExternalRequestsRoute
   '/inventory': typeof AppInventoryRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
   '/_app/announcements': typeof AppAnnouncementsRoute
+  '/_app/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/external-requests': typeof AppExternalRequestsRoute
   '/_app/inventory': typeof AppInventoryRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/change-password'
     | '/login'
     | '/announcements'
+    | '/commercial-dashboard'
     | '/dashboard'
     | '/external-requests'
     | '/inventory'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/change-password'
     | '/login'
     | '/announcements'
+    | '/commercial-dashboard'
     | '/dashboard'
     | '/external-requests'
     | '/inventory'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/change-password'
     | '/login'
     | '/_app/announcements'
+    | '/_app/commercial-dashboard'
     | '/_app/dashboard'
     | '/_app/external-requests'
     | '/_app/inventory'
@@ -290,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/commercial-dashboard': {
+      id: '/_app/commercial-dashboard'
+      path: '/commercial-dashboard'
+      fullPath: '/commercial-dashboard'
+      preLoaderRoute: typeof AppCommercialDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/announcements': {
       id: '/_app/announcements'
       path: '/announcements'
@@ -302,6 +321,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppAnnouncementsRoute: typeof AppAnnouncementsRoute
+  AppCommercialDashboardRoute: typeof AppCommercialDashboardRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppExternalRequestsRoute: typeof AppExternalRequestsRoute
   AppInventoryRoute: typeof AppInventoryRoute
@@ -315,6 +335,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppAnnouncementsRoute: AppAnnouncementsRoute,
+  AppCommercialDashboardRoute: AppCommercialDashboardRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppExternalRequestsRoute: AppExternalRequestsRoute,
   AppInventoryRoute: AppInventoryRoute,
