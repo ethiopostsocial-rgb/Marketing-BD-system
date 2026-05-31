@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "state": {
     "users": [
       {
@@ -122,6 +122,24 @@
       }
     ],
     "tasks": [
+      {
+        "title": "CRM usage",
+        "description": "",
+        "startDate": "2026-05-31",
+        "dueDate": "2026-06-07",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u1",
+        "assignees": [
+          "u1",
+          "u2",
+          "u3"
+        ],
+        "crossFunctional": false,
+        "id": "vnd9zdby",
+        "comments": []
+      },
       {
         "title": "ICS bussiness follow up",
         "description": "",
