@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package, Building2, Briefcase, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package, Building2, Briefcase, ShieldCheck, BarChart2 } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
   SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,
@@ -17,6 +17,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; tab: TabKe
   { to: "/routines", label: "Routine Check-ups", icon: ClipboardCheck, tab: "routines" },
   { to: "/inventory", label: "Marketing Inventory", icon: Package, tab: "inventory" },
   { to: "/announcements", label: "Announcements", icon: Megaphone, tab: "announcements" },
+  { to: "/commercial-dashboard", label: "Commercial Dashboard", icon: BarChart2, tab: "commercial_dashboard" },
   { to: "/users", label: "User Management", icon: Users, tab: "users" },
   { to: "/roles", label: "Roles", icon: ShieldCheck, tab: "roles" },
   { to: "/profile", label: "Profile Settings", icon: UserIcon, tab: "profile" },
