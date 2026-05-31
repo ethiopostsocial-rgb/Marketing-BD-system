@@ -425,6 +425,10 @@ export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): 
   const opportunitiesAllowed =
     user.role === "director" || user.unit === "bd" || user.unit === "both";
   if (opportunitiesAllowed) base.push("opportunities");
+  // Commercial Dashboard: director + managers
+  if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
+    base.push("commercial_dashboard");
+  }
   // User Management: director + managers
   if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
     base.push("users");
