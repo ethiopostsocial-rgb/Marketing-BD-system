@@ -13,32 +13,28 @@ export const Route = createFileRoute("/change-password")({
 });
 
 function ChangePasswordPage() {
-  const user = useCurrentUser();
+  const user           = useCurrentUser();
   const changePassword = useStore((s) => s.changePassword);
-  const navigate = useNavigate();
+  const navigate       = useNavigate();
 
-  // For first-login flow (mustChangePassword) we skip asking for the current
-  // password — they just proved it by logging in successfully.
   const isFirstLogin = user?.mustChangePassword ?? false;
 
   const [current, setCurrent] = useState("");
-  const [next, setNext] = useState("");
+  const [next,    setNext]    = useState("");
   const [confirm, setConfirm] = useState("");
-  const [error, setError] = useState("");
+  const [error,   setError]   = useState("");
 
+  // Not logged in
   if (!user) return <Navigate to="/login" />;
+
+  // Already changed password and visiting this page directly — redirect away
+  if (!isFirstLogin) return <Navigate to="/dashboard" />;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // Only validate current password on voluntary change (not first-login).
-    if (!isFirstLogin && current !== user.password) {
-      setError("Current password is incorrect.");
-      return;
-    }
-
-    if (next.length < 8) {
+    if (next.trim().length < 8) {
       setError("New password must be at least 8 characters.");
       return;
     }
@@ -46,13 +42,10 @@ function ChangePasswordPage() {
       setError("Passwords do not match.");
       return;
     }
-    if (!isFirstLogin && next === current) {
-      setError("New password must be different from the current password.");
-      return;
-    }
 
+    // Save new password + set mustChangePassword = false in store + GitHub sync
     changePassword(user.id, next);
-    toast.success("Password updated. Welcome!");
+    toast.success("Password set! Welcome to Ethiopost.");
     navigate({ to: "/dashboard" });
   };
 
@@ -63,60 +56,31 @@ function ChangePasswordPage() {
           <EthiopostLogo size={36} variant="dark" />
           <KeyRound className="h-5 w-5 text-muted-foreground" />
         </div>
-        <h1 className="text-xl font-bold text-foreground">
-          {isFirstLogin ? "Set a new password" : "Change password"}
-        </h1>
+
+        <h1 className="text-xl font-bold text-foreground">Set your personal password</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {isFirstLogin
-            ? "For security, please set a personal password before continuing. You won't be asked again."
-            : "Update the password used to sign in to your Ethiopost account."}
+          This is a one-time step. After this, sign in with your email and this new password. You will not be asked again.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          {/* Only show current-password field on voluntary changes */}
-          {!isFirstLogin && (
-            <div className="space-y-2">
-              <Label htmlFor="current">Current password</Label>
-              <Input
-                id="current"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={current}
-                onChange={(e) => setCurrent(e.target.value)}
-              />
-            </div>
-          )}
-
           <div className="space-y-2">
             <Label htmlFor="next">New password</Label>
             <Input
-              id="next"
-              type="password"
-              autoComplete="new-password"
-              required
+              id="next" type="password" autoComplete="new-password" required
               placeholder="At least 8 characters"
-              value={next}
-              onChange={(e) => setNext(e.target.value)}
+              value={next} onChange={(e) => setNext(e.target.value)}
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="confirm">Confirm new password</Label>
             <Input
-              id="confirm"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
+              id="confirm" type="password" autoComplete="new-password" required
+              value={confirm} onChange={(e) => setConfirm(e.target.value)}
             />
           </div>
-
           {error && <p className="text-sm text-destructive">{error}</p>}
-
           <Button type="submit" className="h-11 w-full">
-            {isFirstLogin ? "Set password & continue" : "Update password"}
+            Set password &amp; continue
           </Button>
         </form>
       </div>
