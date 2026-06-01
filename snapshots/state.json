@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "state": {
     "users": [
       {
@@ -605,7 +605,7 @@
         "stage": "opportunity",
         "value": 9000000,
         "currency": "ETB",
-        "ownerId": "u5",
+        "ownerId": "u7",
         "createdBy": "u1",
         "createdAt": "2026-05-27",
         "expectedCloseDate": "2026-07-13"
