@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "state": {
     "users": [
       {
@@ -596,20 +596,6 @@
         "createdAt": "2026-05-04",
         "expectedCloseDate": "2026-06-12",
         "contactPerson": "Ato Yonas (Procurement)"
-      },
-      {
-        "id": "p2",
-        "title": "EMS bulk contract — Awash Insurance",
-        "client": "Awash Insurance",
-        "description": "Monthly EMS pickup and delivery contract.",
-        "stage": "submitted",
-        "value": 1200000,
-        "currency": "ETB",
-        "ownerId": "u9",
-        "createdBy": "u5",
-        "createdAt": "2026-05-17",
-        "expectedCloseDate": "2026-06-08",
-        "contactPerson": "W/ro Hanna"
       },
       {
         "id": "p3",
