@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "state": {
     "users": [
       {
@@ -596,19 +596,6 @@
         "createdAt": "2026-05-04",
         "expectedCloseDate": "2026-06-12",
         "contactPerson": "Ato Yonas (Procurement)"
-      },
-      {
-        "id": "p3",
-        "title": "E-commerce fulfillment — Qefira",
-        "client": "Qefira",
-        "description": "Last-mile fulfillment proposal.",
-        "stage": "drafting",
-        "value": 800000,
-        "currency": "ETB",
-        "ownerId": "u8",
-        "createdBy": "u3",
-        "createdAt": "2026-05-24",
-        "expectedCloseDate": "2026-06-18"
       },
       {
         "id": "p4",
