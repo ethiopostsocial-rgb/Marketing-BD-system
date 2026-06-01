@@ -1,23 +1,29 @@
 import { createFileRoute, useNavigate, Navigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useStore } from "@/lib/store";
+import { loadState } from "@/lib/sync.client";
 import { EthiopostLogo } from "@/components/EthiopostLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { ShieldCheck, Loader2 } from "lucide-react";
-import { loadState } from "@/lib/sync.client";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
 const BANNER_ITEMS = [
-  "Plan campaigns", "Track KPIs in real time", "Approve subordinate work",
-  "Run daily check-ups", "Broadcast announcements", "Manage cross-functional tasks",
-  "Distribute marketing materials", "Monitor district inventory",
-  "Compare Marketing vs BD", "Secure role-based access",
+  "Plan campaigns",
+  "Track KPIs in real time",
+  "Approve subordinate work",
+  "Run daily check-ups",
+  "Broadcast announcements",
+  "Manage cross-functional tasks",
+  "Distribute marketing materials",
+  "Monitor district inventory",
+  "Compare Marketing vs BD",
+  "Secure role-based access",
 ];
 
 function Marquee({ reverse = false }: { reverse?: boolean }) {
@@ -40,13 +46,14 @@ function Marquee({ reverse = false }: { reverse?: boolean }) {
 }
 
 function LoginPage() {
-  const login        = useStore((s) => s.login);
+  const login         = useStore((s) => s.login);
   const currentUserId = useStore((s) => s.currentUserId);
-  const navigate     = useNavigate();
-  const [email, setEmail]       = useState("");
+  const navigate      = useNavigate();
+
+  const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]       = useState("");
-  const [loading, setLoading]   = useState(false);
+  const [error,    setError]    = useState("");
+  const [loading,  setLoading]  = useState(false);
 
   if (currentUserId) return <Navigate to="/dashboard" />;
 
@@ -56,32 +63,46 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      // Always pull latest state from GitHub before logging in
-      // This ensures password changes and mustChangePassword flag are up to date
-      const result = await loadState();
-      if (result?.state) {
-        useStore.setState(result.state as Parameters<typeof useStore.setState>[0], false);
+      // ── Step 1: Pull latest state from GitHub BEFORE checking credentials ──
+      // This ensures we always validate against the most up-to-date password,
+      // not stale seed data in localStorage.
+      try {
+        const result = await loadState();
+        if (result?.state) {
+          // Merge fresh users array into store so login() uses updated passwords
+          const freshState = result.state as Record<string, unknown>;
+          if (Array.isArray(freshState.users)) {
+            useStore.setState({ users: freshState.users as never[] }, false);
+          }
+        }
+      } catch {
+        // If API is unreachable, fall back to local store (offline mode)
+        console.warn("[login] Could not reach API — using local data.");
       }
-    } catch {
-      // Network error — fall back to local state silently
-    }
 
-    const u = login(email, password);
-    setLoading(false);
+      // ── Step 2: Attempt login with fresh data ──────────────────────────────
+      const u = login(email, password);
 
-    if (!u) {
-      setError("Invalid email or password. Please try again.");
-      return;
-    }
+      if (!u) {
+        setError("Invalid email or password. Please try again.");
+        setLoading(false);
+        return;
+      }
 
-    toast.success(`Welcome, ${u.name.split(" ")[0]}`);
+      toast.success(`Welcome, ${u.name.split(" ")[0]}`);
 
-    // Only redirect to change-password if mustChangePassword is still true
-    // after pulling the latest state from GitHub
-    if (u.mustChangePassword) {
-      navigate({ to: "/change-password" });
-    } else {
-      navigate({ to: "/dashboard" });
+      // ── Step 3: Route based on password status ─────────────────────────────
+      // mustChangePassword = true  → first login → force password change
+      // mustChangePassword = false → normal login → go straight to dashboard
+      if (u.mustChangePassword) {
+        navigate({ to: "/change-password" });
+      } else {
+        navigate({ to: "/dashboard" });
+      }
+    } catch (err) {
+      console.error("[login] Unexpected error:", err);
+      setError("Something went wrong. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -89,8 +110,10 @@ function LoginPage() {
     <div className="flex min-h-screen w-full flex-col bg-background">
       <div className="grid flex-1 lg:grid-cols-2">
         {/* Brand panel */}
-        <div className="relative hidden flex-col justify-between overflow-hidden p-12 lg:flex"
-          style={{ background: "linear-gradient(160deg, var(--sidebar), color-mix(in oklab, var(--primary) 50%, black))" }}>
+        <div
+          className="relative hidden flex-col justify-between overflow-hidden p-12 lg:flex"
+          style={{ background: "linear-gradient(160deg, var(--sidebar), color-mix(in oklab, var(--primary) 50%, black))" }}
+        >
           <div className="relative z-10">
             <EthiopostLogo size={44} />
           </div>
@@ -99,7 +122,9 @@ function LoginPage() {
               Marketing &amp; Business Development Working Platform
             </h1>
             <p className="mt-4 text-base text-sidebar-foreground/70">
-              Hierarchical performance tracking, cross-functional task management, routine operational check-ups, and marketing inventory distribution — purpose-built for Ethiopost.
+              Hierarchical performance tracking, cross-functional task management,
+              routine operational check-ups, and marketing inventory distribution —
+              purpose-built for Ethiopost.
             </p>
             <div className="mt-8 flex items-center gap-3 rounded-lg border border-sidebar-border/40 bg-white/5 p-4 backdrop-blur">
               <ShieldCheck className="h-5 w-5 text-accent" />
@@ -145,12 +170,10 @@ function LoginPage() {
               </div>
               {error && <p className="text-sm text-destructive">{error}</p>}
               <Button type="submit" className="h-11 w-full" disabled={loading}>
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Signing in...
-                  </span>
-                ) : "Sign in"}
+                {loading
+                  ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Signing in...</>
+                  : "Sign in"
+                }
               </Button>
             </form>
 
