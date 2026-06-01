@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Tele Birr- GTM VPS",
+        "description": "",
+        "startDate": "2026-06-01",
+        "dueDate": "2026-06-08",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "uv5blpyi",
+        "comments": []
+      },
       {
         "title": "CRM usage",
         "description": "",
