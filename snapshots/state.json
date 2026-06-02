@@ -1,5 +1,5 @@
 {
-  "version": 8,
+  "version": 9,
   "state": {
     "users": [
       {
@@ -65,7 +65,7 @@
       {
         "id": "u6",
         "name": "Roza Essayas",
-        "email": "Roza.Essayas@ethiopost.et",
+        "email": "Roza.Essayas@ethio.post",
         "role": "senior_officer",
         "unit": "bd",
         "managerId": "u7",
