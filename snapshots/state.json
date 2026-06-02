@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "state": {
     "users": [
       {
@@ -76,8 +76,8 @@
       },
       {
         "id": "u7",
-        "name": "Desta ",
-        "email": "Desta@ethio.post",
+        "name": "Desta daniel",
+        "email": "Desta.daniel@ethio.post",
         "role": "supervisor",
         "unit": "bd",
         "managerId": "u3",
