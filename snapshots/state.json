@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "state": {
     "users": [
       {
@@ -53,7 +53,7 @@
       {
         "id": "u5",
         "name": "Daniel Tirfe",
-        "email": "Daniel.Tirfe@ethiopost.et",
+        "email": "Daniel.Tirfe@ethio.post",
         "role": "senior_officer",
         "unit": "marketing",
         "managerId": "u2",
