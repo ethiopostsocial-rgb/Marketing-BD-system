@@ -10,17 +10,17 @@ import type { TabKey } from "@/lib/types";
 import { Button } from "./ui/button";
 
 const NAV: { to: string; label: string; icon: typeof LayoutDashboard; tab: TabKey }[] = [
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, tab: "dashboard" },
-  { to: "/tasks", label: "Tasks", icon: ListChecks, tab: "tasks" },
-  { to: "/external-requests", label: "External Requests", icon: Building2, tab: "external_requests" },
-  { to: "/opportunities", label: "Opportunities & Proposals", icon: Briefcase, tab: "opportunities" },
-  { to: "/routines", label: "Routine Check-ups", icon: ClipboardCheck, tab: "routines" },
-  { to: "/inventory", label: "Marketing Inventory", icon: Package, tab: "inventory" },
-  { to: "/announcements", label: "Announcements", icon: Megaphone, tab: "announcements" },
-  { to: "/commercial-dashboard", label: "Commercial Dashboard", icon: BarChart2, tab: "commercial_dashboard" },
-  { to: "/users", label: "User Management", icon: Users, tab: "users" },
-  { to: "/roles", label: "Roles", icon: ShieldCheck, tab: "roles" },
-  { to: "/profile", label: "Profile Settings", icon: UserIcon, tab: "profile" },
+  { to: "/dashboard",           label: "Dashboard",                 icon: LayoutDashboard, tab: "dashboard" },
+  { to: "/commercial-dashboard",label: "Commercial Dashboard",      icon: BarChart2,       tab: "commercial_dashboard" },
+  { to: "/tasks",               label: "Tasks",                     icon: ListChecks,      tab: "tasks" },
+  { to: "/external-requests",   label: "External Requests",         icon: Building2,       tab: "external_requests" },
+  { to: "/opportunities",       label: "Opportunities & Proposals",  icon: Briefcase,       tab: "opportunities" },
+  { to: "/routines",            label: "Routine Check-ups",         icon: ClipboardCheck,  tab: "routines" },
+  { to: "/inventory",           label: "Marketing Inventory",       icon: Package,         tab: "inventory" },
+  { to: "/announcements",       label: "Announcements",             icon: Megaphone,       tab: "announcements" },
+  { to: "/users",               label: "User Management",           icon: Users,           tab: "users" },
+  { to: "/roles",               label: "Roles",                     icon: ShieldCheck,     tab: "roles" },
+  { to: "/profile",             label: "Profile Settings",          icon: UserIcon,        tab: "profile" },
 ];
 
 export function AppSidebar() {
