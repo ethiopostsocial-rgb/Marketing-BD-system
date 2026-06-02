@@ -390,7 +390,7 @@ export function canChangeTaskStatus(actor: User, task: Task): boolean {
 export { getTaskAssignees, isTaskOwner, BUILT_IN_ROLES };
 
 export const ALL_TABS: TabKey[] = [
-  "dashboard", "tasks", "external_requests", "opportunities", "routines", "inventory", "announcements", "users", "roles", "profile",
+  "dashboard", "commercial_dashboard", "tasks", "external_requests", "opportunities", "routines", "inventory", "announcements", "users", "roles", "profile",
 ];
 
 export const TAB_LABELS: Record<TabKey, string> = {
@@ -401,6 +401,7 @@ export const TAB_LABELS: Record<TabKey, string> = {
   routines: "Routine Check-ups",
   inventory: "Marketing Inventory",
   announcements: "Announcements",
+  commercial_dashboard: "Commercial Dashboard",
   users: "User Management",
   roles: "Roles",
   profile: "Profile Settings",
@@ -414,7 +415,7 @@ export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): 
     if (custom) return custom.defaultTabs;
   }
 
-  const base: TabKey[] = ["dashboard", "tasks", "external_requests", "routines", "announcements", "profile"];
+  const base: TabKey[] = ["dashboard", "commercial_dashboard", "tasks", "external_requests", "routines", "announcements", "profile"];
   // Inventory: only Director, Marketing Manager, and Marketing Senior Officer
   const inventoryAllowed =
     user.role === "director" ||
@@ -425,10 +426,6 @@ export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): 
   const opportunitiesAllowed =
     user.role === "director" || user.unit === "bd" || user.unit === "both";
   if (opportunitiesAllowed) base.push("opportunities");
-  // Commercial Dashboard: director + managers
-  if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
-    base.push("commercial_dashboard");
-  }
   // User Management: director + managers
   if (user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager") {
     base.push("users");
