@@ -1,5 +1,5 @@
 {
-  "version": 21,
+  "version": 22,
   "state": {
     "users": [
       {
@@ -604,7 +604,7 @@
         "title": "Logistics partnership — CBE",
         "client": "Commercial Bank of Ethiopia",
         "description": "Nationwide document distribution agreement.",
-        "stage": "lost",
+        "stage": "negotiation",
         "value": 4500000,
         "currency": "ETB",
         "ownerId": "u3",
