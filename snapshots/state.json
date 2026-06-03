@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36,
   "state": {
     "users": [
       {
@@ -574,7 +574,7 @@
         "requestedBy": "u2",
         "requestedDate": "2026-05-23",
         "dueDate": "2026-06-01",
-        "status": "acknowledged"
+        "status": "fulfilled"
       },
       {
         "id": "er2",
