@@ -1,5 +1,5 @@
 {
-  "version": 29,
+  "version": 30,
   "state": {
     "users": [
       {
@@ -176,7 +176,7 @@
         "title": "civil service business follow up",
         "description": "",
         "startDate": "2026-05-30",
-        "dueDate": "2026-06-01",
+        "dueDate": "2026-06-05",
         "status": "todo",
         "attachment": null,
         "createdBy": "u1",
