@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 25,
   "state": {
     "users": [
       {
@@ -599,6 +599,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "VP and post Gebya partneship",
+        "client": "Dashen Bank",
+        "description": "it's with them legal team under follow up",
+        "stage": "drafting",
+        "value": 60000000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-30",
+        "contactPerson": "Feven Bekele",
+        "id": "gyg4kj11",
+        "createdAt": "2026-06-03",
+        "createdBy": "u3"
+      },
       {
         "id": "p1",
         "title": "Logistics partnership — CBE",
