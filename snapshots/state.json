@@ -1,5 +1,5 @@
 {
-  "version": 32,
+  "version": 33,
   "state": {
     "users": [
       {
@@ -260,7 +260,7 @@
         "title": "operational signage installation",
         "description": "operational signnages installation",
         "startDate": "2026-05-30",
-        "dueDate": "2026-06-01",
+        "dueDate": "2026-06-02",
         "status": "todo",
         "attachment": null,
         "createdBy": "u1",
