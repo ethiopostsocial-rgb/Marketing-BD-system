@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": 20,
   "state": {
     "users": [
       {
@@ -618,7 +618,7 @@
         "title": "Government printing tender",
         "client": "Ministry of Education",
         "description": "Bid for textbook distribution tender.",
-        "stage": "won",
+        "stage": "negotiation",
         "value": 9000000,
         "currency": "ETB",
         "ownerId": "u7",
