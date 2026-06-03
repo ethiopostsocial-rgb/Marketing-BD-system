@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 31,
   "state": {
     "users": [
       {
@@ -192,7 +192,7 @@
         "title": "WU business follow up",
         "description": "",
         "startDate": "2026-05-30",
-        "dueDate": "2026-06-01",
+        "dueDate": "2026-06-05",
         "status": "todo",
         "attachment": null,
         "createdBy": "u1",
