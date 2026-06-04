@@ -1,5 +1,5 @@
 {
-  "version": 79,
+  "version": 80,
   "state": {
     "users": [
       {
@@ -777,6 +777,20 @@
         "expectedCloseDate": "2026-07-01",
         "contactPerson": "Sintayehu",
         "id": "mb5tansc",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
+      {
+        "title": "proposal for CBE",
+        "client": "CBE",
+        "description": "proposal will be sent in person",
+        "stage": "opportunity",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "not yet",
+        "id": "u1emaf5v",
         "createdAt": "2026-06-04",
         "createdBy": "u3"
       },
