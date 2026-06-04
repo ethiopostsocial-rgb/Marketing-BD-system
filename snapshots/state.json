@@ -1,5 +1,5 @@
 {
-  "version": 55,
+  "version": 56,
   "state": {
     "users": [
       {
@@ -721,6 +721,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "Proposal to Hibret.Bank.new.f",
+        "client": "Hibret Bank",
+        "description": "Meeting & draft proposal has been sent",
+        "stage": "drafting",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "Biniam",
+        "id": "gzqvjo7m",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "VP and post Gebya partneship",
         "client": "Dashen Bank",
