@@ -1,5 +1,5 @@
 {
-  "version": 42,
+  "version": 43,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Philatelist Guest Budget Preparation and Approval",
+        "description": "",
+        "startDate": "2026-06-03",
+        "dueDate": "2026-06-12",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u2",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "8gdm8g1z",
+        "comments": []
+      },
       {
         "title": "Philately Brochure Design, Radio Advertisement, and Social Media Content Preparation",
         "description": "",
