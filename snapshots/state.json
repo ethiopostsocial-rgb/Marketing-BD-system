@@ -1,5 +1,5 @@
 {
-  "version": 62,
+  "version": 63,
   "state": {
     "users": [
       {
@@ -737,6 +737,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "ECX post office Agreement",
+        "client": "Ethiopian Commodity Exchange",
+        "description": "Agreement has been sent its under follow up",
+        "stage": "submitted",
+        "value": 400000000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "Kumsa",
+        "id": "zuy7fo9r",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "Meeting",
         "client": "Eagle Lion",
