@@ -1,5 +1,5 @@
 {
-  "version": 64,
+  "version": 65,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "partnership with Ministry of Revenue",
+        "description": "- Last-Mile Tax Logistics & Secure Notifications\n- Physical Tax Filing Support via Ethiopost Branches\n- Automated E-Commerce & Cross-Border Tax Integration",
+        "startDate": "2026-06-03",
+        "dueDate": "2026-06-20",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u7",
+        "assignedTo": "u6",
+        "assignees": [
+          "u6"
+        ],
+        "crossFunctional": false,
+        "id": "gxx1hb5q",
+        "comments": []
+      },
       {
         "title": "Strategic Partnership with Hibret Bank",
         "description": "•\tVirtual Postal System (VPS)\n•\tE-commerce services through Post Gebeya\n•\tCustomer acquisition initiatives\n•\tEmployee financing programs\n•\tSecure digital payment solutions",
