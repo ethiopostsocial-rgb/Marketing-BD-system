@@ -1,5 +1,5 @@
 {
-  "version": 39,
+  "version": 40,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Post Finance Brand Guideline Approval",
+        "description": "",
+        "startDate": "2026-06-03",
+        "dueDate": "2026-06-05",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u2",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "5q38mzku",
+        "comments": []
+      },
       {
         "title": "Post Finance Collateral Design Development",
         "description": "",
