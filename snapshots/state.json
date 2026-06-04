@@ -1,5 +1,5 @@
 {
-  "version": 51,
+  "version": 52,
   "state": {
     "users": [
       {
@@ -127,7 +127,7 @@
         "description": "Implementation of Virtual Postal System (VPS) and Agricultural Product Logistics Support by Ethiopost",
         "startDate": "2026-05-27",
         "dueDate": "2026-06-20",
-        "status": "todo",
+        "status": "in_progress",
         "attachment": null,
         "createdBy": "u7",
         "assignedTo": "u7",
