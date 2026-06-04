@@ -1,5 +1,5 @@
 {
-  "version": 73,
+  "version": 74,
   "state": {
     "users": [
       {
@@ -753,6 +753,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "proposal for CBE",
+        "client": "CBE",
+        "description": "proposal will be sent in person",
+        "stage": "opportunity",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "not yet",
+        "id": "u1emaf5v",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "Proposal to the Ministry of Agriculture",
         "client": "Ministry of Agriculture",
