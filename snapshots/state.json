@@ -1,5 +1,5 @@
 {
-  "version": 41,
+  "version": 42,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Philately Brochure Design, Radio Advertisement, and Social Media Content Preparation",
+        "description": "",
+        "startDate": "2026-06-03",
+        "dueDate": "2026-06-12",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u2",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "qiivots1",
+        "comments": []
+      },
       {
         "title": "FDC Design Development",
         "description": "",
