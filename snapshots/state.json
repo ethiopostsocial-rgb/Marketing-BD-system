@@ -1,5 +1,5 @@
 {
-  "version": 40,
+  "version": 41,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "FDC Design Development",
+        "description": "",
+        "startDate": "2026-06-03",
+        "dueDate": "2026-06-12",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u2",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2"
+        ],
+        "crossFunctional": false,
+        "id": "2oo1u8xf",
+        "comments": []
+      },
       {
         "title": "Post Finance Brand Guideline Approval",
         "description": "",
