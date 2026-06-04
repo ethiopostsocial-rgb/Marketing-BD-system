@@ -1,5 +1,5 @@
 {
-  "version": 43,
+  "version": 44,
   "state": {
     "users": [
       {
@@ -500,6 +500,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Notebook",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 2000,
+        "id": "0sz5b12o",
+        "createdAt": "2026-06-04",
+        "createdBy": "u2",
+        "distributions": []
+      },
       {
         "id": "i1",
         "name": "EMS Promotional Brochure (A4, Tri-fold)",
