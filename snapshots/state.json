@@ -1,5 +1,5 @@
 {
-  "version": 77,
+  "version": 78,
   "state": {
     "users": [
       {
@@ -753,6 +753,19 @@
       }
     ],
     "proposals": [
+      {
+        "title": "Minister of Health letter",
+        "client": "Minister of Health",
+        "description": "letter has been sent in person",
+        "stage": "submitted",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-06-30",
+        "id": "bz1959yg",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "E-COMMERCE VENDOR ONBOARDING AGREEMENT",
         "client": "ETTA",
