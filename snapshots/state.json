@@ -1,5 +1,5 @@
 {
-  "version": 75,
+  "version": 76,
   "state": {
     "users": [
       {
@@ -753,6 +753,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "E-COMMERCE VENDOR ONBOARDING AGREEMENT",
+        "client": "ETTA",
+        "description": "we have already provided the agreement for them it's with their legal team follow up",
+        "stage": "submitted",
+        "value": 1000000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "Sintayehu",
+        "id": "mb5tansc",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "proposal for CBE",
         "client": "CBE",
