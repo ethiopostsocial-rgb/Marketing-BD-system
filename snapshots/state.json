@@ -1,5 +1,5 @@
 {
-  "version": 58,
+  "version": 59,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Strategic Partnership with Hibret Bank",
+        "description": "•\tVirtual Postal System (VPS)\n•\tE-commerce services through Post Gebeya\n•\tCustomer acquisition initiatives\n•\tEmployee financing programs\n•\tSecure digital payment solutions",
+        "startDate": "2026-06-04",
+        "dueDate": "2026-06-20",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u7",
+        "assignedTo": "u7",
+        "assignees": [
+          "u7"
+        ],
+        "crossFunctional": false,
+        "id": "wzryrltk",
+        "comments": []
+      },
       {
         "title": "Partnership with Ministry of Agriculture(MoA)",
         "description": "Implementation of Virtual Postal System (VPS) and Agricultural Product Logistics Support by Ethiopost",
