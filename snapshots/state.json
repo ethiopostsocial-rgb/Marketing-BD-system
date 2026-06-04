@@ -1,5 +1,5 @@
 {
-  "version": 60,
+  "version": 61,
   "state": {
     "users": [
       {
@@ -737,6 +737,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "Meeting",
+        "client": "Eagle Lion",
+        "description": "follow up",
+        "stage": "opportunity",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-01",
+        "contactPerson": "Andnet",
+        "id": "bkg22lxl",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "Proposal to Hibret.Bank.new.f",
         "client": "Hibret Bank",
