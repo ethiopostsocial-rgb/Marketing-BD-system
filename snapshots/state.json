@@ -1,5 +1,5 @@
 {
-  "version": 45,
+  "version": 46,
   "state": {
     "users": [
       {
@@ -122,6 +122,22 @@
       }
     ],
     "tasks": [
+      {
+        "title": "Partnership with Ministry of Health(MoH)",
+        "description": "Implementation of Virtual Postal System (VPS) and Express Mail Service (EMS) Solutions by Ethiopost",
+        "startDate": "2026-05-27",
+        "dueDate": "2026-06-20",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u7",
+        "assignedTo": "u7",
+        "assignees": [
+          "u7"
+        ],
+        "crossFunctional": false,
+        "id": "f2x3ts2d",
+        "comments": []
+      },
       {
         "title": "Philatelist Guest Budget Preparation and Approval",
         "description": "",
