@@ -1,5 +1,5 @@
 {
-  "version": 70,
+  "version": 71,
   "state": {
     "users": [
       {
@@ -753,6 +753,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "Proposal to the Ministry of Agriculture",
+        "client": "Ministry of Agriculture",
+        "description": "meeting will be arranged with the Minister follow up has been done once they know the time will be scheduled",
+        "stage": "submitted",
+        "value": 10000000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-06-30",
+        "contactPerson": "Abateneh",
+        "id": "stu1luqu",
+        "createdAt": "2026-06-04",
+        "createdBy": "u3"
+      },
       {
         "title": "ECX post office Agreement",
         "client": "Ethiopian Commodity Exchange",
