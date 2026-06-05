@@ -1,5 +1,5 @@
 {
-  "version": 89,
+  "version": 90,
   "state": {
     "users": [
       {
@@ -380,7 +380,7 @@
         "description": "- accept the room \n- receive purchased materials from store and install them\n- follow up with procumnet for itms that are not purchased",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-05",
-        "status": "in_progress",
+        "status": "awaiting_approval",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u1",
