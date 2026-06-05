@@ -73,7 +73,8 @@ function InventoryPage() {
       </div>
     );
   }
-  const canManage = user.role === "director" || user.role === "marketing_manager";
+  const canManage = user.role === "director" || user.role === "marketing_manager" ||
+  (user.role === "senior_officer" && (user.unit === "marketing" || user.unit === "both"));
   const canDelete = user.role === "director";
 
   const [fCategory, setFCategory] = useState<string>("all");
