@@ -1,5 +1,5 @@
 {
-  "version": 83,
+  "version": 84,
   "state": {
     "users": [
       {
@@ -863,20 +863,6 @@
         "id": "gyg4kj11",
         "createdAt": "2026-06-03",
         "createdBy": "u3"
-      },
-      {
-        "id": "p1",
-        "title": "Logistics partnership — CBE",
-        "client": "Commercial Bank of Ethiopia",
-        "description": "Nationwide document distribution agreement.",
-        "stage": "negotiation",
-        "value": 4500000,
-        "currency": "ETB",
-        "ownerId": "u3",
-        "createdBy": "u3",
-        "createdAt": "2026-05-04",
-        "expectedCloseDate": "2026-06-12",
-        "contactPerson": "Ato Yonas (Procurement)"
       },
       {
         "id": "p4",
