@@ -1,5 +1,5 @@
 {
-  "version": 132,
+  "version": 133,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Calander",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 1500,
+        "id": "mzuh5lh9",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Executive gift Small",
         "category": "Giveaway",
