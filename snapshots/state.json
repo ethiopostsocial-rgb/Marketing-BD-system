@@ -1,5 +1,5 @@
 {
-  "version": 101,
+  "version": 102,
   "state": {
     "users": [
       {
@@ -748,6 +748,17 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "CAF",
+        "description": "",
+        "department": "supply_facility",
+        "contactPerson": "S",
+        "dueDate": "2026-06-12",
+        "id": "sae0wfkj",
+        "requestedBy": "u5",
+        "requestedDate": "2026-06-05",
+        "status": "pending"
+      },
       {
         "id": "er1",
         "title": "Booth setup for trade expo",
