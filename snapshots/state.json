@@ -1,5 +1,5 @@
 {
-  "version": 136,
+  "version": 137,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Agenda",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 2000,
+        "id": "lu3yp60a",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Desk Organizer",
         "category": "Giveaway",
