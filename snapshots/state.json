@@ -1,5 +1,5 @@
 {
-  "version": 86,
+  "version": 87,
   "state": {
     "users": [
       {
@@ -60,7 +60,17 @@
         "avatarColor": "#db2777",
         "title": "Sr. Brand officer ",
         "password": "ethiopost",
-        "mustChangePassword": false
+        "mustChangePassword": false,
+        "visibleTabs": [
+          "dashboard",
+          "commercial_dashboard",
+          "tasks",
+          "external_requests",
+          "routines",
+          "announcements",
+          "profile",
+          "inventory"
+        ]
       },
       {
         "id": "u6",
