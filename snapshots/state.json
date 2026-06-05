@@ -1,5 +1,5 @@
 {
-  "version": 105,
+  "version": 106,
   "state": {
     "users": [
       {
@@ -440,7 +440,11 @@
         ],
         "createdBy": "u1",
         "id": "qbzkqksl",
-        "checkIns": {}
+        "checkIns": {
+          "u5": [
+            "2026-06-05"
+          ]
+        }
       },
       {
         "title": "digital media marketing",
