@@ -1,5 +1,5 @@
 {
-  "version": 109,
+  "version": 110,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Executive gift Large",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 160,
+        "id": "4kdirc1m",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Desk Organizer",
         "category": "Giveaway",
