@@ -1,5 +1,5 @@
 {
-  "version": 140,
+  "version": 141,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Tear Flag",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 100,
+        "id": "eh83iywb",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Umbrella",
         "category": "Giveaway",
