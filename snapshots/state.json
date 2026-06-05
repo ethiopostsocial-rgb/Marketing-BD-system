@@ -1,5 +1,5 @@
 {
-  "version": 129,
+  "version": 130,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Executive gift Small",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 500,
+        "id": "ekv523w9",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Executive gift Medium",
         "category": "Giveaway",
