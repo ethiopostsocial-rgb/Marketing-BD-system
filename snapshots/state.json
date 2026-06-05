@@ -1,5 +1,5 @@
 {
-  "version": 119,
+  "version": 120,
   "state": {
     "users": [
       {
@@ -578,16 +578,6 @@
       }
     ],
     "inventory": [
-      {
-        "name": "Executive gift Medium",
-        "category": "Giveaway",
-        "unit": "pcs",
-        "totalQuantity": 304,
-        "id": "qxdomdee",
-        "createdAt": "2026-06-05",
-        "createdBy": "u5",
-        "distributions": []
-      },
       {
         "name": "Executive gift Large",
         "category": "Giveaway",
