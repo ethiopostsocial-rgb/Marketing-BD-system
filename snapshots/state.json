@@ -1,5 +1,5 @@
 {
-  "version": 97,
+  "version": 98,
   "state": {
     "users": [
       {
@@ -582,7 +582,16 @@
         "id": "hhqkwznk",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "roj3pd5d",
+            "byUserId": "u5",
+            "district": "addis_ababa",
+            "quantity": 2,
+            "date": "2026-06-05",
+            "recipient": "B"
+          }
+        ]
       },
       {
         "name": "Notebook",
