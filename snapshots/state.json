@@ -1,5 +1,5 @@
 {
-  "version": 134,
+  "version": 135,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Desk Organizer",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 400,
+        "id": "5kt955cy",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Calander",
         "category": "Giveaway",
