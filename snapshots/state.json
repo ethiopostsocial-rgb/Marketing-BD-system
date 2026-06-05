@@ -1,5 +1,5 @@
 {
-  "version": 138,
+  "version": 139,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Umbrella",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 500,
+        "id": "tlfp1zw3",
+        "createdAt": "2026-06-05",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Agenda",
         "category": "Print",
