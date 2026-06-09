@@ -1,5 +1,5 @@
 {
-  "version": 144,
+  "version": 145,
   "state": {
     "users": [
       {
@@ -136,7 +136,7 @@
         "title": "partnership with Ministry of Revenue",
         "description": "- Last-Mile Tax Logistics & Secure Notifications\n- Physical Tax Filing Support via Ethiopost Branches\n- Automated E-Commerce & Cross-Border Tax Integration",
         "startDate": "2026-06-03",
-        "dueDate": "2026-06-20",
+        "dueDate": "2026-06-12",
         "status": "todo",
         "attachment": null,
         "createdBy": "u7",
