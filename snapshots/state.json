@@ -1,5 +1,5 @@
 {
-  "version": 147,
+  "version": 148,
   "state": {
     "users": [
       {
@@ -686,50 +686,6 @@
         "createdAt": "2026-06-04",
         "createdBy": "u2",
         "distributions": []
-      },
-      {
-        "id": "i1",
-        "name": "EMS Promotional Brochure (A4, Tri-fold)",
-        "category": "Print",
-        "unit": "pcs",
-        "totalQuantity": 10000,
-        "createdAt": "2026-04-29",
-        "createdBy": "u2",
-        "description": "Tri-fold brochure highlighting EMS services and rates.",
-        "distributions": [
-          {
-            "id": "d1",
-            "district": "addis_ababa",
-            "quantity": 2000,
-            "date": "2026-05-09",
-            "recipient": "GPO branch lead",
-            "byUserId": "u2"
-          },
-          {
-            "id": "d2",
-            "district": "gpo",
-            "quantity": 1500,
-            "date": "2026-05-11",
-            "recipient": "GPO counter",
-            "byUserId": "u4"
-          },
-          {
-            "id": "d3",
-            "district": "north_1",
-            "quantity": 800,
-            "date": "2026-05-17",
-            "recipient": "Bahir Dar hub",
-            "byUserId": "u4"
-          },
-          {
-            "id": "d4",
-            "district": "south",
-            "quantity": 700,
-            "date": "2026-05-20",
-            "recipient": "Hawassa hub",
-            "byUserId": "u6"
-          }
-        ]
       },
       {
         "id": "i2",
