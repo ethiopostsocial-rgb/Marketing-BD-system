@@ -1,5 +1,5 @@
 {
-  "version": 160,
+  "version": 161,
   "state": {
     "users": [
       {
@@ -398,7 +398,7 @@
         "description": "Q4 zena posta, impact analysis , compitator anlaysis",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-06",
-        "status": "todo",
+        "status": "in_progress",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u2",
