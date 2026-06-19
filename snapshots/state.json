@@ -1,5 +1,5 @@
 {
-  "version": 155,
+  "version": 156,
   "state": {
     "users": [
       {
@@ -281,7 +281,7 @@
         "description": "",
         "startDate": "2026-06-01",
         "dueDate": "2026-06-08",
-        "status": "todo",
+        "status": "in_progress",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u2",
