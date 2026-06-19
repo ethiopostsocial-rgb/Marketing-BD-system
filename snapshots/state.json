@@ -1,5 +1,5 @@
 {
-  "version": 164,
+  "version": 165,
   "state": {
     "users": [
       {
@@ -363,7 +363,7 @@
         "description": "- branch signages\n- screen placment\n- flyer and flyer holder",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-06",
-        "status": "in_progress",
+        "status": "awaiting_approval",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u1",
