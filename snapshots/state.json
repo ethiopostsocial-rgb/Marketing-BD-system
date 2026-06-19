@@ -1,5 +1,5 @@
 {
-  "version": 146,
+  "version": 147,
   "state": {
     "users": [
       {
@@ -800,33 +800,6 @@
             "date": "2026-05-24",
             "recipient": "Mekelle BD officer",
             "byUserId": "u5"
-          }
-        ]
-      },
-      {
-        "id": "i4",
-        "name": "Outdoor Vinyl Poster (A1)",
-        "category": "Print",
-        "unit": "pcs",
-        "totalQuantity": 500,
-        "createdAt": "2026-05-09",
-        "createdBy": "u4",
-        "distributions": [
-          {
-            "id": "d11",
-            "district": "south",
-            "quantity": 60,
-            "date": "2026-05-22",
-            "recipient": "Arba Minch branch",
-            "byUserId": "u6"
-          },
-          {
-            "id": "d12",
-            "district": "gpo",
-            "quantity": 80,
-            "date": "2026-05-23",
-            "recipient": "GPO facade",
-            "byUserId": "u4"
           }
         ]
       }
