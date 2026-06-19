@@ -1,5 +1,5 @@
 {
-  "version": 162,
+  "version": 163,
   "state": {
     "users": [
       {
@@ -415,7 +415,7 @@
         "description": "operational signnages installation",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-05",
-        "status": "in_progress",
+        "status": "awaiting_approval",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u5",
