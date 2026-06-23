@@ -171,6 +171,8 @@ function TasksPage() {
 function KanbanBoard({ tasks, users }: { tasks: Task[]; users: User[] }) {
   const user = useCurrentUser()!;
   const updateStatus = useStore((s) => s.updateTaskStatus);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [overCol, setOverCol] = useState<TaskStatus | null>(null);
 
   const cols: { key: TaskStatus; label: string }[] = [
     { key: "todo", label: "To Do" },
@@ -179,60 +181,52 @@ function KanbanBoard({ tasks, users }: { tasks: Task[]; users: User[] }) {
     { key: "done", label: "Done" },
   ];
 
-  const isManagerOrDirector = user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager";
-
-  const handleDragStart = (e: React.DragEvent, taskId: string) => {
-    e.dataTransfer.setData("taskId", taskId);
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-  };
-
-  const handleDrop = (e: React.DragEvent, targetStatus: TaskStatus) => {
-    e.preventDefault();
-    const taskId = e.dataTransfer.getData("taskId");
-    const task = tasks.find((t) => t.id === taskId);
-    if (!task || task.status === targetStatus) return;
-    // Only allow if user can change this task's status
+  const handleDrop = (targetStatus: TaskStatus) => {
+    if (!dragId) return;
+    const task = tasks.find((t) => t.id === dragId);
+    if (!task || task.status === targetStatus) { setDragId(null); setOverCol(null); return; }
     if (!canChangeTaskStatus(user, task)) {
       toast.error("You don't have permission to move this task.");
-      return;
+      setDragId(null); setOverCol(null); return;
     }
-    updateStatus(taskId, targetStatus);
-    toast.success("Task moved to " + cols.find((c) => c.key === targetStatus)?.label);
+    updateStatus(dragId, targetStatus);
+    toast.success("Moved to " + cols.find((c) => c.key === targetStatus)?.label);
+    setDragId(null); setOverCol(null);
   };
 
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
       {cols.map((c) => {
         const items = tasks.filter((t) => t.status === c.key);
+        const isOver = overCol === c.key;
         return (
           <div
             key={c.key}
-            className="rounded-lg border bg-muted/30 p-2 transition-colors"
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, c.key)}
+            className={`rounded-lg border p-2 transition-colors ${isOver ? "border-primary bg-primary/5" : "bg-muted/30"}`}
+            onDragOver={(e) => { e.preventDefault(); setOverCol(c.key); }}
+            onDragLeave={() => setOverCol(null)}
+            onDrop={() => handleDrop(c.key)}
           >
             <div className="mb-2 flex items-center justify-between px-1.5">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{c.label}</h3>
               <Badge variant="secondary">{items.length}</Badge>
             </div>
-            <div className="space-y-2 min-h-[60px]">
+            <div className="min-h-[60px] space-y-2">
               {items.length === 0 ? (
-                <p className="px-1.5 py-6 text-center text-xs text-muted-foreground">Drop tasks here</p>
+                <p className="px-1.5 py-6 text-center text-xs text-muted-foreground">
+                  {isOver ? "Release to drop" : "No tasks"}
+                </p>
               ) : (
                 items.map((t) => (
-                  <div
+                  <KanbanCard
                     key={t.id}
+                    task={t}
+                    users={users}
                     draggable={canChangeTaskStatus(user, t)}
-                    onDragStart={(e) => handleDragStart(e, t.id)}
-                    className={canChangeTaskStatus(user, t) ? "cursor-grab active:cursor-grabbing" : ""}
-                  >
-                    <KanbanCard task={t} users={users} />
-                  </div>
+                    onDragStart={() => setDragId(t.id)}
+                    onDragEnd={() => { setDragId(null); setOverCol(null); }}
+                    isDragging={dragId === t.id}
+                  />
                 ))
               )}
             </div>
@@ -243,11 +237,24 @@ function KanbanBoard({ tasks, users }: { tasks: Task[]; users: User[] }) {
   );
 }
 
-function KanbanCard({ task, users }: { task: Task; users: User[] }) {
+function KanbanCard({
+  task, users, draggable = false, onDragStart, onDragEnd, isDragging,
+}: {
+  task: Task; users: User[];
+  draggable?: boolean;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  isDragging?: boolean;
+}) {
   const meta = STATUS_META[task.status];
   const overdue = task.status !== "done" && task.dueDate < new Date().toISOString().slice(0, 10);
   return (
-    <Card className="overflow-hidden">
+    <Card
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      className={`overflow-hidden transition-all select-none ${draggable ? "cursor-grab active:cursor-grabbing" : ""} ${isDragging ? "opacity-40 scale-95" : ""}`}
+    >
       <CardContent className="space-y-2 p-3">
         <div className="flex items-start justify-between gap-2">
           <h4 className="text-sm font-semibold leading-snug">{task.title}</h4>
