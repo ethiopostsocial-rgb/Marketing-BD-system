@@ -1,5 +1,5 @@
 {
-  "version": 179,
+  "version": 180,
   "state": {
     "users": [
       {
@@ -794,16 +794,6 @@
         "id": "sae0wfkj",
         "requestedBy": "u5",
         "requestedDate": "2026-06-05",
-        "status": "pending"
-      },
-      {
-        "id": "er2",
-        "title": "Budget approval — Q4 campaign",
-        "description": "Approval for ETB 850,000 media spend.",
-        "department": "finance",
-        "requestedBy": "u1",
-        "requestedDate": "2026-05-26",
-        "dueDate": "2026-05-31",
         "status": "pending"
       },
       {
