@@ -1,6 +1,7 @@
 import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useStore, useCurrentUser } from "@/lib/store";
+import { useSyncContext } from "@/components/SyncProvider";
 import { EthiopostLogo } from "@/components/EthiopostLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ function ChangePasswordPage() {
   const user           = useCurrentUser();
   const changePassword = useStore((s) => s.changePassword);
   const navigate       = useNavigate();
+  const { forceSync }  = useSyncContext();
 
   const isFirstLogin = user?.mustChangePassword ?? false;
 
@@ -43,8 +45,9 @@ function ChangePasswordPage() {
       return;
     }
 
-    // Save new password + set mustChangePassword = false in store + GitHub sync
+    // Save new password + set mustChangePassword = false in store + push to GitHub
     changePassword(user.id, next);
+    forceSync();
     toast.success("Password set! Welcome to Ethiopost.");
     navigate({ to: "/dashboard" });
   };
