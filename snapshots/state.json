@@ -1,5 +1,5 @@
 {
-  "version": 166,
+  "version": 167,
   "state": {
     "users": [
       {
@@ -578,6 +578,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "test",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 50000,
+        "id": "gt3iocxu",
+        "createdAt": "2026-06-23",
+        "createdBy": "u1",
+        "distributions": []
+      },
       {
         "name": "Tear Flag",
         "category": "Giveaway",
