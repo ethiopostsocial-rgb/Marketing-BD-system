@@ -1,5 +1,5 @@
 {
-  "version": 173,
+  "version": 174,
   "state": {
     "users": [
       {
@@ -286,7 +286,7 @@
         "description": "",
         "startDate": "2026-06-01",
         "dueDate": "2026-06-08",
-        "status": "awaiting_approval",
+        "status": "done",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u2",
@@ -295,7 +295,8 @@
         ],
         "crossFunctional": false,
         "id": "uv5blpyi",
-        "comments": []
+        "comments": [],
+        "rejectionReason": null
       },
       {
         "title": "CRM usage",
