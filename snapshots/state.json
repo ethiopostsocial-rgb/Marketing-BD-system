@@ -1,5 +1,5 @@
 {
-  "version": 175,
+  "version": 176,
   "state": {
     "users": [
       {
@@ -137,7 +137,7 @@
         "description": "- Last-Mile Tax Logistics & Secure Notifications\n- Physical Tax Filing Support via Ethiopost Branches\n- Automated E-Commerce & Cross-Border Tax Integration",
         "startDate": "2026-06-03",
         "dueDate": "2026-06-12",
-        "status": "todo",
+        "status": "in_progress",
         "attachment": null,
         "createdBy": "u7",
         "assignedTo": "u6",
