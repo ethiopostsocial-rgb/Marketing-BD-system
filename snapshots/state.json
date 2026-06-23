@@ -1,5 +1,5 @@
 {
-  "version": 170,
+  "version": 171,
   "state": {
     "users": [
       {
@@ -235,7 +235,7 @@
         "description": "",
         "startDate": "2026-06-03",
         "dueDate": "2026-06-12",
-        "status": "awaiting_approval",
+        "status": "done",
         "attachment": null,
         "createdBy": "u2",
         "assignedTo": "u2",
@@ -244,7 +244,8 @@
         ],
         "crossFunctional": false,
         "id": "2oo1u8xf",
-        "comments": []
+        "comments": [],
+        "rejectionReason": null
       },
       {
         "title": "Post Finance Brand Guideline Approval",
