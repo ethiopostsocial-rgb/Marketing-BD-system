@@ -1,5 +1,5 @@
 {
-  "version": 172,
+  "version": 173,
   "state": {
     "users": [
       {
@@ -269,7 +269,7 @@
         "description": "",
         "startDate": "2026-06-03",
         "dueDate": "2026-06-05",
-        "status": "awaiting_approval",
+        "status": "done",
         "attachment": null,
         "createdBy": "u2",
         "assignedTo": "u2",
@@ -278,7 +278,8 @@
         ],
         "crossFunctional": false,
         "id": "v7jqljmu",
-        "comments": []
+        "comments": [],
+        "rejectionReason": null
       },
       {
         "title": "Tele Birr- GTM VPS",
