@@ -1,5 +1,5 @@
 {
-  "version": 187,
+  "version": 188,
   "state": {
     "users": [
       {
@@ -132,6 +132,23 @@
       }
     ],
     "tasks": [
+      {
+        "title": "vehicle branding - remaining side sticker placement",
+        "description": "",
+        "startDate": "2026-06-23",
+        "dueDate": "2026-06-30",
+        "status": "todo",
+        "attachment": null,
+        "createdBy": "u1",
+        "assignedTo": "u2",
+        "assignees": [
+          "u2",
+          "u5"
+        ],
+        "crossFunctional": false,
+        "id": "57ao22gt",
+        "comments": []
+      },
       {
         "title": "partnership with Ministry of Revenue",
         "description": "- Last-Mile Tax Logistics & Secure Notifications\n- Physical Tax Filing Support via Ethiopost Branches\n- Automated E-Commerce & Cross-Border Tax Integration",
