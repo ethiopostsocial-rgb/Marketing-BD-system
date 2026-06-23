@@ -300,16 +300,19 @@ export const useStore = create<State>()(
     {
       name: "ethiopost-mbd-store",
       version: 6,
-      migrate: (_persisted: unknown, _version: number) => {
+      migrate: (persisted: unknown, _version: number) => {
+        // Preserve any existing persisted data; only fill in missing keys with seed defaults.
+        // This prevents wiping GitHub-synced data when the store version changes.
+        const existing = (persisted ?? {}) as Partial<State>;
         return {
-          users: USERS,
-          tasks: TASKS,
-          routines: ROUTINES,
-          announcements: ANNOUNCEMENTS,
-          inventory: INVENTORY,
-          externalRequests: EXTERNAL_REQUESTS,
-          proposals: PROPOSALS,
-          customRoles: CUSTOM_ROLES,
+          users: existing.users?.length ? existing.users : USERS,
+          tasks: existing.tasks?.length ? existing.tasks : TASKS,
+          routines: existing.routines?.length ? existing.routines : ROUTINES,
+          announcements: existing.announcements?.length ? existing.announcements : ANNOUNCEMENTS,
+          inventory: existing.inventory?.length ? existing.inventory : INVENTORY,
+          externalRequests: existing.externalRequests?.length ? existing.externalRequests : EXTERNAL_REQUESTS,
+          proposals: existing.proposals?.length ? existing.proposals : PROPOSALS,
+          customRoles: existing.customRoles?.length ? existing.customRoles : CUSTOM_ROLES,
           currentUserId: null,
         } as unknown as State;
       },
@@ -382,8 +385,12 @@ export function unitOf(user: User): Unit {
   return user.unit;
 }
 
-/** Whether the current user can mutate the status of a task. */
+/** Whether the current user can mutate the status of a task.
+ *  Directors and managers (marketing_manager, bd_manager) can change
+ *  any task status without waiting for sequential line-manager approval.
+ */
 export function canChangeTaskStatus(actor: User, task: Task): boolean {
+  if (actor.role === "director" || actor.role === "marketing_manager" || actor.role === "bd_manager") return true;
   return isTaskOwner(actor.id, task);
 }
 
