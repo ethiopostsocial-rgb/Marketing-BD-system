@@ -1,5 +1,5 @@
 {
-  "version": 168,
+  "version": 169,
   "state": {
     "users": [
       {
@@ -201,7 +201,7 @@
         "description": "",
         "startDate": "2026-06-03",
         "dueDate": "2026-06-12",
-        "status": "awaiting_approval",
+        "status": "done",
         "attachment": null,
         "createdBy": "u2",
         "assignedTo": "u2",
@@ -210,7 +210,8 @@
         ],
         "crossFunctional": false,
         "id": "8gdm8g1z",
-        "comments": []
+        "comments": [],
+        "rejectionReason": null
       },
       {
         "title": "Philately Brochure Design, Radio Advertisement, and Social Media Content Preparation",
