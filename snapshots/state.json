@@ -1,5 +1,5 @@
 {
-  "version": 178,
+  "version": 179,
   "state": {
     "users": [
       {
@@ -795,17 +795,6 @@
         "requestedBy": "u5",
         "requestedDate": "2026-06-05",
         "status": "pending"
-      },
-      {
-        "id": "er1",
-        "title": "Booth setup for trade expo",
-        "description": "Need facility team to set up branded booth at Millennium Hall.",
-        "department": "supply_facility",
-        "contactPerson": "Facility Desk",
-        "requestedBy": "u2",
-        "requestedDate": "2026-05-23",
-        "dueDate": "2026-06-01",
-        "status": "fulfilled"
       },
       {
         "id": "er2",
