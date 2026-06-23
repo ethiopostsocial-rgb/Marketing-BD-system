@@ -1,5 +1,5 @@
 {
-  "version": 180,
+  "version": 181,
   "state": {
     "users": [
       {
@@ -795,17 +795,6 @@
         "requestedBy": "u5",
         "requestedDate": "2026-06-05",
         "status": "pending"
-      },
-      {
-        "id": "er3",
-        "title": "Legal review of partnership MoU",
-        "description": "Review draft MoU with logistics partner.",
-        "department": "legal",
-        "requestedBy": "u3",
-        "requestedDate": "2026-05-19",
-        "dueDate": "2026-05-27",
-        "status": "fulfilled",
-        "responseNote": "Approved with minor changes."
       }
     ],
     "proposals": [
