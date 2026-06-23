@@ -1,5 +1,5 @@
 {
-  "version": 167,
+  "version": 168,
   "state": {
     "users": [
       {
@@ -586,7 +586,15 @@
         "id": "gt3iocxu",
         "createdAt": "2026-06-23",
         "createdBy": "u1",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "5y8bnhve",
+            "byUserId": "u1",
+            "district": "west",
+            "quantity": 1250,
+            "date": "2026-06-23"
+          }
+        ]
       },
       {
         "name": "Tear Flag",
