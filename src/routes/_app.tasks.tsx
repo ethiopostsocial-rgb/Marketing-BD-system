@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useCurrentUser, useStore, getVisibleUserIds, canAssignTo, canApproveTask, isTaskOwner, getTaskAssignees } from "@/lib/store";
+import { useCurrentUser, useStore, getVisibleUserIds, canAssignTo, canApproveTask, canChangeTaskStatus, isTaskOwner, getTaskAssignees } from "@/lib/store";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -169,27 +169,71 @@ function TasksPage() {
 }
 
 function KanbanBoard({ tasks, users }: { tasks: Task[]; users: User[] }) {
+  const user = useCurrentUser()!;
+  const updateStatus = useStore((s) => s.updateTaskStatus);
+
   const cols: { key: TaskStatus; label: string }[] = [
     { key: "todo", label: "To Do" },
     { key: "in_progress", label: "In Progress" },
     { key: "awaiting_approval", label: "Awaiting Approval" },
     { key: "done", label: "Done" },
   ];
+
+  const isManagerOrDirector = user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager";
+
+  const handleDragStart = (e: React.DragEvent, taskId: string) => {
+    e.dataTransfer.setData("taskId", taskId);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+
+  const handleDrop = (e: React.DragEvent, targetStatus: TaskStatus) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("taskId");
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task || task.status === targetStatus) return;
+    // Only allow if user can change this task's status
+    if (!canChangeTaskStatus(user, task)) {
+      toast.error("You don't have permission to move this task.");
+      return;
+    }
+    updateStatus(taskId, targetStatus);
+    toast.success("Task moved to " + cols.find((c) => c.key === targetStatus)?.label);
+  };
+
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
       {cols.map((c) => {
         const items = tasks.filter((t) => t.status === c.key);
         return (
-          <div key={c.key} className="rounded-lg border bg-muted/30 p-2">
+          <div
+            key={c.key}
+            className="rounded-lg border bg-muted/30 p-2 transition-colors"
+            onDragOver={handleDragOver}
+            onDrop={(e) => handleDrop(e, c.key)}
+          >
             <div className="mb-2 flex items-center justify-between px-1.5">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{c.label}</h3>
               <Badge variant="secondary">{items.length}</Badge>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 min-h-[60px]">
               {items.length === 0 ? (
-                <p className="px-1.5 py-6 text-center text-xs text-muted-foreground">No tasks</p>
+                <p className="px-1.5 py-6 text-center text-xs text-muted-foreground">Drop tasks here</p>
               ) : (
-                items.map((t) => <KanbanCard key={t.id} task={t} users={users} />)
+                items.map((t) => (
+                  <div
+                    key={t.id}
+                    draggable={canChangeTaskStatus(user, t)}
+                    onDragStart={(e) => handleDragStart(e, t.id)}
+                    className={canChangeTaskStatus(user, t) ? "cursor-grab active:cursor-grabbing" : ""}
+                  >
+                    <KanbanCard task={t} users={users} />
+                  </div>
+                ))
               )}
             </div>
           </div>
@@ -263,17 +307,21 @@ function TaskRow({ task }: { task: Task }) {
   const isAssignee = isTaskOwner(user.id, task);
   const canApprove = task.status === "awaiting_approval" && canApproveTask(user, task, users);
   const overdue = task.status !== "done" && task.dueDate < new Date().toISOString().slice(0, 10);
-  const canUpdateStatus = isAssignee && task.status !== "done" && task.status !== "awaiting_approval";
+  // Managers and directors can change status freely; others only if they are assignees
+  const canUpdateStatus = canChangeTaskStatus(user, task) && task.status !== "done";
   const lineManager = users.find((u) => u.id === primary?.managerId);
 
   const [open, setOpen] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
 
+  const isManagerOrDirector = user.role === "director" || user.role === "marketing_manager" || user.role === "bd_manager";
+
   const advance = () => {
     const next: Record<TaskStatus, TaskStatus | null> = {
       todo: "in_progress",
-      in_progress: "awaiting_approval",
-      awaiting_approval: null,
+      // Managers/directors skip awaiting_approval and go straight to done
+      in_progress: isManagerOrDirector ? "done" : "awaiting_approval",
+      awaiting_approval: isManagerOrDirector ? "done" : null,
       done: null,
     };
     const n = next[task.status];
@@ -322,12 +370,22 @@ function TaskRow({ task }: { task: Task }) {
             <EditTaskDialog task={task} />
           )}
           {user.role === "director" && <DeleteTaskButton id={task.id} title={task.title} />}
-          {canUpdateStatus && (
+          {canUpdateStatus && task.status !== "awaiting_approval" && (
             <Button size="sm" variant="outline" onClick={advance}>
-              {task.status === "todo" ? "Start" : `Submit to ${lineManager?.name ?? "line manager"}`} <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              {task.status === "todo"
+                ? "Start"
+                : isManagerOrDirector
+                  ? "Mark Done"
+                  : `Submit to ${lineManager?.name ?? "line manager"}`
+              } <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
           )}
-          {task.status === "awaiting_approval" && (
+          {canUpdateStatus && task.status === "awaiting_approval" && isManagerOrDirector && (
+            <Button size="sm" variant="outline" onClick={advance}>
+              Mark Done <ArrowRight className="ml-1 h-3.5 w-3.5" />
+            </Button>
+          )}
+          {task.status === "awaiting_approval" && !isManagerOrDirector && (
             <Badge variant="outline" className="border-accent/40 bg-accent/10 text-accent-foreground">
               Awaiting {lineManager?.name ?? "line manager"}
             </Badge>
