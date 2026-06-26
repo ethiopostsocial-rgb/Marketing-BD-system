@@ -1,5 +1,5 @@
 {
-  "version": 206,
+  "version": 207,
   "state": {
     "users": [
       {
@@ -695,7 +695,15 @@
         "id": "lu3yp60a",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "bnffewcp",
+            "byUserId": "u5",
+            "district": "central",
+            "quantity": 5,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Desk Organizer",
