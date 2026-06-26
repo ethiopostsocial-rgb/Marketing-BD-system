@@ -153,3 +153,5 @@ export const PROPOSALS: Proposal[] = [
   { id: "p3", title: "E-commerce fulfillment — Qefira", client: "Qefira", description: "Last-mile fulfillment proposal.", stage: "drafting", value: 800000, currency: "ETB", ownerId: "u8", createdBy: "u3", createdAt: addDays(-5), expectedCloseDate: addDays(20) },
   { id: "p4", title: "Government printing tender", client: "Ministry of Education", description: "Bid for textbook distribution tender.", stage: "opportunity", value: 9000000, currency: "ETB", ownerId: "u5", createdBy: "u1", createdAt: addDays(-2), expectedCloseDate: addDays(45) },
 ];
+
+export const DISTRIBUTION_PLACES: import("./types").DistributionPlace[] = [];
