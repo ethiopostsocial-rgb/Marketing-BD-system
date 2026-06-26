@@ -1,5 +1,5 @@
 {
-  "version": 201,
+  "version": 202,
   "state": {
     "users": [
       {
@@ -668,13 +668,6 @@
             "id": "rcge29i9",
             "byUserId": "u5",
             "district": "central",
-            "quantity": 5,
-            "date": "2026-06-26"
-          },
-          {
-            "id": "dpqlltcp",
-            "byUserId": "u5",
-            "district": "gpo",
             "quantity": 5,
             "date": "2026-06-26"
           }
