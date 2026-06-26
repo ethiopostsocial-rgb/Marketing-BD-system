@@ -1,5 +1,5 @@
 {
-  "version": 265,
+  "version": 266,
   "state": {
     "users": [
       {
@@ -952,7 +952,15 @@
         "id": "ekv523w9",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "bhgur4vu",
+            "byUserId": "u5",
+            "district": "addis_ababa",
+            "quantity": 3,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Executive gift Medium",
