@@ -1,5 +1,5 @@
 {
-  "version": 189,
+  "version": 190,
   "state": {
     "users": [
       {
@@ -609,7 +609,16 @@
         "id": "eh83iywb",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "sz29d8d3",
+            "byUserId": "u2",
+            "district": "central",
+            "quantity": 4,
+            "date": "2026-06-26",
+            "recipient": "District Director"
+          }
+        ]
       },
       {
         "name": "Umbrella",
