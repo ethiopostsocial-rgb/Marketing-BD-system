@@ -1,5 +1,5 @@
 {
-  "version": 191,
+  "version": 192,
   "state": {
     "users": [
       {
@@ -628,7 +628,15 @@
         "id": "tlfp1zw3",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "j0ev829h",
+            "byUserId": "u5",
+            "district": "addis_ababa",
+            "quantity": 5,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Agenda",
