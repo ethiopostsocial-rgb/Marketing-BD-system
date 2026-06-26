@@ -1,5 +1,5 @@
 {
-  "version": 275,
+  "version": 276,
   "state": {
     "users": [
       {
@@ -1012,7 +1012,15 @@
         "id": "3yb6f8a3",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "my7y9iu5",
+            "byUserId": "u5",
+            "district": "central",
+            "quantity": 5,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Executive gift Large",
