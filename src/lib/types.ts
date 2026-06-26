@@ -215,6 +215,18 @@ export interface InventoryItem {
   distributions: InventoryDistribution[];
 }
 
+export interface DistributionPlace {
+  id: string;
+  name: string;
+  district: District;
+  address?: string;
+  contactPerson?: string;
+  contactPhone?: string;
+  note?: string;
+  createdAt: string;
+  createdBy: string;
+}
+
 export type ExternalDepartment =
   | "supply_facility"
   | "commercial"
