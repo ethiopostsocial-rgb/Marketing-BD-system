@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole } from "./types";
+import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole, DistributionPlace } from "./types";
 import { ROLE_RANK, ROLE_LABELS, BUILT_IN_ROLES, getTaskAssignees, isTaskOwner } from "./types";
-import { USERS, TASKS, ROUTINES, ANNOUNCEMENTS, INVENTORY, EXTERNAL_REQUESTS, PROPOSALS, CUSTOM_ROLES } from "./seed";
+import { USERS, TASKS, ROUTINES, ANNOUNCEMENTS, INVENTORY, EXTERNAL_REQUESTS, PROPOSALS, CUSTOM_ROLES, DISTRIBUTION_PLACES } from "./seed";
 
 interface State {
   users: User[];
@@ -13,6 +13,7 @@ interface State {
   externalRequests: ExternalRequest[];
   proposals: Proposal[];
   customRoles: CustomRole[];
+  distributionPlaces: DistributionPlace[];
   currentUserId: string | null;
 
   login: (email: string, password: string) => User | null;
@@ -44,6 +45,10 @@ interface State {
   deleteInventoryItem: (id: string) => void;
   addDistribution: (itemId: string, dist: { district: District; quantity: number; date: string; recipient?: string; note?: string }) => { ok: boolean; error?: string };
   removeDistribution: (itemId: string, distId: string) => void;
+  // Distribution Places
+  createDistributionPlace: (place: Omit<DistributionPlace, "id" | "createdAt" | "createdBy">) => void;
+  updateDistributionPlace: (id: string, patch: Partial<Omit<DistributionPlace, "id" | "createdAt" | "createdBy">>) => void;
+  deleteDistributionPlace: (id: string) => void;
 
   createExternalRequest: (r: Omit<ExternalRequest, "id" | "requestedDate" | "requestedBy" | "status">) => void;
   updateExternalRequest: (id: string, patch: Partial<Omit<ExternalRequest, "id">>) => void;
@@ -83,6 +88,7 @@ export const useStore = create<State>()(
       externalRequests: EXTERNAL_REQUESTS,
       proposals: PROPOSALS,
       customRoles: CUSTOM_ROLES,
+      distributionPlaces: DISTRIBUTION_PLACES,
       currentUserId: null,
 
       login: (email, password) => {
@@ -252,6 +258,18 @@ export const useStore = create<State>()(
           ),
         })),
 
+      createDistributionPlace: (place) =>
+        set((s) => ({
+          distributionPlaces: [
+            ...s.distributionPlaces,
+            { ...place, id: uid(), createdAt: new Date().toISOString().slice(0, 10), createdBy: s.currentUserId ?? "" },
+          ],
+        })),
+      updateDistributionPlace: (id, patch) =>
+        set((s) => ({ distributionPlaces: s.distributionPlaces.map((p) => (p.id === id ? { ...p, ...patch } : p)) })),
+      deleteDistributionPlace: (id) =>
+        set((s) => ({ distributionPlaces: s.distributionPlaces.filter((p) => p.id !== id) })),
+
       createExternalRequest: (r) =>
         set((s) => ({
           externalRequests: [
@@ -313,6 +331,7 @@ export const useStore = create<State>()(
           externalRequests: existing.externalRequests?.length ? existing.externalRequests : EXTERNAL_REQUESTS,
           proposals: existing.proposals?.length ? existing.proposals : PROPOSALS,
           customRoles: existing.customRoles?.length ? existing.customRoles : CUSTOM_ROLES,
+          distributionPlaces: existing.distributionPlaces?.length ? existing.distributionPlaces : DISTRIBUTION_PLACES,
           currentUserId: null,
         } as unknown as State;
       },
