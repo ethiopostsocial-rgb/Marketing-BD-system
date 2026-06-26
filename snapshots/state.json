@@ -1,5 +1,5 @@
 {
-  "version": 294,
+  "version": 295,
   "state": {
     "users": [
       {
@@ -954,6 +954,13 @@
             "byUserId": "u5",
             "district": "south",
             "quantity": 4,
+            "date": "2026-06-26"
+          },
+          {
+            "id": "yhq2uz6j",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 72,
             "date": "2026-06-26"
           }
         ]
