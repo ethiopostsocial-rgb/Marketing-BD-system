@@ -1,5 +1,5 @@
 {
-  "version": 232,
+  "version": 233,
   "state": {
     "users": [
       {
@@ -811,7 +811,15 @@
         "id": "5kt955cy",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "8bc0g14l",
+            "byUserId": "u5",
+            "district": "north_1",
+            "quantity": 1,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Calander",
