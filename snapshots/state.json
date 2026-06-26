@@ -1,5 +1,5 @@
 {
-  "version": 245,
+  "version": 246,
   "state": {
     "users": [
       {
@@ -871,7 +871,15 @@
         "id": "mzuh5lh9",
         "createdAt": "2026-06-05",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "85j2saho",
+            "byUserId": "u5",
+            "district": "north_1",
+            "quantity": 4,
+            "date": "2026-06-26"
+          }
+        ]
       },
       {
         "name": "Executive gift Small",
