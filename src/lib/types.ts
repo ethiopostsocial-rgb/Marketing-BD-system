@@ -168,6 +168,7 @@ export type District =
   | "west"
   | "central"
   | "addis_ababa"
+  | "head_office"
   | "gpo"
   | "south";
 
@@ -178,6 +179,7 @@ export const DISTRICTS: District[] = [
   "west",
   "central",
   "addis_ababa",
+  "head_office",
   "gpo",
   "south",
 ];
@@ -189,6 +191,7 @@ export const DISTRICT_LABELS: Record<District, string> = {
   west: "West",
   central: "Central",
   addis_ababa: "Addis Ababa",
+  head_office: "Head Office",
   gpo: "GPO",
   south: "South",
 };
