@@ -1,5 +1,5 @@
 {
-  "version": 298,
+  "version": 299,
   "state": {
     "users": [
       {
@@ -1128,25 +1128,6 @@
             "district": "head_office",
             "quantity": 82,
             "date": "2026-06-26"
-          }
-        ]
-      },
-      {
-        "name": "Desk Organizer",
-        "category": "Giveaway",
-        "unit": "box",
-        "totalQuantity": 14,
-        "id": "hhqkwznk",
-        "createdAt": "2026-06-05",
-        "createdBy": "u5",
-        "distributions": [
-          {
-            "id": "roj3pd5d",
-            "byUserId": "u5",
-            "district": "addis_ababa",
-            "quantity": 2,
-            "date": "2026-06-05",
-            "recipient": "B"
           }
         ]
       },
