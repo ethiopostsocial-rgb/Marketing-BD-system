@@ -1,5 +1,5 @@
 {
-  "version": 299,
+  "version": 300,
   "state": {
     "users": [
       {
@@ -1182,34 +1182,6 @@
             "date": "2026-05-19",
             "recipient": "HQ lobby",
             "byUserId": "u2"
-          }
-        ]
-      },
-      {
-        "id": "i3",
-        "name": "Corporate Gift Pack",
-        "category": "Giveaway",
-        "unit": "box",
-        "totalQuantity": 200,
-        "createdAt": "2026-05-14",
-        "createdBy": "u3",
-        "description": "Branded notebook + pen + USB for client meetings.",
-        "distributions": [
-          {
-            "id": "d9",
-            "district": "addis_ababa",
-            "quantity": 40,
-            "date": "2026-05-21",
-            "recipient": "BD team — banking outreach",
-            "byUserId": "u3"
-          },
-          {
-            "id": "d10",
-            "district": "north_2",
-            "quantity": 15,
-            "date": "2026-05-24",
-            "recipient": "Mekelle BD officer",
-            "byUserId": "u5"
           }
         ]
       }
