@@ -1,5 +1,5 @@
 {
-  "version": 302,
+  "version": 303,
   "state": {
     "users": [
       {
@@ -354,7 +354,7 @@
         "description": "",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-05",
-        "status": "in_progress",
+        "status": "done",
         "attachment": null,
         "createdBy": "u1",
         "assignedTo": "u3",
