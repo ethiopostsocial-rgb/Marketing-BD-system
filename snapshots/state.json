@@ -1,5 +1,5 @@
 {
-  "version": 317,
+  "version": 318,
   "state": {
     "users": [
       {
@@ -1200,6 +1200,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "Public Service transport ID print",
+        "client": "Public Service Transport",
+        "description": "ID print request has come",
+        "stage": "opportunity",
+        "value": 2000000,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-07-31",
+        "contactPerson": "Yeshi",
+        "id": "ptkjz8d7",
+        "createdAt": "2026-07-06",
+        "createdBy": "u3"
+      },
       {
         "title": "Minister of Health letter",
         "client": "Minister of Health",
