@@ -1,5 +1,5 @@
 {
-  "version": 306,
+  "version": 307,
   "state": {
     "users": [
       {
@@ -183,9 +183,9 @@
       },
       {
         "title": "Partnership with Ministry of Agriculture(MoA)",
-        "description": "Implementation of Virtual Postal System (VPS) and Agricultural Product Logistics Support by Ethiopost",
+        "description": "Implementation of Virtual Postal System (VPS) and Agricultural Product Logistics Support by Ethiopost ,meeting will be set after July 8",
         "startDate": "2026-05-27",
-        "dueDate": "2026-06-20",
+        "dueDate": "2026-07-12",
         "status": "in_progress",
         "attachment": null,
         "createdBy": "u7",
