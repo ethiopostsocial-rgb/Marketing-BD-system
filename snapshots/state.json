@@ -1,5 +1,5 @@
 {
-  "version": 308,
+  "version": 309,
   "state": {
     "users": [
       {
@@ -199,9 +199,9 @@
       },
       {
         "title": "Partnership with Ministry of Health(MoH)",
-        "description": "Implementation of Virtual Postal System (VPS) and Express Mail Service (EMS) Solutions by Ethiopost",
+        "description": "Implementation of Virtual Postal System (VPS) and Express Mail Service (EMS) Solutions by Ethiopost (  Remind us after July 8th )",
         "startDate": "2026-05-27",
-        "dueDate": "2026-06-20",
+        "dueDate": "2026-07-12",
         "status": "in_progress",
         "attachment": null,
         "createdBy": "u7",
