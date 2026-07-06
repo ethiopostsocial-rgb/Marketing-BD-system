@@ -1,5 +1,5 @@
 {
-  "version": 315,
+  "version": 316,
   "state": {
     "users": [
       {
@@ -1301,7 +1301,7 @@
         "title": "VP and post Gebya partneship",
         "client": "Dashen Bank",
         "description": "it's with them legal team under follow up",
-        "stage": "drafting",
+        "stage": "opportunity",
         "value": 60000000,
         "currency": "ETB",
         "ownerId": "u3",
