@@ -1,5 +1,5 @@
 {
-  "version": 312,
+  "version": 313,
   "state": {
     "users": [
       {
@@ -1231,7 +1231,7 @@
         "title": "proposal for CBE",
         "client": "CBE",
         "description": "proposal will be sent in person",
-        "stage": "opportunity",
+        "stage": "negotiation",
         "value": 0,
         "currency": "ETB",
         "ownerId": "u3",
