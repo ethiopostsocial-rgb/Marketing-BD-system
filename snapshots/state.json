@@ -1,5 +1,5 @@
 {
-  "version": 310,
+  "version": 311,
   "state": {
     "users": [
       {
@@ -335,7 +335,7 @@
       },
       {
         "title": "ICS bussiness follow up",
-        "description": "",
+        "description": "under follow up",
         "startDate": "2026-05-30",
         "dueDate": "2026-06-05",
         "status": "in_progress",
