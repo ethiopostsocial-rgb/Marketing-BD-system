@@ -1,5 +1,5 @@
 {
-  "version": 344,
+  "version": 345,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Speaker Controller",
+        "category": "Other",
+        "unit": "pcs",
+        "totalQuantity": 1,
+        "id": "jz2cj06w",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Traditional gift-giving",
         "category": "Other",
