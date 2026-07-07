@@ -1,5 +1,5 @@
 {
-  "version": 336,
+  "version": 337,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Balloon pump",
+        "category": "Other",
+        "unit": "pcs",
+        "totalQuantity": 1,
+        "id": "865xbidi",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Key holder",
         "category": "Giveaway",
