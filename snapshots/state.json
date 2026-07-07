@@ -1,5 +1,5 @@
 {
-  "version": 334,
+  "version": 335,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Key holder",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 75,
+        "id": "zegjut3a",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "speaker",
         "category": "Other",
