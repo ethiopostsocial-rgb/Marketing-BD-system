@@ -1,5 +1,5 @@
 {
-  "version": 340,
+  "version": 341,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Enkutatash Flower Decor",
+        "category": "Print",
+        "unit": "pcs",
+        "totalQuantity": 1500,
+        "id": "w1w8m9x8",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Decor fabric",
         "category": "Other",
