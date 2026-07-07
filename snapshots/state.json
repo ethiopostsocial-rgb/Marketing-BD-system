@@ -1,5 +1,5 @@
 {
-  "version": 338,
+  "version": 339,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Decor fabric",
+        "category": "Other",
+        "unit": "pcs",
+        "totalQuantity": 48,
+        "id": "l2a3olz5",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Balloon pump",
         "category": "Other",
