@@ -1,5 +1,5 @@
 {
-  "version": 329,
+  "version": 330,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Tent",
+        "category": "Other",
+        "unit": "pcs",
+        "totalQuantity": 10,
+        "id": "5z7kwa0a",
+        "createdAt": "2026-07-07",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Tear Flag",
         "category": "Giveaway",
