@@ -1,5 +1,5 @@
 {
-  "version": 357,
+  "version": 358,
   "state": {
     "users": [
       {
@@ -1137,6 +1137,14 @@
             "district": "head_office",
             "quantity": 88,
             "date": "2026-06-26"
+          },
+          {
+            "id": "fiekr2ms",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 15,
+            "date": "2026-07-10",
+            "recipient": "CEO office"
           }
         ]
       },
