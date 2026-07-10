@@ -1,5 +1,5 @@
 {
-  "version": 353,
+  "version": 354,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Neck mic",
+        "category": "Digital",
+        "unit": "pcs",
+        "totalQuantity": 2,
+        "id": "gsug4qjq",
+        "createdAt": "2026-07-10",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Tripod",
         "category": "Digital",
