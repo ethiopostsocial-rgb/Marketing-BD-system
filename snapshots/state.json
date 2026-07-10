@@ -1,5 +1,5 @@
 {
-  "version": 351,
+  "version": 352,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Tripod",
+        "category": "Digital",
+        "unit": "pcs",
+        "totalQuantity": 1,
+        "id": "j9ta7zpz",
+        "createdAt": "2026-07-10",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Camera",
         "category": "Digital",
