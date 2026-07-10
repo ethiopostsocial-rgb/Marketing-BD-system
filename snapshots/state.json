@@ -1,5 +1,5 @@
 {
-  "version": 355,
+  "version": 356,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Light",
+        "category": "Digital",
+        "unit": "pcs",
+        "totalQuantity": 2,
+        "id": "w9emnr8m",
+        "createdAt": "2026-07-10",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Neck mic",
         "category": "Digital",
