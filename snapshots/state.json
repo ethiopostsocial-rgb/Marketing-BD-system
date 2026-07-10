@@ -1,5 +1,5 @@
 {
-  "version": 349,
+  "version": 350,
   "state": {
     "users": [
       {
@@ -601,6 +601,16 @@
       }
     ],
     "inventory": [
+      {
+        "name": "Camera",
+        "category": "Digital",
+        "unit": "pcs",
+        "totalQuantity": 2,
+        "id": "2wostv1i",
+        "createdAt": "2026-07-10",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Traditional gift-giving",
         "category": "Other",
