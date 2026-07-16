@@ -1,5 +1,5 @@
 {
-  "version": 360,
+  "version": 361,
   "state": {
     "users": [
       {
@@ -856,6 +856,14 @@
             "quantity": 1,
             "date": "2026-07-16",
             "recipient": "CCO (Tigist)"
+          },
+          {
+            "id": "p1qe7pop",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 1,
+            "date": "2026-07-16",
+            "recipient": "facility  (Gashaw)"
           }
         ]
       },
