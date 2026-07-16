@@ -1,5 +1,5 @@
 {
-  "version": 363,
+  "version": 364,
   "state": {
     "users": [
       {
@@ -880,6 +880,14 @@
             "quantity": 1,
             "date": "2026-07-16",
             "recipient": "Legal ( Gelana )"
+          },
+          {
+            "id": "vijl5r0d",
+            "byUserId": "u5",
+            "district": "addis_ababa",
+            "quantity": 1,
+            "date": "2026-07-16",
+            "recipient": "Sales ( Biniyam )"
           }
         ]
       },
