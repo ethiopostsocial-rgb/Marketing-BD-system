@@ -1,5 +1,5 @@
 {
-  "version": 362,
+  "version": 363,
   "state": {
     "users": [
       {
@@ -872,6 +872,14 @@
             "quantity": 1,
             "date": "2026-07-16",
             "recipient": "Fikadu (Labour)"
+          },
+          {
+            "id": "r2hb9o8r",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 1,
+            "date": "2026-07-16",
+            "recipient": "Legal ( Gelana )"
           }
         ]
       },
