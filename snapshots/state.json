@@ -1,5 +1,5 @@
 {
-  "version": 364,
+  "version": 365,
   "state": {
     "users": [
       {
@@ -888,6 +888,14 @@
             "quantity": 1,
             "date": "2026-07-16",
             "recipient": "Sales ( Biniyam )"
+          },
+          {
+            "id": "alocsweg",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 1,
+            "date": "2026-07-17",
+            "recipient": "ebrahim (it)"
           }
         ]
       },
