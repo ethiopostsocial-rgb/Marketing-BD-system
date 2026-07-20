@@ -1,5 +1,5 @@
 {
-  "version": 368,
+  "version": 369,
   "state": {
     "users": [
       {
@@ -169,7 +169,7 @@
         "title": "Strategic Partnership with Hibret Bank",
         "description": "•\tVirtual Postal System (VPS)\n•\tE-commerce services through Post Gebeya\n•\tCustomer acquisition initiatives\n•\tEmployee financing programs\n•\tSecure digital payment solutions",
         "startDate": "2026-06-04",
-        "dueDate": "2026-07-12",
+        "dueDate": "2026-07-23",
         "status": "in_progress",
         "attachment": null,
         "createdBy": "u7",
