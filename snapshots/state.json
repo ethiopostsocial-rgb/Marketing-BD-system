@@ -1,5 +1,5 @@
 {
-  "version": 369,
+  "version": 370,
   "state": {
     "users": [
       {
@@ -1395,7 +1395,7 @@
         "title": "E-COMMERCE VENDOR ONBOARDING AGREEMENT",
         "client": "ETTA",
         "description": "we have already provided the agreement for them it's with their legal team follow up",
-        "stage": "submitted",
+        "stage": "won",
         "value": 1000000,
         "currency": "ETB",
         "ownerId": "u3",
