@@ -1,5 +1,5 @@
 {
-  "version": 376,
+  "version": 377,
   "state": {
     "users": [
       {
@@ -137,7 +137,7 @@
         "unit": "marketing",
         "managerId": "u1",
         "title": "commercial cheif",
-        "password": "ethiopost",
+        "password": "Tigist.bekele@ethio.post",
         "mustChangePassword": true,
         "id": "djd99xjd",
         "avatarColor": "#0d9488"
