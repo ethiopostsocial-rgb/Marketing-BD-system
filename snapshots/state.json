@@ -1,5 +1,5 @@
 {
-  "version": 372,
+  "version": 373,
   "state": {
     "users": [
       {
@@ -129,6 +129,18 @@
         "title": "Junior BD Officer",
         "password": "ethiopost",
         "mustChangePassword": false
+      },
+      {
+        "name": "tigist.bekele@ethio.post",
+        "email": "tigist.bekele@ethio.post",
+        "role": "director",
+        "unit": "marketing",
+        "managerId": "u1",
+        "title": "commercial cheif",
+        "password": "ethiopost",
+        "mustChangePassword": true,
+        "id": "djd99xjd",
+        "avatarColor": "#0d9488"
       }
     ],
     "tasks": [
