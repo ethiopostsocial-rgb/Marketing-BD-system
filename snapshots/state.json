@@ -1,5 +1,5 @@
 {
-  "version": 378,
+  "version": 379,
   "state": {
     "users": [
       {
@@ -908,6 +908,14 @@
             "quantity": 1,
             "date": "2026-07-17",
             "recipient": "ebrahim (it)"
+          },
+          {
+            "id": "1x26bm2s",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 1,
+            "date": "2026-07-24",
+            "recipient": "Genet ( brand photo model )"
           }
         ]
       },
