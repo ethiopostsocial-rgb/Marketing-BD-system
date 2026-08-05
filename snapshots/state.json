@@ -1,5 +1,5 @@
 {
-  "version": 382,
+  "version": 383,
   "state": {
     "users": [
       {
@@ -1522,19 +1522,6 @@
         "id": "gyg4kj11",
         "createdAt": "2026-06-03",
         "createdBy": "u3"
-      },
-      {
-        "id": "p4",
-        "title": "Government printing tender",
-        "client": "Ministry of Education",
-        "description": "Bid for textbook distribution tender.",
-        "stage": "negotiation",
-        "value": 9000000,
-        "currency": "ETB",
-        "ownerId": "u7",
-        "createdBy": "u1",
-        "createdAt": "2026-05-27",
-        "expectedCloseDate": "2026-07-13"
       }
     ],
     "customRoles": []
