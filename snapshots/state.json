@@ -1,5 +1,5 @@
 {
-  "version": 381,
+  "version": 382,
   "state": {
     "users": [
       {
@@ -1384,6 +1384,20 @@
       }
     ],
     "proposals": [
+      {
+        "title": "ICS logestics partnership",
+        "client": "ICS",
+        "description": "",
+        "stage": "negotiation",
+        "value": 0,
+        "currency": "ETB",
+        "ownerId": "u3",
+        "expectedCloseDate": "2026-08-07",
+        "contactPerson": "micheal",
+        "id": "zp85qzym",
+        "createdAt": "2026-08-05",
+        "createdBy": "u1"
+      },
       {
         "title": "Public Service transport ID print",
         "client": "Public Service Transport",
