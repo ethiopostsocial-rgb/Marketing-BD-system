@@ -1,5 +1,5 @@
 {
-  "version": 383,
+  "version": 384,
   "state": {
     "users": [
       {
@@ -1370,19 +1370,7 @@
         ]
       }
     ],
-    "externalRequests": [
-      {
-        "title": "CAF",
-        "description": "",
-        "department": "supply_facility",
-        "contactPerson": "S",
-        "dueDate": "2026-06-12",
-        "id": "sae0wfkj",
-        "requestedBy": "u5",
-        "requestedDate": "2026-06-05",
-        "status": "pending"
-      }
-    ],
+    "externalRequests": [],
     "proposals": [
       {
         "title": "ICS logestics partnership",
