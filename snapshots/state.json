@@ -1,5 +1,5 @@
 {
-  "version": 385,
+  "version": 386,
   "state": {
     "users": [
       {
@@ -1371,6 +1371,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "UPU Workshop marketing materials purhase",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-08-27",
+        "id": "e8nn3nww",
+        "requestedBy": "u2",
+        "requestedDate": "2026-08-20",
+        "status": "pending"
+      },
       {
         "title": "New year Items Purchase request",
         "description": "",
