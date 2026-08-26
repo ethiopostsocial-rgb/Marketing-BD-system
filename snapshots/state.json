@@ -1,5 +1,5 @@
 {
-  "version": 391,
+  "version": 392,
   "state": {
     "users": [
       {
@@ -1371,6 +1371,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "ለአዲስ አመት የሚያስፈልጉ ግብዓቶች እንዲገዛልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-02",
+        "id": "1kfy96kg",
+        "requestedBy": "u5",
+        "requestedDate": "2026-08-26",
+        "status": "pending"
+      },
       {
         "title": "የመኪና ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
         "description": "",
