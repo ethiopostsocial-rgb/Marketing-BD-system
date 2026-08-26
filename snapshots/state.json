@@ -1,5 +1,5 @@
 {
-  "version": 387,
+  "version": 388,
   "state": {
     "users": [
       {
@@ -1371,6 +1371,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "ባቡር እና ባሶች ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-02",
+        "id": "9aqjrcst",
+        "requestedBy": "u5",
+        "requestedDate": "2026-08-26",
+        "status": "pending"
+      },
       {
         "title": "UPU Workshop marketing materials purhase",
         "description": "",
