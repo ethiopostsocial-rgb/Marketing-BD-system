@@ -1,5 +1,5 @@
 {
-  "version": 389,
+  "version": 390,
   "state": {
     "users": [
       {
@@ -1371,6 +1371,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የመኪና ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-02",
+        "id": "4hnmq6an",
+        "requestedBy": "u5",
+        "requestedDate": "2026-08-26",
+        "status": "pending"
+      },
       {
         "title": "ባቡር እና ባሶች ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
         "description": "",
