@@ -1,5 +1,5 @@
 {
-  "version": 393,
+  "version": 394,
   "state": {
     "users": [
       {
@@ -575,15 +575,6 @@
       }
     ],
     "announcements": [
-      {
-        "id": "a1",
-        "title": "Q4 Strategy Kickoff — All Hands",
-        "body": "All Marketing and Business Development staff are required to attend the Q4 kickoff on Friday, 9:00 AM at the HQ auditorium.",
-        "authorId": "u1",
-        "audience": "both",
-        "urgency": "high",
-        "createdAt": "2026-05-28"
-      },
       {
         "id": "a2",
         "title": "New CRM rollout next week",
