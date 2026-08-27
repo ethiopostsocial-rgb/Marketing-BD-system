@@ -1,5 +1,5 @@
 {
-  "version": 394,
+  "version": 395,
   "state": {
     "users": [
       {
@@ -575,24 +575,6 @@
       }
     ],
     "announcements": [
-      {
-        "id": "a2",
-        "title": "New CRM rollout next week",
-        "body": "BD team — please complete onboarding modules before Monday.",
-        "authorId": "u3",
-        "audience": "bd",
-        "urgency": "normal",
-        "createdAt": "2026-05-26"
-      },
-      {
-        "id": "a3",
-        "title": "Brand asset refresh available",
-        "body": "Updated Ethiopost brand kit is live on the shared drive. Please use the new logo across all materials.",
-        "authorId": "u2",
-        "audience": "marketing",
-        "urgency": "normal",
-        "createdAt": "2026-05-24"
-      },
       {
         "id": "a4",
         "title": "Holiday schedule reminder",
