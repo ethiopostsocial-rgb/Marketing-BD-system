@@ -1,5 +1,5 @@
 {
-  "version": 395,
+  "version": 396,
   "state": {
     "users": [
       {
@@ -574,17 +574,7 @@
         }
       }
     ],
-    "announcements": [
-      {
-        "id": "a4",
-        "title": "Holiday schedule reminder",
-        "body": "Office closes early on Friday for the national holiday.",
-        "authorId": "u1",
-        "audience": "both",
-        "urgency": "low",
-        "createdAt": "2026-05-21"
-      }
-    ],
+    "announcements": [],
     "inventory": [
       {
         "name": "Light",
