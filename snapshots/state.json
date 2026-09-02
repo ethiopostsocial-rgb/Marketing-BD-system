@@ -1,5 +1,5 @@
 {
-  "version": 397,
+  "version": 398,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "ለፖስት ፋይናንስ አገልግሎት የማርኬቲንግ ግብዓቶች እንዲሟሉልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-09",
+        "id": "984j3knd",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-02",
+        "status": "pending"
+      },
       {
         "title": "ለአዲስ አመት የሚያስፈልጉ ግብዓቶች እንዲገዛልን ስለመጠየቅ",
         "description": "",
