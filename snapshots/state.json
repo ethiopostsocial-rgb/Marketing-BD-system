@@ -1,5 +1,5 @@
 {
-  "version": 399,
+  "version": 400,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የአዲሱ ዓመት የማስታወሻ ስጦታ ግዥ እንዲፈጸምልን ስለማስፈቀድ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-09",
+        "id": "1538djc5",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-02",
+        "status": "pending"
+      },
       {
         "title": "ለፖስት ፋይናንስ አገልግሎት የማርኬቲንግ ግብዓቶች እንዲሟሉልን ስለመጠየቅ",
         "description": "",
