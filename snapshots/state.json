@@ -1,5 +1,5 @@
 {
-  "version": 402,
+  "version": 403,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የመኪኖች ብራንዲንግ ቀለም ቅብ እንዲከናወን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-09",
+        "id": "8g509kcu",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-02",
+        "status": "pending"
+      },
       {
         "title": "ለፖስት ፋይናንስ አገልግሎት እንዲሟሉልን የጠየቅናቸው ግብዕቶች በልዩ ትኩረት በአስቸኩዋይ እንዲገዙልን ስለመጠየቅ",
         "description": "",
