@@ -1,5 +1,5 @@
 {
-  "version": 413,
+  "version": 414,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የ2019 አዲስ አመት በዓልን ለማክበር ግብዓቶች እንዲሟሉልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-09",
+        "id": "siv7lg0s",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-04",
+        "status": "pending"
+      },
       {
         "title": "የመኪኖች ብራንዲንግ ቀለም ቅብ እንዲከናወን ስለመጠየቅ",
         "description": "",
