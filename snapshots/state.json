@@ -1,5 +1,5 @@
 {
-  "version": 417,
+  "version": 418,
   "state": {
     "users": [
       {
@@ -1392,7 +1392,7 @@
         "id": "1kfy96kg",
         "requestedBy": "u5",
         "requestedDate": "2026-08-26",
-        "status": "pending"
+        "status": "fulfilled"
       },
       {
         "title": "የመኪና ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
