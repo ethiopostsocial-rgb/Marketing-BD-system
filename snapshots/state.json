@@ -1,5 +1,5 @@
 {
-  "version": 419,
+  "version": 420,
   "state": {
     "users": [
       {
@@ -1422,7 +1422,7 @@
         "id": "e8nn3nww",
         "requestedBy": "u2",
         "requestedDate": "2026-08-20",
-        "status": "pending"
+        "status": "fulfilled"
       },
       {
         "title": "New year Items Purchase request",
