@@ -1,5 +1,5 @@
 {
-  "version": 420,
+  "version": 421,
   "state": {
     "users": [
       {
@@ -1432,7 +1432,7 @@
         "id": "e9chdosa",
         "requestedBy": "u2",
         "requestedDate": "2026-08-20",
-        "status": "pending"
+        "status": "fulfilled"
       }
     ],
     "proposals": [
