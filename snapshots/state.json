@@ -1,5 +1,5 @@
 {
-  "version": 416,
+  "version": 417,
   "state": {
     "users": [
       {
@@ -1372,7 +1372,7 @@
         "id": "1538djc5",
         "requestedBy": "u5",
         "requestedDate": "2026-09-02",
-        "status": "pending"
+        "status": "declined"
       },
       {
         "title": "ለፖስት ፋይናንስ አገልግሎት የማርኬቲንግ ግብዓቶች እንዲሟሉልን ስለመጠየቅ",
