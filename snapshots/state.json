@@ -1,5 +1,5 @@
 {
-  "version": 418,
+  "version": 419,
   "state": {
     "users": [
       {
@@ -1402,7 +1402,7 @@
         "id": "4hnmq6an",
         "requestedBy": "u5",
         "requestedDate": "2026-08-26",
-        "status": "pending"
+        "status": "fulfilled"
       },
       {
         "title": "ባቡር እና ባሶች ላይ ማስታወቅያ ስራ እንዲሰራልን ስለመጠየቅ",
