@@ -1,5 +1,5 @@
 {
-  "version": 429,
+  "version": 430,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የቲክቶክ ዘመቻ (Campaign) እና በጀት እንዲፈቀድልን ስለመጠየቅ፣",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-23",
+        "id": "h44zzelh",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-16",
+        "status": "pending"
+      },
       {
         "title": "የጋዜጣ፣ መፅሄት እና የቢዝነስ ዳይሬክተሪ ማስታወቂያ ስራ ፈቃድ ስለመጠየቅ",
         "description": "",
