@@ -1,5 +1,5 @@
 {
-  "version": 427,
+  "version": 428,
   "state": {
     "users": [
       {
@@ -1334,6 +1334,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የጋዜጣ፣ መፅሄት እና የቢዝነስ ዳይሬክተሪ ማስታወቂያ ስራ ፈቃድ ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-09-23",
+        "id": "jix4qf53",
+        "requestedBy": "u5",
+        "requestedDate": "2026-09-16",
+        "status": "pending"
+      },
       {
         "title": "ሪፖርተር  ጋዜጣ እና መፅሔት  አገልግሎት ማግኘታችንን ስለማሳወቅ፣",
         "description": "",
