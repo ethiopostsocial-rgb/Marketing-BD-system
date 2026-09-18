@@ -1,5 +1,5 @@
 {
-  "version": 441,
+  "version": 442,
   "state": {
     "users": [
       {
@@ -1351,7 +1351,17 @@
         "id": "0sz5b12o",
         "createdAt": "2026-06-04",
         "createdBy": "u2",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "22jzc3tp",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 40,
+            "date": "2026-09-18",
+            "recipient": "secretary (yodit,meron,jery,eskdar)",
+            "note": "10 each"
+          }
+        ]
       },
       {
         "id": "i2",
