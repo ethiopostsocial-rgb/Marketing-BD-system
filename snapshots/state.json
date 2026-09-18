@@ -1,5 +1,5 @@
 {
-  "version": 437,
+  "version": 438,
   "state": {
     "users": [
       {
@@ -654,7 +654,16 @@
         "id": "zegjut3a",
         "createdAt": "2026-07-07",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "8gibhaob",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 10,
+            "date": "2026-09-18",
+            "recipient": "NID (Alazar)"
+          }
+        ]
       },
       {
         "name": "speaker",
