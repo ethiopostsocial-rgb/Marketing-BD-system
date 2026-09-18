@@ -1,5 +1,5 @@
 {
-  "version": 435,
+  "version": 436,
   "state": {
     "users": [
       {
@@ -1101,6 +1101,14 @@
             "district": "head_office",
             "quantity": 72,
             "date": "2026-06-26"
+          },
+          {
+            "id": "sjet86h5",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 3,
+            "date": "2026-09-18",
+            "recipient": "NID (Alazar)"
           }
         ]
       },
