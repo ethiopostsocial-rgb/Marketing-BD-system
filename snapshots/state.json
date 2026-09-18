@@ -1,5 +1,5 @@
 {
-  "version": 440,
+  "version": 441,
   "state": {
     "users": [
       {
@@ -970,6 +970,14 @@
             "quantity": 5,
             "date": "2026-09-18",
             "recipient": "NID (Alazar)"
+          },
+          {
+            "id": "a4cgut4m",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 3,
+            "date": "2026-09-18",
+            "recipient": "Legal ( Gelana )"
           }
         ]
       },
