@@ -1,5 +1,5 @@
 {
-  "version": 434,
+  "version": 435,
   "state": {
     "users": [
       {
@@ -1176,6 +1176,14 @@
             "quantity": 15,
             "date": "2026-07-10",
             "recipient": "CEO office"
+          },
+          {
+            "id": "5qr12azi",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 2,
+            "date": "2026-09-18",
+            "recipient": "NID (Alazar)"
           }
         ]
       },
