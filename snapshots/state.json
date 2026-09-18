@@ -1,5 +1,5 @@
 {
-  "version": 443,
+  "version": 444,
   "state": {
     "users": [
       {
@@ -1159,6 +1159,15 @@
             "quantity": 3,
             "date": "2026-09-18",
             "recipient": "Legal ( Gelana )"
+          },
+          {
+            "id": "1b71psbi",
+            "byUserId": "u5",
+            "district": "head_office",
+            "quantity": 4,
+            "date": "2026-09-18",
+            "recipient": "secretary (yodit,meron,jery,eskdar)",
+            "note": "1 each"
           }
         ]
       },
