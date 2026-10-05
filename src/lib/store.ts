@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole, DistributionPlace } from "./types";
+import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole, DistributionPlace, Department } from "./types";
 import { ROLE_RANK, ROLE_LABELS, BUILT_IN_ROLES, getTaskAssignees, isTaskOwner } from "./types";
-import { USERS, TASKS, ROUTINES, ANNOUNCEMENTS, INVENTORY, EXTERNAL_REQUESTS, PROPOSALS, CUSTOM_ROLES, DISTRIBUTION_PLACES } from "./seed";
+import { USERS, TASKS, ROUTINES, ANNOUNCEMENTS, INVENTORY, EXTERNAL_REQUESTS, PROPOSALS, CUSTOM_ROLES } from "./seed";
 
 interface State {
   users: User[];
@@ -13,7 +13,6 @@ interface State {
   externalRequests: ExternalRequest[];
   proposals: Proposal[];
   customRoles: CustomRole[];
-  distributionPlaces: DistributionPlace[];
   currentUserId: string | null;
 
   login: (email: string, password: string) => User | null;
@@ -45,10 +44,6 @@ interface State {
   deleteInventoryItem: (id: string) => void;
   addDistribution: (itemId: string, dist: { district: District; quantity: number; date: string; recipient?: string; note?: string }) => { ok: boolean; error?: string };
   removeDistribution: (itemId: string, distId: string) => void;
-  // Distribution Places
-  createDistributionPlace: (place: Omit<DistributionPlace, "id" | "createdAt" | "createdBy">) => void;
-  updateDistributionPlace: (id: string, patch: Partial<Omit<DistributionPlace, "id" | "createdAt" | "createdBy">>) => void;
-  deleteDistributionPlace: (id: string) => void;
 
   createExternalRequest: (r: Omit<ExternalRequest, "id" | "requestedDate" | "requestedBy" | "status">) => void;
   updateExternalRequest: (id: string, patch: Partial<Omit<ExternalRequest, "id">>) => void;
@@ -88,7 +83,6 @@ export const useStore = create<State>()(
       externalRequests: EXTERNAL_REQUESTS,
       proposals: PROPOSALS,
       customRoles: CUSTOM_ROLES,
-      distributionPlaces: DISTRIBUTION_PLACES,
       currentUserId: null,
 
       login: (email, password) => {
@@ -258,18 +252,6 @@ export const useStore = create<State>()(
           ),
         })),
 
-      createDistributionPlace: (place) =>
-        set((s) => ({
-          distributionPlaces: [
-            ...s.distributionPlaces,
-            { ...place, id: uid(), createdAt: new Date().toISOString().slice(0, 10), createdBy: s.currentUserId ?? "" },
-          ],
-        })),
-      updateDistributionPlace: (id, patch) =>
-        set((s) => ({ distributionPlaces: s.distributionPlaces.map((p) => (p.id === id ? { ...p, ...patch } : p)) })),
-      deleteDistributionPlace: (id) =>
-        set((s) => ({ distributionPlaces: s.distributionPlaces.filter((p) => p.id !== id) })),
-
       createExternalRequest: (r) =>
         set((s) => ({
           externalRequests: [
@@ -318,20 +300,16 @@ export const useStore = create<State>()(
     {
       name: "ethiopost-mbd-store",
       version: 6,
-      migrate: (persisted: unknown, _version: number) => {
-        // Preserve any existing persisted data; only fill in missing keys with seed defaults.
-        // This prevents wiping GitHub-synced data when the store version changes.
-        const existing = (persisted ?? {}) as Partial<State>;
+      migrate: (_persisted: unknown, _version: number) => {
         return {
-          users: existing.users?.length ? existing.users : USERS,
-          tasks: existing.tasks?.length ? existing.tasks : TASKS,
-          routines: existing.routines?.length ? existing.routines : ROUTINES,
-          announcements: existing.announcements?.length ? existing.announcements : ANNOUNCEMENTS,
-          inventory: existing.inventory?.length ? existing.inventory : INVENTORY,
-          externalRequests: existing.externalRequests?.length ? existing.externalRequests : EXTERNAL_REQUESTS,
-          proposals: existing.proposals?.length ? existing.proposals : PROPOSALS,
-          customRoles: existing.customRoles?.length ? existing.customRoles : CUSTOM_ROLES,
-          distributionPlaces: existing.distributionPlaces?.length ? existing.distributionPlaces : DISTRIBUTION_PLACES,
+          users: USERS,
+          tasks: TASKS,
+          routines: ROUTINES,
+          announcements: ANNOUNCEMENTS,
+          inventory: INVENTORY,
+          externalRequests: EXTERNAL_REQUESTS,
+          proposals: PROPOSALS,
+          customRoles: CUSTOM_ROLES,
           currentUserId: null,
         } as unknown as State;
       },
@@ -350,6 +328,23 @@ export function useCurrentUser(): User | null {
 export function getSubordinateIds(userId: string, users: User[]): string[] {
   const direct = users.filter((u) => u.managerId === userId).map((u) => u.id);
   return direct.flatMap((id) => [id, ...getSubordinateIds(id, users)]);
+}
+
+/** Get all users in the same department as the current user (for staff role). */
+export function getDepartmentMembers(user: User, users: User[]): User[] {
+  if (user.role !== "staff" || !user.departmentId) return [];
+  return users.filter((u) => u.departmentId === user.departmentId);
+}
+
+/** Get tasks visible to a user based on department (for staff role). */
+export function getTasksForDepartment(user: User, tasks: Task[], users: User[]): Task[] {
+  if (user.role !== "staff" || !user.departmentId) return tasks;
+  // Staff sees only tasks assigned to them or to department members
+  const deptMembers = getDepartmentMembers(user, users);
+  const deptMemberIds = new Set([user.id, ...deptMembers.map((m) => m.id)]);
+  return tasks.filter((t) => 
+    t.assignedTo.some((id) => deptMemberIds.has(id))
+  );
 }
 
 export function getVisibleUserIds(user: User, users: User[]): string[] {
@@ -404,12 +399,8 @@ export function unitOf(user: User): Unit {
   return user.unit;
 }
 
-/** Whether the current user can mutate the status of a task.
- *  Directors and managers (marketing_manager, bd_manager) can change
- *  any task status without waiting for sequential line-manager approval.
- */
+/** Whether the current user can mutate the status of a task. */
 export function canChangeTaskStatus(actor: User, task: Task): boolean {
-  if (actor.role === "director" || actor.role === "marketing_manager" || actor.role === "bd_manager") return true;
   return isTaskOwner(actor.id, task);
 }
 
@@ -439,6 +430,11 @@ export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): 
   if (!(user.role in ROLE_LABELS)) {
     const custom = customRoles.find((r) => r.key === user.role);
     if (custom) return custom.defaultTabs;
+  }
+
+  // Staff role: department-scoped, minimal access
+  if (user.role === "staff") {
+    return ["tasks", "announcements", "profile"];
   }
 
   const base: TabKey[] = ["dashboard", "commercial_dashboard", "tasks", "external_requests", "routines", "announcements", "profile"];
