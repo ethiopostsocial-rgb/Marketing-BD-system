@@ -1,3 +1,33 @@
+// Internal departments
+export type Department =
+  | "marketing"
+  | "business_development"
+  | "operations"
+  | "finance"
+  | "human_resources"
+  | "it"
+  | "customer_service";
+
+export const DEPARTMENTS: Department[] = [
+  "marketing",
+  "business_development",
+  "operations",
+  "finance",
+  "human_resources",
+  "it",
+  "customer_service",
+];
+
+export const DEPARTMENT_LABELS: Record<Department, string> = {
+  marketing: "Marketing",
+  business_development: "Business Development",
+  operations: "Operations",
+  finance: "Finance",
+  human_resources: "Human Resources",
+  it: "Information Technology",
+  customer_service: "Customer Service",
+};
+
 // Built-in roles. Custom roles created at runtime are also stored as strings.
 export type BuiltInRole =
   | "director"
@@ -5,7 +35,8 @@ export type BuiltInRole =
   | "bd_manager"
   | "supervisor"
   | "senior_officer"
-  | "junior_officer";
+  | "junior_officer"
+  | "staff";
 
 // Role accepts built-in keys plus any custom role key created by the director.
 // The `string & {}` keeps autocomplete for built-ins while accepting any string.
@@ -18,9 +49,38 @@ export const BUILT_IN_ROLES: BuiltInRole[] = [
   "supervisor",
   "senior_officer",
   "junior_officer",
+  "staff",
 ];
 
-export type Unit = "marketing" | "bd" | "both";
+// Marketing & Business Development Units
+export type Unit = 
+  | "all"
+  | "branding_communication"
+  | "partnership"
+  | "ecommerce"
+  | "mail_service"
+  | "vps_government"
+  | "philately_museum";
+
+export const UNITS: Unit[] = [
+  "all",
+  "branding_communication",
+  "partnership",
+  "ecommerce",
+  "mail_service",
+  "vps_government",
+  "philately_museum",
+];
+
+export const UNIT_LABELS: Record<Unit, string> = {
+  all: "All Units",
+  branding_communication: "Branding & Communication",
+  partnership: "Partnership",
+  ecommerce: "E-commerce",
+  mail_service: "Mail Service",
+  vps_government: "VPS & Government",
+  philately_museum: "Philately & Museum",
+};
 
 export type TaskStatus = "todo" | "in_progress" | "awaiting_approval" | "done";
 
@@ -35,7 +95,16 @@ export type TabKey =
   | "commercial_dashboard"
   | "users"
   | "roles"
-  | "profile";
+  | "profile"
+  // Unit-specific tabs
+  | "unit_dashboard"
+  | "unit_report"
+  | "unit_tasks"
+  | "unit_deals"
+  | "branding_report"
+  | "communication"
+  | "content_management"
+  | "campaign_management";
 
 export type ProposalStage =
   | "opportunity"
@@ -81,6 +150,7 @@ export interface User {
   role: Role;
   unit: Unit;
   managerId: string | null;
+  departmentId?: Department;
   avatarColor: string;
   title: string;
   password: string;
@@ -144,12 +214,13 @@ export interface Announcement {
 }
 
 export const ROLE_LABELS: Record<BuiltInRole, string> = {
-  director: "M&C Director",
+  director: "M&C chief",
   marketing_manager: "Marketing Manager",
   bd_manager: "Business Development Manager",
   supervisor: "Supervisor",
   senior_officer: "Senior Officer",
   junior_officer: "Junior Officer",
+  staff: "Staff",
 };
 
 export const ROLE_RANK: Record<BuiltInRole, number> = {
@@ -159,6 +230,7 @@ export const ROLE_RANK: Record<BuiltInRole, number> = {
   supervisor: 4,
   senior_officer: 2,
   junior_officer: 1,
+  staff: 0,
 };
 
 export type District =
@@ -168,7 +240,6 @@ export type District =
   | "west"
   | "central"
   | "addis_ababa"
-  | "head_office"
   | "gpo"
   | "south";
 
@@ -179,7 +250,6 @@ export const DISTRICTS: District[] = [
   "west",
   "central",
   "addis_ababa",
-  "head_office",
   "gpo",
   "south",
 ];
@@ -191,7 +261,6 @@ export const DISTRICT_LABELS: Record<District, string> = {
   west: "West",
   central: "Central",
   addis_ababa: "Addis Ababa",
-  head_office: "Head Office",
   gpo: "GPO",
   south: "South",
 };
@@ -216,18 +285,6 @@ export interface InventoryItem {
   createdBy: string;
   description?: string;
   distributions: InventoryDistribution[];
-}
-
-export interface DistributionPlace {
-  id: string;
-  name: string;
-  district: District;
-  address?: string;
-  contactPerson?: string;
-  contactPhone?: string;
-  note?: string;
-  createdAt: string;
-  createdBy: string;
 }
 
 export type ExternalDepartment =
