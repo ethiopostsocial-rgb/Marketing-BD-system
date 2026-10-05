@@ -2,16 +2,23 @@ import type { User, Task, RoutineJob, Announcement, InventoryItem, ExternalReque
 
 export const CUSTOM_ROLES: CustomRole[] = [];
 
+// TODO: Update user units to new structure after data migration
+// Units: branding_communication | partnership | ecommerce | mail_service | vps_government | philately_museum
 export const USERS: User[] = [
-  { id: "u1", name: "Belayneh Mamush", email: "belayneh.mamush@ethio.post", role: "director", unit: "both", managerId: null, avatarColor: "#4338ca", title: "M&C Director", password: "ethiopost", mustChangePassword: true },
-  { id: "u2", name: "Kirubel Misrak", email: "kirubel.misrak@ethio.post", role: "marketing_manager", unit: "marketing", managerId: "u1", avatarColor: "#0ea5e9", title: "Marketing Manager", password: "ethiopost", mustChangePassword: true },
-  { id: "u3", name: "Feven Bekele", email: "feven.bekele@ethio.post", role: "bd_manager", unit: "bd", managerId: "u1", avatarColor: "#16a34a", title: "Business Development Manager", password: "ethiopost", mustChangePassword: true },
-  { id: "u4", name: "Didimos Tadesse", email: "didimos.tadesse@ethio.post", role: "supervisor", unit: "marketing", managerId: "u2", avatarColor: "#f59e0b", title: "Marketing Supervisor", password: "ethiopost", mustChangePassword: true },
-  { id: "u5", name: "Lily Tesfaye", email: "bd.supervisor@ethiopost.et", role: "supervisor", unit: "bd", managerId: "u3", avatarColor: "#db2777", title: "BD Supervisor", password: "ethiopost", mustChangePassword: true },
-  { id: "u6", name: "Samuel Alemu", email: "mkt.senior@ethiopost.et", role: "senior_officer", unit: "marketing", managerId: "u4", avatarColor: "#7c3aed", title: "Senior Marketing Officer", password: "ethiopost", mustChangePassword: true },
-  { id: "u7", name: "Mahlet Worku", email: "mkt.junior@ethiopost.et", role: "junior_officer", unit: "marketing", managerId: "u4", avatarColor: "#0891b2", title: "Junior Marketing Officer", password: "ethiopost", mustChangePassword: true },
-  { id: "u8", name: "Daniel Haile", email: "bd.senior@ethiopost.et", role: "senior_officer", unit: "bd", managerId: "u5", avatarColor: "#9333ea", title: "Senior BD Officer", password: "ethiopost", mustChangePassword: true },
-  { id: "u9", name: "Rahel Mekonnen", email: "bd.junior@ethiopost.et", role: "junior_officer", unit: "bd", managerId: "u5", avatarColor: "#ea580c", title: "Junior BD Officer", password: "ethiopost", mustChangePassword: true },
+  { id: "u1", name: "Belayneh Mamush", email: "belayneh.mamush@ethio.post", role: "director", unit: "all", managerId: null, avatarColor: "#4338ca", title: "M&C Director", password: "ethiopost", mustChangePassword: true },
+  { id: "u2", name: "Kirubel Misrak", email: "kirubel.misrak@ethio.post", role: "marketing_manager", unit: "branding_communication", managerId: "u1", avatarColor: "#0ea5e9", title: "Marketing Manager", password: "ethiopost", mustChangePassword: true },
+  { id: "u3", name: "Feven Bekele", email: "feven.bekele@ethiopost.et", role: "bd_manager", unit: "partnership", managerId: "u1", avatarColor: "#16a34a", title: "Business Development Manager", password: "ethiopost", mustChangePassword: true },
+  { id: "u4", name: "Didimos Tadesse", email: "didimos.tadesse@ethiopost.et", role: "supervisor", unit: "branding_communication", managerId: "u2", avatarColor: "#f59e0b", title: "Marketing Supervisor", password: "ethiopost", mustChangePassword: true },
+  { id: "u5", name: "Lily Tesfaye", email: "bd.supervisor@ethiopost.et", role: "supervisor", unit: "partnership", managerId: "u3", avatarColor: "#db2777", title: "BD Supervisor", password: "ethiopost", mustChangePassword: true },
+  { id: "u6", name: "Samuel Alemu", email: "mkt.senior@ethiopost.et", role: "senior_officer", unit: "branding_communication", managerId: "u4", avatarColor: "#7c3aed", title: "Senior Marketing Officer", password: "ethiopost", mustChangePassword: true },
+  { id: "u7", name: "Mahlet Worku", email: "mkt.junior@ethiopost.et", role: "junior_officer", unit: "branding_communication", managerId: "u4", avatarColor: "#0891b2", title: "Junior Marketing Officer", password: "ethiopost", mustChangePassword: true },
+  { id: "u8", name: "Daniel Haile", email: "bd.senior@ethiopost.et", role: "senior_officer", unit: "partnership", managerId: "u5", avatarColor: "#9333ea", title: "Senior BD Officer", password: "ethiopost", mustChangePassword: true },
+  { id: "u9", name: "Rahel Mekonnen", email: "bd.junior@ethiopost.et", role: "junior_officer", unit: "partnership", managerId: "u5", avatarColor: "#ea580c", title: "Junior BD Officer", password: "ethiopost", mustChangePassword: true },
+  { id: "staff-mkt-01", name: "Abeba Tesfaye", email: "abeba.tesfaye@ethiopost.et", role: "staff", unit: "branding_communication", departmentId: "marketing", managerId: "u4", avatarColor: "#3b82f6", title: "Marketing Coordinator", password: "ethiopost", mustChangePassword: true },
+  { id: "staff-mkt-02", name: "Alem Girma", email: "alem.girma@ethiopost.et", role: "staff", unit: "branding_communication", departmentId: "marketing", managerId: "u4", avatarColor: "#06b6d4", title: "Content Specialist", password: "ethiopost", mustChangePassword: true },
+  { id: "staff-bd-01", name: "Genet Assefa", email: "genet.assefa@ethiopost.et", role: "staff", unit: "partnership", departmentId: "business_development", managerId: "u5", avatarColor: "#ef4444", title: "Business Development Associate", password: "ethiopost", mustChangePassword: true },
+  { id: "staff-ops-01", name: "Kedir Mohamed", email: "kedir.mohamed@ethiopost.et", role: "staff", unit: "branding_communication", departmentId: "operations", managerId: "u2", avatarColor: "#10b981", title: "Operations Assistant", password: "ethiopost", mustChangePassword: true },
+  { id: "staff-it-01", name: "Sintayehu Bekele", email: "sintayehu.bekele@ethiopost.et", role: "staff", unit: "branding_communication", departmentId: "it", managerId: "u1", avatarColor: "#14b8a6", title: "IT Support Specialist", password: "ethiopost", mustChangePassword: true },
 ];
 
 const today = new Date();
@@ -153,5 +160,3 @@ export const PROPOSALS: Proposal[] = [
   { id: "p3", title: "E-commerce fulfillment — Qefira", client: "Qefira", description: "Last-mile fulfillment proposal.", stage: "drafting", value: 800000, currency: "ETB", ownerId: "u8", createdBy: "u3", createdAt: addDays(-5), expectedCloseDate: addDays(20) },
   { id: "p4", title: "Government printing tender", client: "Ministry of Education", description: "Bid for textbook distribution tender.", stage: "opportunity", value: 9000000, currency: "ETB", ownerId: "u5", createdBy: "u1", createdAt: addDays(-2), expectedCloseDate: addDays(45) },
 ];
-
-export const DISTRIBUTION_PLACES: import("./types").DistributionPlace[] = [];
