@@ -22,6 +22,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const UNIT_ICONS: Record<string, typeof Heart> = {
+  marketing: TrendingUp,
   branding_communication: Heart,
   partnership: Handshake,
   ecommerce: ShoppingCart,
@@ -31,6 +32,7 @@ const UNIT_ICONS: Record<string, typeof Heart> = {
 };
 
 const UNIT_ROUTES: Record<string, string> = {
+  marketing: "/units/marketing",
   branding_communication: "/units/branding-communication",
   partnership: "/units/partnership",
   ecommerce: "/units/ecommerce",
@@ -110,7 +112,7 @@ function DashboardPage() {
     return Object.entries(weeks).map(([week, count]) => ({ week, tasks: count }));
   }, [scopedTasks]);
 
-  const units = ["branding_communication", "partnership", "ecommerce", "mail_service", "vps_government", "philately_museum"] as const;
+  const units = ["marketing", "branding_communication", "partnership", "ecommerce", "mail_service", "vps_government", "philately_museum"] as const;
 
   return (
     <div className="space-y-6 p-6">
