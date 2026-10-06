@@ -39,18 +39,21 @@ const UNIT_ROUTES: Record<string, string> = {
   philately_museum: "/units/philately-museum",
 };
 
-const UNIT_LABELS: Record<string, string> = {
-  marketing: "Marketing",
-  bd: "Business Development",
-  both: "Marketing & BD",
-  all: "All Units",
-  branding_communication: "Branding & Communication",
-  partnership: "Partnership",
-  ecommerce: "E-commerce",
-  mail_service: "Mail Service",
-  vps_government: "VPS & Government",
-  philately_museum: "Philately & Museum",
-};
+function getUnitLabel(unit: Unit): string {
+  switch (unit) {
+    case "marketing": return "Marketing";
+    case "bd": return "Business Development";
+    case "both": return "Marketing & BD";
+    case "all": return "All Units";
+    case "branding_communication": return "Branding & Communication";
+    case "partnership": return "Partnership";
+    case "ecommerce": return "E-commerce";
+    case "mail_service": return "Mail Service";
+    case "vps_government": return "VPS & Government";
+    case "philately_museum": return "Philately & Museum";
+    default: return unit;
+  }
+}
 
 function DashboardPage() {
   const navigate = useNavigate();
@@ -111,7 +114,7 @@ function DashboardPage() {
         <p className="mt-1 text-sm text-muted-foreground">Welcome, {user.name}. Here's your overview.</p>
       </div>
 
-      {/* UNITS GRID - Only show for directors and new unit assignments */}
+      {/* UNITS GRID */}
       {(user.unit === "all" || units.includes(user.unit as any)) && (
         <div className="space-y-3">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Units</h2>
@@ -127,7 +130,7 @@ function DashboardPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="text-xs text-muted-foreground font-medium">Unit</div>
-                        <h3 className="mt-1 text-sm font-semibold line-clamp-2">{UNIT_LABELS[unitKey]}</h3>
+                        <h3 className="mt-1 text-sm font-semibold line-clamp-2">{getUnitLabel(unitKey as Unit)}</h3>
                       </div>
                       {Icon && <Icon className="h-5 w-5 text-primary shrink-0" />}
                     </div>
