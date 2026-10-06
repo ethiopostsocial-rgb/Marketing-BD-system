@@ -526,3 +526,64 @@ function getSubordinateIdsLocal(userId: string, users: User[]): string[] {
   const direct = users.filter((u) => u.managerId === userId).map((u) => u.id);
   return direct.flatMap((id) => [id, ...getSubordinateIdsLocal(id, users)]);
 }
+{/* UNIT SELECTOR */}
+{actor.role === "director" && mode === "create" && (
+  <div className="grid gap-1.5">
+    <Label htmlFor="unit">Unit *</Label>
+    <select
+      id="unit"
+      value={data.unit || "branding_communication"}
+      onChange={(e) => setData((d) => ({ ...d, unit: e.target.value as Unit }))}
+      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+    >
+      <option value="all">All Units (Director Only)</option>
+      <option value="branding_communication">Branding & Communication</option>
+      <option value="partnership">Partnership</option>
+      <option value="ecommerce">E-commerce</option>
+      <option value="mail_service">Mail Service</option>
+      <option value="vps_government">VPS & Government</option>
+      <option value="philately_museum">Philately & Museum</option>
+    </select>
+  </div>
+)}
+
+{actor.role === "director" && mode === "edit" && (
+  <div className="grid gap-1.5">
+    <Label htmlFor="unit">Unit</Label>
+    <select
+      id="unit"
+      value={data.unit || "branding_communication"}
+      onChange={(e) => setData((d) => ({ ...d, unit: e.target.value as Unit }))}
+      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+    >
+      <option value="all">All Units (Director Only)</option>
+      <option value="branding_communication">Branding & Communication</option>
+      <option value="partnership">Partnership</option>
+      <option value="ecommerce">E-commerce</option>
+      <option value="mail_service">Mail Service</option>
+      <option value="vps_government">VPS & Government</option>
+      <option value="philately_museum">Philately & Museum</option>
+    </select>
+  </div>
+)}
+
+---
+
+ALSO UPDATE THE TABLE DISPLAY (line ~160):
+
+Replace this:
+<TableCell className="text-sm capitalize">
+  {u.unit === "bd" ? "Business Dev." : u.unit === "both" ? "Both" : "Marketing"}
+</TableCell>
+
+With this:
+<TableCell className="text-sm capitalize">
+  {u.unit === "all" ? "All Units" 
+    : u.unit === "branding_communication" ? "Branding & Communication"
+    : u.unit === "partnership" ? "Partnership"
+    : u.unit === "ecommerce" ? "E-commerce"
+    : u.unit === "mail_service" ? "Mail Service"
+    : u.unit === "vps_government" ? "VPS & Government"
+    : u.unit === "philately_museum" ? "Philately & Museum"
+    : u.unit}
+</TableCell>
