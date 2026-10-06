@@ -1,5 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package, Building2, Briefcase, ShieldCheck, BarChart2, Heart, ShoppingCart, Mail, Server, Stamp, Handshake } from "lucide-react";
+import {
+  LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package,
+  Building2, Briefcase, ShieldCheck, BarChart2, Heart, ShoppingCart, Mail, Server, Stamp, Handshake,
+} from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
   SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,
@@ -10,26 +13,26 @@ import type { TabKey } from "@/lib/types";
 import { Button } from "./ui/button";
 
 const NAV: { to: string; label: string; icon: typeof LayoutDashboard; tab: TabKey }[] = [
-  { to: "/dashboard",           label: "Dashboard",                 icon: LayoutDashboard, tab: "dashboard" },
-  { to: "/commercial-dashboard",label: "Commercial Dashboard",      icon: BarChart2,       tab: "commercial_dashboard" },
-  { to: "/tasks",               label: "Tasks",                     icon: ListChecks,      tab: "tasks" },
-  { to: "/external-requests",   label: "External Requests",         icon: Building2,       tab: "external_requests" },
-  { to: "/opportunities",       label: "Opportunities & Proposals",  icon: Briefcase,       tab: "opportunities" },
-  { to: "/routines",            label: "Routine Check-ups",         icon: ClipboardCheck,  tab: "routines" },
-  { to: "/inventory",           label: "Marketing Inventory",       icon: Package,         tab: "inventory" },
-  { to: "/announcements",       label: "Announcements",             icon: Megaphone,       tab: "announcements" },
-  { to: "/users",               label: "User Management",           icon: Users,           tab: "users" },
-  { to: "/roles",               label: "Roles",                     icon: ShieldCheck,     tab: "roles" },
-  { to: "/profile",             label: "Profile Settings",          icon: UserIcon,        tab: "profile" },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, tab: "dashboard" },
+  { to: "/commercial-dashboard", label: "Commercial Dashboard", icon: BarChart2, tab: "commercial_dashboard" },
+  { to: "/tasks", label: "Tasks", icon: ListChecks, tab: "tasks" },
+  { to: "/external-requests", label: "External Requests", icon: Building2, tab: "external_requests" },
+  { to: "/opportunities", label: "Opportunities & Proposals", icon: Briefcase, tab: "opportunities" },
+  { to: "/routines", label: "Routine Check-ups", icon: ClipboardCheck, tab: "routines" },
+  { to: "/inventory", label: "Marketing Inventory", icon: Package, tab: "inventory" },
+  { to: "/announcements", label: "Announcements", icon: Megaphone, tab: "announcements" },
+  { to: "/users", label: "User Management", icon: Users, tab: "users" },
+  { to: "/roles", label: "Roles", icon: ShieldCheck, tab: "roles" },
+  { to: "/profile", label: "Profile Settings", icon: UserIcon, tab: "profile" },
 ];
 
 const UNITS: { to: string; label: string; icon: typeof LayoutDashboard; unitKey: string }[] = [
-  { to: "/units/branding-communication", label: "Branding & Communication", icon: Heart,     unitKey: "branding_communication" },
-  { to: "/units/partnership",            label: "Partnership",            icon: Briefcase, unitKey: "partnership" },
-  { to: "/units/ecommerce",             label: "E-commerce",             icon: ShoppingCart, unitKey: "ecommerce" },
-  { to: "/units/mail-service",          label: "Mail Service",           icon: Mail,      unitKey: "mail_service" },
-  { to: "/units/vps-government",        label: "VPS & Government",       icon: Server,    unitKey: "vps_government" },
-  { to: "/units/philately-museum",      label: "Philately & Museum",     icon: Stamp,     unitKey: "philately_museum" },
+  { to: "/units/branding-communication", label: "Branding & Communication", icon: Heart, unitKey: "branding_communication" },
+  { to: "/units/partnership", label: "Partnership", icon: Handshake, unitKey: "partnership" },
+  { to: "/units/ecommerce", label: "E-commerce", icon: ShoppingCart, unitKey: "ecommerce" },
+  { to: "/units/mail-service", label: "Mail Service", icon: Mail, unitKey: "mail_service" },
+  { to: "/units/vps-government", label: "VPS & Government", icon: Server, unitKey: "vps_government" },
+  { to: "/units/philately-museum", label: "Philately & Museum", icon: Stamp, unitKey: "philately_museum" },
 ];
 
 export function AppSidebar() {
