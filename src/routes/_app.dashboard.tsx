@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useCurrentUser, useStore, getVisibleUserIds } from "@/lib/store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,8 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { AlertTriangle, CheckCircle2, ClipboardList, Clock, TrendingUp, Users } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ClipboardList, Clock, TrendingUp, Users, Heart, Handshake, ShoppingCart, Mail, Server, Stamp, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { Task, Unit } from "@/lib/types";
+import { UNIT_LABELS } from "@/lib/types";
 
 export const Route = createFileRoute("/_app/dashboard")({
   component: DashboardPage,
@@ -20,12 +22,31 @@ const STATUS_COLORS: Record<string, string> = {
   done: "var(--success)",
 };
 
+const UNIT_ICONS: Record<string, typeof Heart> = {
+  branding_communication: Heart,
+  partnership: Handshake,
+  ecommerce: ShoppingCart,
+  mail_service: Mail,
+  vps_government: Server,
+  philately_museum: Stamp,
+};
+
+const UNIT_ROUTES: Record<string, string> = {
+  branding_communication: "/units/branding-communication",
+  partnership: "/units/partnership",
+  ecommerce: "/units/ecommerce",
+  mail_service: "/units/mail-service",
+  vps_government: "/units/vps-government",
+  philately_museum: "/units/philately-museum",
+};
+
 function DashboardPage() {
+  const navigate = useNavigate();
   const user = useCurrentUser();
   const users = useStore((s) => s.users);
   const tasks = useStore((s) => s.tasks);
   const routines = useStore((s) => s.routines);
-  const [unitFilter, setUnitFilter] = useState<Unit>(user?.unit ?? "both");
+  const [unitFilter, setUnitFilter] = useState<Unit>(user?.unit ?? "all");
 
   if (!user) return null;
 
@@ -33,7 +54,7 @@ function DashboardPage() {
 
   const scopedUsers = useMemo(() => {
     let list = users.filter((u) => visibleIds.includes(u.id));
-    if (user.role === "director" && unitFilter !== "both") list = list.filter((u) => u.unit === unitFilter || u.unit === "both");
+    if (user.role === "director" && unitFilter !== "all") list = list.filter((u) => u.unit === unitFilter || u.unit === "all");
     return list;
   }, [users, visibleIds, user, unitFilter]);
 
@@ -48,248 +69,200 @@ function DashboardPage() {
     return c;
   }, [scopedTasks]);
 
-  const overdue = useMemo(() => {
-    const now = new Date().toISOString().slice(0, 10);
-    return scopedTasks.filter((t) => t.status !== "done" && t.dueDate < now);
+  const chartData = useMemo(() => {
+    const data: Record<string, number> = { todo: 0, in_progress: 0, awaiting_approval: 0, done: 0 };
+    scopedTasks.forEach((t) => { data[t.status]++; });
+    return [
+      { name: "To Do", value: data.todo, fill: STATUS_COLORS.todo },
+      { name: "In Progress", value: data.in_progress, fill: STATUS_COLORS.in_progress },
+      { name: "Awaiting Approval", value: data.awaiting_approval, fill: STATUS_COLORS.awaiting_approval },
+      { name: "Done", value: data.done, fill: STATUS_COLORS.done },
+    ];
   }, [scopedTasks]);
 
-  const completionRate = scopedTasks.length ? Math.round((counts.done / scopedTasks.length) * 100) : 0;
-
-  // Routine performance
-  const today = new Date().toISOString().slice(0, 10);
-  const routinePerf = routines.map((r) => {
-    const assignedUsers = scopedUsers.filter((u) => r.assignedRoleScope.includes(u.role) && (r.unit === "both" || r.unit === u.unit));
-    if (!assignedUsers.length) return { name: r.title, rate: 0, completed: 0, total: 0 };
-    const completed = assignedUsers.reduce((acc, u) => acc + ((r.checkIns[u.id] ?? []).includes(today) ? 1 : 0), 0);
-    return { name: r.title, rate: Math.round((completed / assignedUsers.length) * 100), completed, total: assignedUsers.length };
-  });
-
-  // Per-person performance for bar chart
-  const perPerson = scopedUsers
-    .filter((u) => u.id !== user.id || scopedUsers.length === 1)
-    .map((u) => {
-      const userTasks = scopedTasks.filter((t) => t.assignedTo === u.id);
-      const done = userTasks.filter((t) => t.status === "done").length;
-      return {
-        name: u.name.split(" ")[0],
-        Done: done,
-        Active: userTasks.filter((t) => t.status === "in_progress" || t.status === "todo").length,
-        Pending: userTasks.filter((t) => t.status === "awaiting_approval").length,
-      };
-    })
-    .slice(0, 8);
-
-  // 7-day trend
-  const trend = useMemo(() => {
-    const days = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date();
-      d.setDate(d.getDate() - (6 - i));
-      return d.toISOString().slice(0, 10);
+  const timelineData = useMemo(() => {
+    const weeks: Record<string, number> = {};
+    scopedTasks.forEach((t) => {
+      const week = new Date(t.dueDate).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      weeks[week] = (weeks[week] ?? 0) + 1;
     });
-    return days.map((d) => ({
-      day: d.slice(5),
-      Completed: scopedTasks.filter((t) => t.status === "done" && t.dueDate <= d).length,
-      Created: scopedTasks.filter((t) => t.startDate <= d).length,
-    }));
+    return Object.entries(weeks).map(([week, count]) => ({ week, tasks: count }));
   }, [scopedTasks]);
 
-  const pieData = [
-    { name: "To Do", value: counts.todo, color: STATUS_COLORS.todo },
-    { name: "In Progress", value: counts.in_progress, color: STATUS_COLORS.in_progress },
-    { name: "Awaiting Approval", value: counts.awaiting_approval, color: STATUS_COLORS.awaiting_approval },
-    { name: "Done", value: counts.done, color: STATUS_COLORS.done },
-  ].filter((d) => d.value > 0);
+  const units = ["branding_communication", "partnership", "ecommerce", "mail_service", "vps_government", "philately_museum"] as const;
 
   return (
     <div className="space-y-6 p-6">
       {/* Header */}
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">
-            Good day, {user.name.split(" ")[0]}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {user.role === "director"
-              ? "Comprehensive performance across both units."
-              : user.role.endsWith("manager")
-              ? `Unit-wide performance — ${user.unit === "marketing" ? "Marketing" : "Business Development"}.`
-              : user.role === "supervisor"
-              ? "Your team's performance and outstanding work."
-              : "Your individual performance overview."}
-          </p>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Welcome, {user.name}. Here's your overview.</p>
+      </div>
+
+      {/* UNITS GRID */}
+      {(user.unit === "all" || units.includes(user.unit as any)) && (
+        <div className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Units</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {units.map((unitKey) => {
+              if (user.unit !== "all" && user.unit !== unitKey) return null;
+              const Icon = UNIT_ICONS[unitKey];
+              const unitTasks = tasks.filter((t) => users.find((u) => u.id === t.assignedTo && u.unit === unitKey));
+              const completedCount = unitTasks.filter((t) => t.status === "done").length;
+              return (
+                <Card key={unitKey} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => navigate({ to: UNIT_ROUTES[unitKey] })}>
+                  <CardContent className="p-4 space-y-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="text-xs text-muted-foreground font-medium">Unit</div>
+                        <h3 className="mt-1 text-sm font-semibold line-clamp-2">{UNIT_LABELS[unitKey]}</h3>
+                      </div>
+                      {Icon && <Icon className="h-5 w-5 text-primary shrink-0" />}
+                    </div>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-muted-foreground">Tasks</span>
+                        <span className="font-semibold">{unitTasks.length}</span>
+                      </div>
+                      {unitTasks.length > 0 && (
+                        <>
+                          <Progress value={(completedCount / unitTasks.length) * 100} className="h-1.5" />
+                          <div className="text-[10px] text-muted-foreground">{completedCount} of {unitTasks.length} done</div>
+                        </>
+                      )}
+                    </div>
+                    <Button variant="ghost" size="sm" className="w-full justify-between h-8 text-xs p-1">
+                      View <ArrowRight className="h-3 w-3" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
-        {user.role === "director" && (
+      )}
+
+      {/* Tabs for filtering */}
+      {user.role === "director" && (
+        <div className="flex items-center gap-3">
           <Tabs value={unitFilter} onValueChange={(v) => setUnitFilter(v as Unit)}>
             <TabsList>
-              <TabsTrigger value="both">All Units</TabsTrigger>
-              <TabsTrigger value="marketing">Marketing</TabsTrigger>
-              <TabsTrigger value="bd">Business Dev</TabsTrigger>
+              <TabsTrigger value="all">All Units</TabsTrigger>
+              <TabsTrigger value="branding_communication">Branding</TabsTrigger>
+              <TabsTrigger value="partnership">Partnership</TabsTrigger>
             </TabsList>
           </Tabs>
-        )}
+        </div>
+      )}
+
+      {/* Stats Cards */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground">To Do</p>
+                <p className="text-2xl font-bold">{counts.todo}</p>
+              </div>
+              <ClipboardList className="h-8 w-8 text-muted-foreground/50" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground">In Progress</p>
+                <p className="text-2xl font-bold">{counts.in_progress}</p>
+              </div>
+              <TrendingUp className="h-8 w-8 text-muted-foreground/50" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground">Awaiting Approval</p>
+                <p className="text-2xl font-bold">{counts.awaiting_approval}</p>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-muted-foreground/50" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground">Completed</p>
+                <p className="text-2xl font-bold">{counts.done}</p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-muted-foreground/50" />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* KPIs */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KpiCard label="Team members" value={scopedUsers.length} icon={Users} accent="primary" />
-        <KpiCard label="Active tasks" value={counts.todo + counts.in_progress} icon={ClipboardList} accent="chart" />
-        <KpiCard label="Completion rate" value={`${completionRate}%`} icon={TrendingUp} accent="success" />
-        <KpiCard label="Overdue" value={overdue.length} icon={AlertTriangle} accent={overdue.length ? "destructive" : "muted"} />
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        {/* Trend */}
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-base">Performance trend (7 days)</CardTitle>
-            <Badge variant="secondary" className="font-normal">Completed vs Created</Badge>
+      {/* Charts */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Task Status Distribution</CardTitle>
           </CardHeader>
-          <CardContent className="h-[280px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trend} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                <XAxis dataKey="day" tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" />
-                <YAxis tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" />
-                <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", fontSize: 12 }} />
-                <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Line type="monotone" dataKey="Completed" stroke="var(--success)" strokeWidth={2.5} dot={{ r: 3 }} />
-                <Line type="monotone" dataKey="Created" stroke="var(--primary)" strokeWidth={2.5} dot={{ r: 3 }} />
-              </LineChart>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={(entry) => `${entry.name}: ${entry.value}`} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Status pie */}
         <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-base">Task status overview</CardTitle></CardHeader>
-          <CardContent className="h-[280px]">
-            {pieData.length === 0 ? (
-              <EmptyState label="No tasks in scope yet" />
-            ) : (
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={2}>
-                    {pieData.map((d, i) => <Cell key={i} fill={d.color} />)}
-                  </Pie>
-                  <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", fontSize: 12 }} />
-                  <Legend wrapperStyle={{ fontSize: 11 }} iconSize={8} />
-                </PieChart>
-              </ResponsiveContainer>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        {/* Per-person */}
-        {perPerson.length > 0 && (
-          <Card className="lg:col-span-2">
-            <CardHeader className="pb-2"><CardTitle className="text-base">Team performance</CardTitle></CardHeader>
-            <CardContent className="h-[280px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={perPerson} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                  <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" />
-                  <YAxis tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" />
-                  <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", fontSize: 12 }} />
-                  <Legend wrapperStyle={{ fontSize: 12 }} />
-                  <Bar dataKey="Done" stackId="a" fill="var(--success)" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="Active" stackId="a" fill="var(--chart-3)" />
-                  <Bar dataKey="Pending" stackId="a" fill="var(--accent)" radius={[6, 6, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Urgency hurdles */}
-        <Card className={perPerson.length === 0 ? "lg:col-span-3" : ""}>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <AlertTriangle className="h-4 w-4 text-destructive" />
-              Urgency hurdles
-            </CardTitle>
-            <Badge variant="destructive">{overdue.length}</Badge>
+          <CardHeader>
+            <CardTitle className="text-base">Tasks by Due Date</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2.5">
-            {overdue.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-8 text-center">
-                <CheckCircle2 className="h-8 w-8 text-success" />
-                <p className="mt-2 text-sm text-muted-foreground">No overdue items. Great work.</p>
-              </div>
-            ) : (
-              overdue.slice(0, 5).map((t) => <OverdueRow key={t.id} task={t} users={users} />)
-            )}
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={timelineData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="week" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="tasks" fill="var(--chart-2)" />
+              </BarChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
 
-      {/* Routine performance */}
+      {/* Team Overview */}
       <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-base">
-            <Clock className="h-4 w-4 text-primary" />
-            Routine job performance — today
-          </CardTitle>
+        <CardHeader>
+          <CardTitle className="text-base">Team Overview</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          {routinePerf.length === 0 ? (
-            <EmptyState label="No routine jobs in scope" />
-          ) : (
-            routinePerf.map((r, i) => (
-              <div key={i} className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-foreground">{r.name}</span>
-                  <span className="text-xs text-muted-foreground">{r.completed}/{r.total} checked in · {r.rate}%</span>
-                </div>
-                <Progress value={r.rate} className="h-2" />
-              </div>
-            ))
-          )}
+        <CardContent className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">Total team members</span>
+            </div>
+            <span className="font-semibold">{scopedUsers.length}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">Active routines</span>
+            </div>
+            <span className="font-semibold">{routines.length}</span>
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-}
-
-function KpiCard({ label, value, icon: Icon, accent }: { label: string; value: string | number; icon: React.ElementType; accent: "primary" | "chart" | "success" | "destructive" | "muted" }) {
-  const colors: Record<string, string> = {
-    primary: "var(--primary)",
-    chart: "var(--chart-3)",
-    success: "var(--success)",
-    destructive: "var(--destructive)",
-    muted: "var(--muted-foreground)",
-  };
-  return (
-    <Card className="overflow-hidden">
-      <CardContent className="flex items-center gap-4 p-5">
-        <div className="flex h-11 w-11 items-center justify-center rounded-lg"
-          style={{ background: `color-mix(in oklab, ${colors[accent]} 14%, transparent)`, color: colors[accent] }}>
-          <Icon className="h-5 w-5" />
-        </div>
-        <div className="min-w-0">
-          <div className="text-2xl font-bold leading-tight text-foreground">{value}</div>
-          <div className="text-xs font-medium text-muted-foreground">{label}</div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function OverdueRow({ task, users }: { task: Task; users: { id: string; name: string }[] }) {
-  const assignee = users.find((u) => u.id === task.assignedTo);
-  const daysOver = Math.max(1, Math.floor((Date.now() - new Date(task.dueDate).getTime()) / 86400000));
-  return (
-    <div className="flex items-center justify-between gap-3 rounded-md border border-destructive/20 bg-destructive/5 p-3">
-      <div className="min-w-0">
-        <div className="truncate text-sm font-medium text-foreground">{task.title}</div>
-        <div className="mt-0.5 text-xs text-muted-foreground">Assigned to {assignee?.name ?? "—"}</div>
-      </div>
-      <Badge variant="destructive" className="shrink-0">{daysOver}d overdue</Badge>
-    </div>
-  );
-}
-
-function EmptyState({ label }: { label: string }) {
-  return <div className="flex h-full items-center justify-center text-sm text-muted-foreground">{label}</div>;
 }
