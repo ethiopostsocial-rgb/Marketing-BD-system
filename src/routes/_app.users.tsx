@@ -162,7 +162,10 @@ function UsersPage() {
                     </TableCell>
                     <TableCell><Badge variant="secondary">{roleLabel(u.role, customRoles)}</Badge></TableCell>
                     <TableCell className="text-sm">
-                      {u.unit === "all" ? "All Units"
+                      {u.unit === "marketing" ? "Marketing"
+                        : u.unit === "bd" ? "Business Development"
+                        : u.unit === "both" ? "Marketing & BD"
+                        : u.unit === "all" ? "All Units"
                         : u.unit === "branding_communication" ? "Branding & Communication"
                         : u.unit === "partnership" ? "Partnership"
                         : u.unit === "ecommerce" ? "E-commerce"
@@ -373,7 +376,7 @@ function UserDialog({
           title: initial.title,
           visibleTabs: initial.visibleTabs,
         }
-      : { unit: "branding_communication", role: assignableRoles[assignableRoles.length - 1]?.key ?? "junior_officer", managerId: actor.id, visibleTabs: undefined },
+      : { unit: "marketing", role: assignableRoles[assignableRoles.length - 1]?.key ?? "junior_officer", managerId: actor.id, visibleTabs: undefined },
   );
   const isDirector = actor.role === "director";
   const effectiveTabs: TabKey[] =
@@ -450,7 +453,13 @@ function UserDialog({
               <Select value={form.unit} onValueChange={(v) => setForm({ ...form, unit: v as Unit })}>
                 <SelectTrigger><SelectValue placeholder="Select unit" /></SelectTrigger>
                 <SelectContent>
-                  {actor.role === "director" && <SelectItem value="all">All Units</SelectItem>}
+                  {/* Old Department System */}
+                  <SelectItem value="marketing">Marketing</SelectItem>
+                  <SelectItem value="bd">Business Development</SelectItem>
+                  <SelectItem value="both">Marketing & BD</SelectItem>
+                  {actor.role === "director" && <SelectItem value="all">All Units (Director)</SelectItem>}
+                  
+                  {/* New Specialized Units */}
                   <SelectItem value="branding_communication">Branding & Communication</SelectItem>
                   <SelectItem value="partnership">Partnership</SelectItem>
                   <SelectItem value="ecommerce">E-commerce</SelectItem>
