@@ -1,14 +1,13 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useCurrentUser, useStore, getVisibleUserIds } from "@/lib/store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { AlertTriangle, CheckCircle2, ClipboardList, Clock, TrendingUp, Users, Heart, Handshake, ShoppingCart, Mail, Server, Stamp, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import type { Task, Unit } from "@/lib/types";
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { AlertTriangle, CheckCircle2, ClipboardList, Clock, TrendingUp, Users } from "lucide-react";
+import type { Unit } from "@/lib/types";
 
 export const Route = createFileRoute("/_app/dashboard")({
   component: DashboardPage,
@@ -21,42 +20,7 @@ const STATUS_COLORS: Record<string, string> = {
   done: "var(--success)",
 };
 
-const UNIT_ICONS: Record<string, typeof Heart> = {
-  branding_communication: Heart,
-  partnership: Handshake,
-  ecommerce: ShoppingCart,
-  mail_service: Mail,
-  vps_government: Server,
-  philately_museum: Stamp,
-};
-
-const UNIT_ROUTES: Record<string, string> = {
-  branding_communication: "/units/branding-communication",
-  partnership: "/units/partnership",
-  ecommerce: "/units/ecommerce",
-  mail_service: "/units/mail-service",
-  vps_government: "/units/vps-government",
-  philately_museum: "/units/philately-museum",
-};
-
-function getUnitLabel(unit: Unit): string {
-  switch (unit) {
-    case "marketing": return "Marketing";
-    case "bd": return "Business Development";
-    case "both": return "Marketing & BD";
-    case "all": return "All Units";
-    case "branding_communication": return "Branding & Communication";
-    case "partnership": return "Partnership";
-    case "ecommerce": return "E-commerce";
-    case "mail_service": return "Mail Service";
-    case "vps_government": return "VPS & Government";
-    case "philately_museum": return "Philately & Museum";
-    default: return unit;
-  }
-}
-
 function DashboardPage() {
-  const navigate = useNavigate();
   const user = useCurrentUser();
   const users = useStore((s) => s.users);
   const tasks = useStore((s) => s.tasks);
@@ -69,7 +33,9 @@ function DashboardPage() {
 
   const scopedUsers = useMemo(() => {
     let list = users.filter((u) => visibleIds.includes(u.id));
-    if (user.role === "director" && unitFilter !== "all") list = list.filter((u) => u.unit === unitFilter || u.unit === "all");
+    if (user.role === "director" && unitFilter !== "all") {
+      list = list.filter((u) => u.unit === unitFilter || u.unit === "all");
+    }
     return list;
   }, [users, visibleIds, user, unitFilter]);
 
@@ -80,13 +46,17 @@ function DashboardPage() {
 
   const counts = useMemo(() => {
     const c = { todo: 0, in_progress: 0, awaiting_approval: 0, done: 0 };
-    scopedTasks.forEach((t) => { c[t.status]++; });
+    scopedTasks.forEach((t) => {
+      c[t.status]++;
+    });
     return c;
   }, [scopedTasks]);
 
   const chartData = useMemo(() => {
     const data: Record<string, number> = { todo: 0, in_progress: 0, awaiting_approval: 0, done: 0 };
-    scopedTasks.forEach((t) => { data[t.status]++; });
+    scopedTasks.forEach((t) => {
+      data[t.status]++;
+    });
     return [
       { name: "To Do", value: data.todo, fill: STATUS_COLORS.todo },
       { name: "In Progress", value: data.in_progress, fill: STATUS_COLORS.in_progress },
@@ -104,73 +74,25 @@ function DashboardPage() {
     return Object.entries(weeks).map(([week, count]) => ({ week, tasks: count }));
   }, [scopedTasks]);
 
-  const units = ["branding_communication", "partnership", "ecommerce", "mail_service", "vps_government", "philately_museum"] as const;
-
   return (
     <div className="space-y-6 p-6">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="mt-1 text-sm text-muted-foreground">Welcome, {user.name}. Here's your overview.</p>
       </div>
 
-      {/* UNITS GRID */}
-      {(user.unit === "all" || units.includes(user.unit as any)) && (
-        <div className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Units</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-            {units.map((unitKey) => {
-              if (user.unit !== "all" && user.unit !== unitKey) return null;
-              const Icon = UNIT_ICONS[unitKey];
-              const unitTasks = tasks.filter((t) => users.find((u) => u.id === t.assignedTo && u.unit === unitKey));
-              const completedCount = unitTasks.filter((t) => t.status === "done").length;
-              return (
-                <Card key={unitKey} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => navigate({ to: UNIT_ROUTES[unitKey] })}>
-                  <CardContent className="p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="text-xs text-muted-foreground font-medium">Unit</div>
-                        <h3 className="mt-1 text-sm font-semibold line-clamp-2">{getUnitLabel(unitKey as Unit)}</h3>
-                      </div>
-                      {Icon && <Icon className="h-5 w-5 text-primary shrink-0" />}
-                    </div>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">Tasks</span>
-                        <span className="font-semibold">{unitTasks.length}</span>
-                      </div>
-                      {unitTasks.length > 0 && (
-                        <>
-                          <Progress value={(completedCount / unitTasks.length) * 100} className="h-1.5" />
-                          <div className="text-[10px] text-muted-foreground">{completedCount} of {unitTasks.length} done</div>
-                        </>
-                      )}
-                    </div>
-                    <Button variant="ghost" size="sm" className="w-full justify-between h-8 text-xs p-1">
-                      View <ArrowRight className="h-3 w-3" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Tabs for filtering */}
       {user.role === "director" && (
         <div className="flex items-center gap-3">
           <Tabs value={unitFilter} onValueChange={(v) => setUnitFilter(v as Unit)}>
             <TabsList>
               <TabsTrigger value="all">All Units</TabsTrigger>
-              <TabsTrigger value="branding_communication">Branding</TabsTrigger>
-              <TabsTrigger value="partnership">Partnership</TabsTrigger>
+              <TabsTrigger value="marketing">Marketing</TabsTrigger>
+              <TabsTrigger value="bd">Business Dev</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
       )}
 
-      {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardContent className="pt-6">
@@ -218,7 +140,6 @@ function DashboardPage() {
         </Card>
       </div>
 
-      {/* Charts */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -256,7 +177,6 @@ function DashboardPage() {
         </Card>
       </div>
 
-      {/* Team Overview */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Team Overview</CardTitle>
