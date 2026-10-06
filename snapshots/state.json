@@ -1,5 +1,5 @@
 {
-  "version": 444,
+  "version": 445,
   "state": {
     "users": [
       {
@@ -1435,7 +1435,7 @@
         "id": "q1doycob",
         "requestedBy": "u5",
         "requestedDate": "2026-09-16",
-        "status": "pending"
+        "status": "fulfilled"
       },
       {
         "title": "የቲክቶክ ዘመቻ (Campaign) እና በጀት እንዲፈቀድልን ስለመጠየቅ፣",
