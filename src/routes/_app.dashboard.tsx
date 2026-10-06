@@ -9,7 +9,6 @@ import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieCh
 import { AlertTriangle, CheckCircle2, ClipboardList, Clock, TrendingUp, Users, Heart, Handshake, ShoppingCart, Mail, Server, Stamp, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Task, Unit } from "@/lib/types";
-import { UNIT_LABELS } from "@/lib/types";
 
 export const Route = createFileRoute("/_app/dashboard")({
   component: DashboardPage,
@@ -38,6 +37,19 @@ const UNIT_ROUTES: Record<string, string> = {
   mail_service: "/units/mail-service",
   vps_government: "/units/vps-government",
   philately_museum: "/units/philately-museum",
+};
+
+const UNIT_LABELS: Record<string, string> = {
+  marketing: "Marketing",
+  bd: "Business Development",
+  both: "Marketing & BD",
+  all: "All Units",
+  branding_communication: "Branding & Communication",
+  partnership: "Partnership",
+  ecommerce: "E-commerce",
+  mail_service: "Mail Service",
+  vps_government: "VPS & Government",
+  philately_museum: "Philately & Museum",
 };
 
 function DashboardPage() {
