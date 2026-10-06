@@ -1,5 +1,5 @@
 {
-  "version": 446,
+  "version": 447,
   "state": {
     "users": [
       {
@@ -7,7 +7,7 @@
         "name": "Belayneh Mamush",
         "email": "belayneh.mamush@ethio.post",
         "role": "director",
-        "unit": "both",
+        "unit": "all",
         "managerId": null,
         "avatarColor": "#4338ca",
         "title": "M&C Director",
