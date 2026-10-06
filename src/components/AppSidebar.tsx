@@ -21,6 +21,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; tab: TabKe
 ];
 
 const UNITS: { to: string; label: string; icon: typeof LayoutDashboard; unitKey: string }[] = [
+  { to: "/units/marketing", label: "Marketing", icon: BarChart2, unitKey: "marketing" },
   { to: "/units/branding-communication", label: "Branding & Communication", icon: Heart, unitKey: "branding_communication" },
   { to: "/units/partnership", label: "Partnership", icon: Handshake, unitKey: "partnership" },
   { to: "/units/ecommerce", label: "E-commerce", icon: ShoppingCart, unitKey: "ecommerce" },
@@ -65,7 +66,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* UNITS SECTION */}
-        {user && (user.unit === "all" || UNITS.some((u) => u.unitKey === user.unit)) && (
+        {user && (user.unit === "all" || user.unit === "marketing" || UNITS.some((u) => u.unitKey === user.unit)) && (
           <SidebarGroup>
             <div className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/60">Units</div>
             <SidebarGroupContent>
