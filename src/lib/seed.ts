@@ -3,7 +3,7 @@ import type { User, Task, RoutineJob, Announcement, InventoryItem, ExternalReque
 export const CUSTOM_ROLES: CustomRole[] = [];
 
 export const USERS: User[] = [
-  { id: "u1", name: "Belayneh Mamush", email: "belayneh.mamush@ethio.post", role: "Chief", unit: "both", managerId: null, avatarColor: "#4338ca", title: "M&C Chief", password: "ethiopost", mustChangePassword: true },
+  { id: "u1", name: "Belayneh Mamush", email: "belayneh.mamush@ethio.post", role: "director", unit: "both", managerId: null, avatarColor: "#4338ca", title: "M&C Director", password: "ethiopost", mustChangePassword: true },
   { id: "u2", name: "Kirubel Misrak", email: "kirubel.misrak@ethio.post", role: "marketing_manager", unit: "marketing", managerId: "u1", avatarColor: "#0ea5e9", title: "Marketing Manager", password: "ethiopost", mustChangePassword: true },
   { id: "u3", name: "Feven Bekele", email: "feven.bekele@ethiopost.et", role: "bd_manager", unit: "bd", managerId: "u1", avatarColor: "#16a34a", title: "Business Development Manager", password: "ethiopost", mustChangePassword: true },
   { id: "u4", name: "Didimos Tadesse", email: "didimos.tadesse@ethiopost.et", role: "supervisor", unit: "marketing", managerId: "u2", avatarColor: "#f59e0b", title: "Marketing Supervisor", password: "ethiopost", mustChangePassword: true },
