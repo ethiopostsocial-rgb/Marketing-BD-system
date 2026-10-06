@@ -52,8 +52,10 @@ export const BUILT_IN_ROLES: BuiltInRole[] = [
   "staff",
 ];
 
-// Marketing & Business Development Units
 export type Unit = 
+  | "marketing" 
+  | "bd" 
+  | "both"
   | "all"
   | "branding_communication"
   | "partnership"
@@ -61,26 +63,6 @@ export type Unit =
   | "mail_service"
   | "vps_government"
   | "philately_museum";
-
-export const UNITS: Unit[] = [
-  "all",
-  "branding_communication",
-  "partnership",
-  "ecommerce",
-  "mail_service",
-  "vps_government",
-  "philately_museum",
-];
-
-export const UNIT_LABELS: Record<Unit, string> = {
-  all: "All Units",
-  branding_communication: "Branding & Communication",
-  partnership: "Partnership",
-  ecommerce: "E-commerce",
-  mail_service: "Mail Service",
-  vps_government: "VPS & Government",
-  philately_museum: "Philately & Museum",
-};
 
 export type TaskStatus = "todo" | "in_progress" | "awaiting_approval" | "done";
 
@@ -214,7 +196,7 @@ export interface Announcement {
 }
 
 export const ROLE_LABELS: Record<BuiltInRole, string> = {
-  director: "M&C chief",
+  director: "M&C Director",
   marketing_manager: "Marketing Manager",
   bd_manager: "Business Development Manager",
   supervisor: "Supervisor",
