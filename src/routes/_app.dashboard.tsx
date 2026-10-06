@@ -99,7 +99,7 @@ function DashboardPage() {
         <p className="mt-1 text-sm text-muted-foreground">Welcome, {user.name}. Here's your overview.</p>
       </div>
 
-      {/* UNITS GRID */}
+      {/* UNITS GRID - Only show for directors and new unit assignments */}
       {(user.unit === "all" || units.includes(user.unit as any)) && (
         <div className="space-y-3">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Units</h2>
