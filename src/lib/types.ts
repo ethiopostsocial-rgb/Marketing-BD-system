@@ -64,6 +64,19 @@ export type Unit =
   | "vps_government"
   | "philately_museum";
 
+export const UNIT_LABELS: Record<Unit, string> = {
+  marketing: "Marketing",
+  bd: "Business Development",
+  both: "Marketing & BD",
+  all: "All Units",
+  branding_communication: "Branding & Communication",
+  partnership: "Partnership",
+  ecommerce: "E-commerce",
+  mail_service: "Mail Service",
+  vps_government: "VPS & Government",
+  philately_museum: "Philately & Museum",
+};
+
 export type TaskStatus = "todo" | "in_progress" | "awaiting_approval" | "done";
 
 export type TabKey =
