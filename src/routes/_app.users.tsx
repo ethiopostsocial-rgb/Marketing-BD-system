@@ -161,8 +161,15 @@ function UsersPage() {
                       </div>
                     </TableCell>
                     <TableCell><Badge variant="secondary">{roleLabel(u.role, customRoles)}</Badge></TableCell>
-                    <TableCell className="text-sm capitalize">
-                      {u.unit === "bd" ? "Business Dev." : u.unit === "both" ? "Both" : "Marketing"}
+                    <TableCell className="text-sm">
+                      {u.unit === "all" ? "All Units"
+                        : u.unit === "branding_communication" ? "Branding & Communication"
+                        : u.unit === "partnership" ? "Partnership"
+                        : u.unit === "ecommerce" ? "E-commerce"
+                        : u.unit === "mail_service" ? "Mail Service"
+                        : u.unit === "vps_government" ? "VPS & Government"
+                        : u.unit === "philately_museum" ? "Philately & Museum"
+                        : u.unit}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{mgr?.name ?? "—"}</TableCell>
                     <TableCell className="text-right">
@@ -366,7 +373,7 @@ function UserDialog({
           title: initial.title,
           visibleTabs: initial.visibleTabs,
         }
-      : { unit: "marketing", role: assignableRoles[assignableRoles.length - 1]?.key ?? "junior_officer", managerId: actor.id, visibleTabs: undefined },
+      : { unit: "branding_communication", role: assignableRoles[assignableRoles.length - 1]?.key ?? "junior_officer", managerId: actor.id, visibleTabs: undefined },
   );
   const isDirector = actor.role === "director";
   const effectiveTabs: TabKey[] =
@@ -443,9 +450,13 @@ function UserDialog({
               <Select value={form.unit} onValueChange={(v) => setForm({ ...form, unit: v as Unit })}>
                 <SelectTrigger><SelectValue placeholder="Select unit" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="marketing">Marketing</SelectItem>
-                  <SelectItem value="bd">Business Development</SelectItem>
-                  <SelectItem value="both">Both</SelectItem>
+                  {actor.role === "director" && <SelectItem value="all">All Units</SelectItem>}
+                  <SelectItem value="branding_communication">Branding & Communication</SelectItem>
+                  <SelectItem value="partnership">Partnership</SelectItem>
+                  <SelectItem value="ecommerce">E-commerce</SelectItem>
+                  <SelectItem value="mail_service">Mail Service</SelectItem>
+                  <SelectItem value="vps_government">VPS & Government</SelectItem>
+                  <SelectItem value="philately_museum">Philately & Museum</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -526,64 +537,3 @@ function getSubordinateIdsLocal(userId: string, users: User[]): string[] {
   const direct = users.filter((u) => u.managerId === userId).map((u) => u.id);
   return direct.flatMap((id) => [id, ...getSubordinateIdsLocal(id, users)]);
 }
-{/* UNIT SELECTOR */}
-{actor.role === "director" && mode === "create" && (
-  <div className="grid gap-1.5">
-    <Label htmlFor="unit">Unit *</Label>
-    <select
-      id="unit"
-      value={data.unit || "branding_communication"}
-      onChange={(e) => setData((d) => ({ ...d, unit: e.target.value as Unit }))}
-      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-    >
-      <option value="all">All Units (Director Only)</option>
-      <option value="branding_communication">Branding & Communication</option>
-      <option value="partnership">Partnership</option>
-      <option value="ecommerce">E-commerce</option>
-      <option value="mail_service">Mail Service</option>
-      <option value="vps_government">VPS & Government</option>
-      <option value="philately_museum">Philately & Museum</option>
-    </select>
-  </div>
-)}
-
-{actor.role === "director" && mode === "edit" && (
-  <div className="grid gap-1.5">
-    <Label htmlFor="unit">Unit</Label>
-    <select
-      id="unit"
-      value={data.unit || "branding_communication"}
-      onChange={(e) => setData((d) => ({ ...d, unit: e.target.value as Unit }))}
-      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-    >
-      <option value="all">All Units (Director Only)</option>
-      <option value="branding_communication">Branding & Communication</option>
-      <option value="partnership">Partnership</option>
-      <option value="ecommerce">E-commerce</option>
-      <option value="mail_service">Mail Service</option>
-      <option value="vps_government">VPS & Government</option>
-      <option value="philately_museum">Philately & Museum</option>
-    </select>
-  </div>
-)}
-
----
-
-ALSO UPDATE THE TABLE DISPLAY (line ~160):
-
-Replace this:
-<TableCell className="text-sm capitalize">
-  {u.unit === "bd" ? "Business Dev." : u.unit === "both" ? "Both" : "Marketing"}
-</TableCell>
-
-With this:
-<TableCell className="text-sm capitalize">
-  {u.unit === "all" ? "All Units" 
-    : u.unit === "branding_communication" ? "Branding & Communication"
-    : u.unit === "partnership" ? "Partnership"
-    : u.unit === "ecommerce" ? "E-commerce"
-    : u.unit === "mail_service" ? "Mail Service"
-    : u.unit === "vps_government" ? "VPS & Government"
-    : u.unit === "philately_museum" ? "Philately & Museum"
-    : u.unit}
-</TableCell>
