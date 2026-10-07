@@ -1,5 +1,5 @@
 {
-  "version": 455,
+  "version": 456,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "ለሙዚየም ምረቃ ዝግጅት የሚሆን የመስተንግዶ ግብዓት እንዲሟላልን ስለመጠየቅ",
+        "description": "የድግስ ወንበር እና የቁም ጠረንጼዛ\t40 ወንበር 5 ክብ ጠረንጼዛ\nአበባ \t50 በፍሬ\n5 የቴብል ክብ\nኮክቴል እና ቡና ቁርስ (snack)\tለ 50 ሰው የሚሆን",
+        "department": "supply_facility",
+        "dueDate": "2026-10-14",
+        "id": "54vksu8u",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-07",
+        "status": "pending"
+      },
       {
         "title": "ለሙዚየም ማስመረቂያ የሚሆኑ ግብዓቶች እንዲሟሉልን ስለመጠየቅ፣",
         "description": "ሮል አፕ\t6\nፖስት ካርድ እና ኢንቨሎፕ\t500\nA3 ፖስተር\t12\nባነር\t2\nሻይ\t30\nቡና\t50\nውሀ\t100 ፍሬ",
