@@ -1,5 +1,5 @@
 {
-  "version": 453,
+  "version": 454,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "ለሙዚየም ማስመረቂያ የሚሆኑ ግብዓቶች እንዲሟሉልን ስለመጠየቅ፣",
+        "description": "ሮል አፕ\t6\nፖስት ካርድ እና ኢንቨሎፕ\t500\nA3 ፖስተር\t12\nባነር\t2\nሻይ\t30\nቡና\t50\nውሀ\t100 ፍሬ",
+        "department": "supply_facility",
+        "dueDate": "2026-10-14",
+        "id": "1lx2xd34",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-07",
+        "status": "pending"
+      },
       {
         "title": "የማስታወቅያ ስራዎች እንዲሰሩልን ስለመጠየቅ",
         "description": "ቢልቦርድ,ከ4 እስከ 7 ሰው የሚይዙ ተሽከርካሪዎች ላይ  \nከአዲስ አበባ አዳማ የፍጥነት መንገድ ላይ",
