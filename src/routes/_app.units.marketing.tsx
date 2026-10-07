@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { useCurrentUser, useStore } from "@/lib/store";
+import { useCurrentUser } from "@/lib/store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -9,642 +9,664 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { Plus, Trash2, Edit2, Calendar, DollarSign, Share2, Clock, TrendingUp, AlertCircle, Download } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { Plus, Calendar, Send, CheckCircle2, Clock, AlertCircle, Edit2, Trash2, MessageSquare, Download, Eye } from "lucide-react";
 
 export const Route = createFileRoute("/units/marketing")({
   component: MarketingUnitPage,
 });
 
-type Tab = "dashboard" | "report" | "tasks" | "deals" | "digital" | "campaigns" | "pricing";
-
 // ============ DATA TYPES ============
 
-interface MarketingTask {
+interface ContentItem {
   id: string;
-  title: string;
-  description: string;
-  assignee: string;
-  status: "todo" | "in_progress" | "review" | "completed";
-  priority: "low" | "medium" | "high" | "critical";
-  dueDate: string;
+  date: string; // YYYY-MM-DD
+  headline: string;
+  content: string;
+  seoKeywords: string[];
+  artwork: {
+    name: string;
+    url: string;
+    uploadedAt: string;
+  };
+  channel: "social_media" | "email" | "blog" | "web";
   createdBy: string;
   createdAt: string;
-  budget?: number;
-  campaign?: string;
+  status: "draft" | "pending_manager" | "manager_approved" | "pending_chief" | "approved" | "rejected";
+  comments: Comment[];
+  managerReview?: Review;
+  chiefReview?: Review;
 }
 
-interface MarketingDeal {
+interface Comment {
   id: string;
-  dealName: string;
-  client: string;
-  value: number;
-  currency: string;
-  stage: "prospect" | "qualification" | "proposal" | "negotiation" | "won" | "lost";
-  probability: number;
-  closingDate: string;
-  owner: string;
-  notes: string;
-  createdAt: string;
+  author: string;
+  role: string;
+  text: string;
+  timestamp: string;
+  type: "comment" | "track_change";
 }
 
-interface DigitalMetrics {
-  channel: "social_media" | "email" | "seo" | "paid_ads";
-  name: string;
-  reach: number;
-  engagement: number;
-  conversionRate: number;
-  costPerClick: number;
-  roi: number;
-  lastUpdated: string;
+interface Review {
+  reviewer: string;
+  status: "approved" | "rejected";
+  comments: string;
+  timestamp: string;
 }
 
 interface Campaign {
   id: string;
   name: string;
   objective: string;
-  budget: number;
   startDate: string;
   endDate: string;
-  status: "planning" | "active" | "completed" | "paused";
+  budget: number;
   channels: string[];
-  roi: number;
-  notes: string;
-}
-
-// ============ DASHBOARD TAB ============
-
-function DashboardTab() {
-  const dashboardData = [
-    { month: "Jan", campaigns: 4, revenue: 24000 },
-    { month: "Feb", campaigns: 5, revenue: 32000 },
-    { month: "Mar", campaigns: 6, revenue: 28000 },
-    { month: "Apr", campaigns: 7, revenue: 39000 },
-    { month: "May", campaigns: 8, revenue: 45000 },
-    { month: "Jun", campaigns: 9, revenue: 52000 },
-  ];
-
-  const kpis = [
-    { label: "Active Campaigns", value: "12", change: "+2.5%" },
-    { label: "Completed Campaigns", value: "34", change: "+15%" },
-    { label: "Total Budget Spent", value: "ETB 850,000", change: "+8.3%" },
-    { label: "Avg ROI", value: "325%", change: "+12%" },
-  ];
-
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {kpis.map((kpi, idx) => (
-          <Card key={idx}>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{kpi.value}</div>
-              <p className="text-sm text-gray-600">{kpi.label}</p>
-              <p className="text-xs text-green-600 mt-2">{kpi.change}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Campaign Performance Trend</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={dashboardData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="campaigns" stroke="#8884d8" name="Campaigns" />
-              <Line type="monotone" dataKey="revenue" stroke="#82ca9d" name="Revenue (ETB)" />
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-// ============ REPORT TAB ============
-
-function ReportTab() {
-  const [reportType, setReportType] = useState<"monthly" | "quarterly" | "annual">("monthly");
-  const [period, setPeriod] = useState("2024-06");
-
-  const generateReport = () => {
-    const reportData = {
-      type: reportType,
-      period,
-      timestamp: new Date().toISOString(),
-      sections: {
-        executive_summary: "Campaign overview and key achievements",
-        performance_metrics: { campaigns_run: 12, total_reach: 450000, conversions: 2850, roi: 325 },
-        budget_analysis: { allocated: 850000, spent: 825000, saved: 25000 },
-        channel_performance: ["Social Media: 45%", "Email: 25%", "SEO: 18%", "Paid Ads: 12%"],
-        recommendations: ["Increase social media budget by 20%", "Optimize email subject lines", "Scale successful campaigns"],
-      },
-    };
-    alert(`Report generated: ${reportType} report for ${period}\n\nReport would be downloaded as PDF`);
+  contentItems: number;
+  status: "planning" | "active" | "completed";
+  approval: {
+    managerStatus: "pending" | "approved" | "rejected";
+    chiefStatus: "pending" | "approved" | "rejected";
   };
-
-  return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Report Generator</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>Report Type</Label>
-              <Select value={reportType} onValueChange={(v: any) => setReportType(v)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="quarterly">Quarterly</SelectItem>
-                  <SelectItem value="annual">Annual</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Period</Label>
-              <Input type="month" value={period} onChange={(e) => setPeriod(e.target.value)} />
-            </div>
-          </div>
-          <Button onClick={generateReport} className="w-full">
-            <Download className="h-4 w-4 mr-2" />
-            Generate Report (PDF)
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Performance Summary</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-gray-600">Total Campaigns</p>
-              <p className="text-2xl font-bold">12</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Total Reach</p>
-              <p className="text-2xl font-bold">450K</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Conversions</p>
-              <p className="text-2xl font-bold">2,850</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Average ROI</p>
-              <p className="text-2xl font-bold">325%</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  createdBy: string;
+  createdAt: string;
 }
 
-// ============ TASKS TAB ============
+interface PricingTier {
+  id: string;
+  service: string;
+  baseRate: number;
+  description: string;
+  minQuantity: number;
+  maxQuantity: number;
+  discount: number; // percentage
+  status: "draft" | "pending_manager" | "manager_approved" | "pending_chief" | "approved";
+  managerApproval?: { approvedBy: string; date: string };
+  chiefApproval?: { approvedBy: string; date: string };
+}
 
-function TasksTab() {
-  const [tasks, setTasks] = useState<MarketingTask[]>([
+// ============ CONTENT CALENDAR TAB (Monthly Calendar) ============
+
+function ContentCalendarTab() {
+  const user = useCurrentUser();
+  const [currentMonth, setCurrentMonth] = useState(new Date(2024, 5)); // June 2024
+  const [contentItems, setContentItems] = useState<ContentItem[]>([
     {
-      id: "t1",
-      title: "Create Social Media Campaign",
-      description: "Develop 30-day social media strategy",
-      assignee: "Ahmed Hassan",
-      status: "in_progress",
-      priority: "high",
-      dueDate: "2024-12-15",
-      createdBy: "Belayneh",
-      createdAt: "2024-11-01",
-      budget: 50000,
-      campaign: "Q4 Social Blitz",
+      id: "c1",
+      date: "2024-06-15",
+      headline: "New Product Launch Announcement",
+      content: "Exciting launch of our new service...",
+      seoKeywords: ["product launch", "announcement", "new service"],
+      artwork: { name: "launch-banner.jpg", url: "#", uploadedAt: "2024-06-10" },
+      channel: "social_media",
+      createdBy: "Ahmed Hassan",
+      createdAt: "2024-06-01",
+      status: "manager_approved",
+      comments: [
+        {
+          id: "cm1",
+          author: "Fatima Ali",
+          role: "Manager",
+          text: "Great content. Please adjust color contrast in artwork.",
+          timestamp: "2024-06-05",
+          type: "comment",
+        },
+      ],
+      managerReview: {
+        reviewer: "Fatima Ali",
+        status: "approved",
+        comments: "Approved with minor artwork adjustments",
+        timestamp: "2024-06-05",
+      },
+      chiefReview: undefined,
+    },
+    {
+      id: "c2",
+      date: "2024-06-20",
+      headline: "Customer Success Story",
+      content: "How XYZ company benefited from our services...",
+      seoKeywords: ["customer success", "case study", "roi"],
+      artwork: { name: "success-story.jpg", url: "#", uploadedAt: "2024-06-15" },
+      channel: "blog",
+      createdBy: "Kebede Tekle",
+      createdAt: "2024-06-10",
+      status: "pending_manager",
+      comments: [],
+      managerReview: undefined,
+      chiefReview: undefined,
     },
   ]);
 
-  const [newTask, setNewTask] = useState({ title: "", assignee: "", priority: "medium" });
+  const [newContent, setNewContent] = useState({
+    date: "",
+    headline: "",
+    content: "",
+    seoKeywords: "",
+    channel: "social_media",
+  });
 
-  const addTask = () => {
-    if (newTask.title) {
-      setTasks([
-        ...tasks,
-        {
-          id: Date.now().toString(),
-          title: newTask.title,
-          description: "",
-          assignee: newTask.assignee,
-          status: "todo",
-          priority: newTask.priority as any,
-          dueDate: new Date().toISOString().split("T")[0],
-          createdBy: "Current User",
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-      setNewTask({ title: "", assignee: "", priority: "medium" });
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
+
+  // Get days in month
+  const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+  const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  const getContentForDate = (day: number) => {
+    const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    return contentItems.filter((item) => item.date === dateStr);
+  };
+
+  const addContent = () => {
+    if (newContent.headline && newContent.date) {
+      const content: ContentItem = {
+        id: Date.now().toString(),
+        date: newContent.date,
+        headline: newContent.headline,
+        content: newContent.content,
+        seoKeywords: newContent.seoKeywords.split(",").map((k) => k.trim()),
+        artwork: { name: "", url: "", uploadedAt: "" },
+        channel: newContent.channel as any,
+        createdBy: user?.name || "Unknown",
+        createdAt: new Date().toISOString(),
+        status: "draft",
+        comments: [],
+      };
+      setContentItems([...contentItems, content]);
+      setNewContent({ date: "", headline: "", content: "", seoKeywords: "", channel: "social_media" });
     }
   };
 
   const statusColors = {
-    todo: "bg-gray-100",
-    in_progress: "bg-blue-100",
-    review: "bg-yellow-100",
-    completed: "bg-green-100",
+    draft: "bg-gray-500",
+    pending_manager: "bg-yellow-500",
+    manager_approved: "bg-blue-500",
+    pending_chief: "bg-orange-500",
+    approved: "bg-green-500",
+    rejected: "bg-red-500",
   };
 
-  const priorityColors = {
-    low: "bg-blue-500",
-    medium: "bg-yellow-500",
-    high: "bg-orange-500",
-    critical: "bg-red-500",
-  };
+  const isManager = user?.role === "manager" || user?.role === "director";
+  const isChief = user?.role === "director";
+
+  return (
+    <div className="space-y-6">
+      {/* NEW CONTENT FORM */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Add Content to Calendar</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Content Date</Label>
+              <Input type="date" value={newContent.date} onChange={(e) => setNewContent({ ...newContent, date: e.target.value })} />
+            </div>
+            <div>
+              <Label>Channel</Label>
+              <Select value={newContent.channel} onValueChange={(v) => setNewContent({ ...newContent, channel: v })}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="social_media">Social Media</SelectItem>
+                  <SelectItem value="email">Email</SelectItem>
+                  <SelectItem value="blog">Blog</SelectItem>
+                  <SelectItem value="web">Website</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div>
+            <Label>Headline</Label>
+            <Input
+              placeholder="Content headline"
+              value={newContent.headline}
+              onChange={(e) => setNewContent({ ...newContent, headline: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <Label>Content</Label>
+            <Textarea
+              placeholder="Full content/body text"
+              value={newContent.content}
+              onChange={(e) => setNewContent({ ...newContent, content: e.target.value })}
+              rows={4}
+            />
+          </div>
+
+          <div>
+            <Label>SEO Keywords (comma-separated)</Label>
+            <Input
+              placeholder="keyword1, keyword2, keyword3"
+              value={newContent.seoKeywords}
+              onChange={(e) => setNewContent({ ...newContent, seoKeywords: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <Label>Artwork/Image</Label>
+            <Input type="file" accept="image/*" />
+            <p className="text-xs text-gray-600 mt-2">Upload banner, image, or thumbnail</p>
+          </div>
+
+          <Button onClick={addContent} className="w-full">
+            <Plus className="h-4 w-4 mr-2" />
+            Save as Draft
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* MONTHLY CALENDAR VIEW */}
+      <Card>
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle>
+              {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+            </CardTitle>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
+              >
+                ← Prev
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
+              >
+                Next →
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-7 gap-2 mb-2">
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+              <div key={day} className="text-center font-semibold text-sm p-2">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-7 gap-2">
+            {/* Empty cells for days before month starts */}
+            {Array.from({ length: firstDay }).map((_, i) => (
+              <div key={`empty-${i}`} className="p-2 bg-gray-50 rounded min-h-24"></div>
+            ))}
+
+            {/* Calendar days */}
+            {days.map((day) => {
+              const content = getContentForDate(day);
+              return (
+                <div
+                  key={day}
+                  className="p-2 border rounded min-h-24 bg-white hover:bg-gray-50"
+                  onClick={() => {
+                    setSelectedDate(`${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`);
+                  }}
+                >
+                  <p className="font-semibold text-sm mb-2">{day}</p>
+                  <div className="space-y-1">
+                    {content.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`text-xs p-1 rounded text-white cursor-pointer ${statusColors[item.status]}`}
+                        onClick={() => {
+                          setSelectedContent(item);
+                          setShowDetailModal(true);
+                        }}
+                      >
+                        <p className="font-semibold truncate">{item.headline}</p>
+                        <p className="text-xs opacity-90">{item.status.replace("_", " ")}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* CONTENT DETAIL MODAL */}
+      <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>
+        <DialogContent className="max-w-2xl max-h-96 overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{selectedContent?.headline}</DialogTitle>
+          </DialogHeader>
+
+          {selectedContent && (
+            <div className="space-y-6">
+              {/* CONTENT DETAILS */}
+              <div>
+                <h4 className="font-semibold mb-2">Content Details</h4>
+                <div className="bg-gray-50 p-4 rounded space-y-2">
+                  <div>
+                    <p className="text-sm text-gray-600">Headline</p>
+                    <p className="font-semibold">{selectedContent.headline}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Content</p>
+                    <p>{selectedContent.content}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">SEO Keywords</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {selectedContent.seoKeywords.map((kw) => (
+                        <Badge key={kw} variant="secondary">
+                          {kw}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Channel</p>
+                    <p className="font-semibold capitalize">{selectedContent.channel.replace("_", " ")}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Created By</p>
+                    <p>{selectedContent.createdBy}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* APPROVAL WORKFLOW */}
+              <div>
+                <h4 className="font-semibold mb-2">Approval Status</h4>
+                <div className="space-y-2">
+                  {/* MANAGER APPROVAL */}
+                  <div className="p-3 border rounded">
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="font-semibold">Manager Review</p>
+                      {selectedContent.managerReview ? (
+                        <Badge className={selectedContent.managerReview.status === "approved" ? "bg-green-500" : "bg-red-500"}>
+                          {selectedContent.managerReview.status}
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-yellow-500">Pending</Badge>
+                      )}
+                    </div>
+                    {selectedContent.managerReview && (
+                      <div className="text-sm space-y-1">
+                        <p className="text-gray-600">Reviewed by: {selectedContent.managerReview.reviewer}</p>
+                        <p>{selectedContent.managerReview.comments}</p>
+                        <p className="text-xs text-gray-500">{selectedContent.managerReview.timestamp}</p>
+                      </div>
+                    )}
+
+                    {isManager && !selectedContent.managerReview && (
+                      <div className="mt-3 space-y-2">
+                        <Textarea placeholder="Manager comments" rows={2} />
+                        <div className="flex gap-2">
+                          <Button size="sm" className="bg-green-600">
+                            <CheckCircle2 className="h-4 w-4 mr-1" />
+                            Approve
+                          </Button>
+                          <Button size="sm" variant="destructive">
+                            Reject
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* CHIEF APPROVAL */}
+                  {selectedContent.managerReview?.status === "approved" && (
+                    <div className="p-3 border rounded">
+                      <div className="flex justify-between items-center mb-2">
+                        <p className="font-semibold">Chief Approval</p>
+                        {selectedContent.chiefReview ? (
+                          <Badge className={selectedContent.chiefReview.status === "approved" ? "bg-green-500" : "bg-red-500"}>
+                            {selectedContent.chiefReview.status}
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-yellow-500">Pending</Badge>
+                        )}
+                      </div>
+                      {selectedContent.chiefReview && (
+                        <div className="text-sm space-y-1">
+                          <p className="text-gray-600">Approved by: {selectedContent.chiefReview.reviewer}</p>
+                          <p>{selectedContent.chiefReview.comments}</p>
+                          <p className="text-xs text-gray-500">{selectedContent.chiefReview.timestamp}</p>
+                        </div>
+                      )}
+
+                      {isChief && !selectedContent.chiefReview && (
+                        <div className="mt-3 space-y-2">
+                          <Textarea placeholder="Chief comments" rows={2} />
+                          <div className="flex gap-2">
+                            <Button size="sm" className="bg-green-600">
+                              <CheckCircle2 className="h-4 w-4 mr-1" />
+                              Final Approve
+                            </Button>
+                            <Button size="sm" variant="destructive">
+                              Reject
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* COMMENTS & TRACK CHANGES */}
+              <div>
+                <h4 className="font-semibold mb-2">Comments & Track Changes</h4>
+                <div className="space-y-2 max-h-40 overflow-y-auto mb-3">
+                  {selectedContent.comments.map((comment) => (
+                    <div key={comment.id} className="p-2 bg-gray-50 rounded text-sm">
+                      <div className="flex justify-between mb-1">
+                        <p className="font-semibold">{comment.author}</p>
+                        <Badge variant="outline">{comment.type.replace("_", " ")}</Badge>
+                      </div>
+                      <p>{comment.text}</p>
+                      <p className="text-xs text-gray-500">{comment.timestamp}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <Textarea placeholder="Add comment..." rows={2} className="flex-1" />
+                  <Button className="self-end">
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* CALENDAR LEGEND */}
+      <div className="grid grid-cols-3 gap-4 text-sm">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-gray-500 rounded"></div>
+          <span>Draft</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-yellow-500 rounded"></div>
+          <span>Pending Manager</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-blue-500 rounded"></div>
+          <span>Manager Approved</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-orange-500 rounded"></div>
+          <span>Pending Chief</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-green-500 rounded"></div>
+          <span>Published</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-red-500 rounded"></div>
+          <span>Rejected</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============ CAMPAIGN TAB (Multi-level Approval) ============
+
+function CampaignTab() {
+  const user = useCurrentUser();
+  const [campaigns, setCampaigns] = useState<Campaign[]>([
+    {
+      id: "camp1",
+      name: "Q4 Social Blitz",
+      objective: "Increase brand awareness by 40%",
+      startDate: "2024-10-01",
+      endDate: "2024-12-31",
+      budget: 300000,
+      channels: ["Social Media", "Email"],
+      contentItems: 24,
+      status: "active",
+      approval: {
+        managerStatus: "approved",
+        chiefStatus: "approved",
+      },
+      createdBy: "Ahmed Hassan",
+      createdAt: "2024-08-15",
+    },
+  ]);
+
+  const [newCampaign, setNewCampaign] = useState({
+    name: "",
+    objective: "",
+    startDate: "",
+    endDate: "",
+    budget: "",
+    channels: [] as string[],
+  });
+
+  const isManager = user?.role === "manager" || user?.role === "director";
+  const isChief = user?.role === "director";
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Assign New Task</CardTitle>
+          <CardTitle>Create New Campaign</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <Label>Task Title</Label>
-            <Input
-              placeholder="e.g., Create Q4 campaign brief"
-              value={newTask.title}
-              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-            />
-          </div>
+          <Input placeholder="Campaign Name" value={newCampaign.name} onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })} />
+          <Textarea
+            placeholder="Campaign Objective"
+            value={newCampaign.objective}
+            onChange={(e) => setNewCampaign({ ...newCampaign, objective: e.target.value })}
+            rows={3}
+          />
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Assign To</Label>
-              <Select value={newTask.assignee} onValueChange={(v) => setNewTask({ ...newTask, assignee: v })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select team member" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Ahmed Hassan">Ahmed Hassan</SelectItem>
-                  <SelectItem value="Fatima Ali">Fatima Ali</SelectItem>
-                  <SelectItem value="Kebede Tekle">Kebede Tekle</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label>Start Date</Label>
+              <Input
+                type="date"
+                value={newCampaign.startDate}
+                onChange={(e) => setNewCampaign({ ...newCampaign, startDate: e.target.value })}
+              />
             </div>
             <div>
-              <Label>Priority</Label>
-              <Select value={newTask.priority} onValueChange={(v) => setNewTask({ ...newTask, priority: v })}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="critical">Critical</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label>End Date</Label>
+              <Input
+                type="date"
+                value={newCampaign.endDate}
+                onChange={(e) => setNewCampaign({ ...newCampaign, endDate: e.target.value })}
+              />
             </div>
           </div>
-          <Button onClick={addTask} className="w-full">
+          <div>
+            <Label>Budget (ETB)</Label>
+            <Input
+              type="number"
+              value={newCampaign.budget}
+              onChange={(e) => setNewCampaign({ ...newCampaign, budget: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label>Channels</Label>
+            <div className="flex gap-2 mt-2">
+              {["Social Media", "Email", "Blog", "Paid Ads"].map((ch) => (
+                <Button
+                  key={ch}
+                  size="sm"
+                  variant={newCampaign.channels.includes(ch) ? "default" : "outline"}
+                  onClick={() => {
+                    setNewCampaign({
+                      ...newCampaign,
+                      channels: newCampaign.channels.includes(ch)
+                        ? newCampaign.channels.filter((c) => c !== ch)
+                        : [...newCampaign.channels, ch],
+                    });
+                  }}
+                >
+                  {ch}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <Button className="w-full">
             <Plus className="h-4 w-4 mr-2" />
-            Add Task
+            Submit for Approval
           </Button>
         </CardContent>
       </Card>
 
       <div className="space-y-3">
-        <h3 className="font-semibold">Marketing Tasks</h3>
-        {tasks.map((task) => (
-          <Card key={task.id} className={statusColors[task.status]}>
-            <CardContent className="pt-6">
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <div className="flex gap-2 items-center mb-2">
-                    <h4 className="font-semibold">{task.title}</h4>
-                    <Badge className={`${priorityColors[task.priority]} text-white`}>{task.priority}</Badge>
-                    <Badge variant="outline">{task.status.replace("_", " ")}</Badge>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">Assigned to: {task.assignee}</p>
-                  <p className="text-xs text-gray-500">Due: {task.dueDate}</p>
-                </div>
-                <div className="flex gap-2">
-                  <Edit2 className="h-4 w-4 cursor-pointer" />
-                  <Trash2 className="h-4 w-4 cursor-pointer text-red-500" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============ DEALS TAB ============
-
-function DealsTab() {
-  const [deals, setDeals] = useState<MarketingDeal[]>([
-    {
-      id: "d1",
-      dealName: "Nike Ethiopia Campaign",
-      client: "Nike",
-      value: 500000,
-      currency: "ETB",
-      stage: "negotiation",
-      probability: 75,
-      closingDate: "2024-12-31",
-      owner: "Ahmed Hassan",
-      notes: "Multi-channel campaign",
-      createdAt: "2024-10-01",
-    },
-    {
-      id: "d2",
-      dealName: "Local Bank Partnership",
-      client: "Dashen Bank",
-      value: 250000,
-      currency: "ETB",
-      stage: "proposal",
-      probability: 60,
-      closingDate: "2024-11-30",
-      owner: "Fatima Ali",
-      notes: "Social media + email campaign",
-      createdAt: "2024-09-15",
-    },
-  ]);
-
-  const stageColors = {
-    prospect: "bg-gray-500",
-    qualification: "bg-blue-500",
-    proposal: "bg-indigo-500",
-    negotiation: "bg-yellow-500",
-    won: "bg-green-500",
-    lost: "bg-red-500",
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-4">
-        {[
-          { stage: "proposal", label: "Proposals", count: 3 },
-          { stage: "negotiation", label: "Negotiating", count: 2 },
-          { stage: "won", label: "Won", count: 5 },
-        ].map((item) => (
-          <Card key={item.stage}>
-            <CardContent className="pt-6">
-              <p className="text-sm text-gray-600">{item.label}</p>
-              <p className="text-3xl font-bold">{item.count}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="space-y-3">
-        <h3 className="font-semibold">Active Deals Pipeline</h3>
-        {deals.map((deal) => (
-          <Card key={deal.id}>
-            <CardContent className="pt-6">
-              <div className="flex justify-between items-start mb-3">
-                <div className="flex-1">
-                  <h4 className="font-semibold">{deal.dealName}</h4>
-                  <p className="text-sm text-gray-600">Client: {deal.client}</p>
-                </div>
-                <Badge className={`${stageColors[deal.stage]} text-white`}>{deal.stage.replace("_", " ")}</Badge>
-              </div>
-              <div className="grid grid-cols-4 gap-4 text-sm">
-                <div>
-                  <p className="text-gray-600">Value</p>
-                  <p className="font-semibold">{deal.value.toLocaleString()} {deal.currency}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Probability</p>
-                  <p className="font-semibold">{deal.probability}%</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Owner</p>
-                  <p className="font-semibold">{deal.owner}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Close Date</p>
-                  <p className="font-semibold">{deal.closingDate}</p>
-                </div>
-              </div>
-              <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${deal.probability}%` }}></div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============ DIGITAL MARKETING TAB ============
-
-function DigitalMarketingTab() {
-  const [metrics] = useState<DigitalMetrics[]>([
-    {
-      channel: "social_media",
-      name: "Social Media",
-      reach: 125000,
-      engagement: 8500,
-      conversionRate: 4.2,
-      costPerClick: 2.5,
-      roi: 450,
-      lastUpdated: "2024-06-15",
-    },
-    {
-      channel: "email",
-      name: "Email Marketing",
-      reach: 45000,
-      engagement: 6200,
-      conversionRate: 6.8,
-      costPerClick: 0.85,
-      roi: 520,
-      lastUpdated: "2024-06-15",
-    },
-    {
-      channel: "seo",
-      name: "SEO/Organic",
-      reach: 280000,
-      engagement: 18500,
-      conversionRate: 2.3,
-      costPerClick: 0.0,
-      roi: 680,
-      lastUpdated: "2024-06-15",
-    },
-    {
-      channel: "paid_ads",
-      name: "Paid Ads",
-      reach: 95000,
-      engagement: 5200,
-      conversionRate: 5.1,
-      costPerClick: 4.2,
-      roi: 280,
-      lastUpdated: "2024-06-15",
-    },
-  ]);
-
-  const chartData = metrics.map((m) => ({
-    name: m.name.split(" ")[0],
-    roi: m.roi,
-    conversions: m.conversionRate,
-  }));
-
-  return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Channel ROI Comparison</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="roi" fill="#8884d8" name="ROI %" />
-              <Bar dataKey="conversions" fill="#82ca9d" name="Conversion %" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {metrics.map((metric) => (
-          <Card key={metric.channel}>
-            <CardHeader>
-              <CardTitle className="text-lg">{metric.name}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="text-gray-600">Reach</p>
-                  <p className="font-semibold">{(metric.reach / 1000).toFixed(0)}K</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Engagement</p>
-                  <p className="font-semibold">{metric.engagement}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Conversion Rate</p>
-                  <p className="font-semibold">{metric.conversionRate}%</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">ROI</p>
-                  <p className="font-semibold text-green-600">{metric.roi}%</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Cost/Click</p>
-                  <p className="font-semibold">ETB {metric.costPerClick}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600">Last Updated</p>
-                  <p className="font-semibold text-xs">{metric.lastUpdated}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ============ CAMPAIGNS TAB ============
-
-function CampaignsTab() {
-  const [campaigns, setCampaigns] = useState<Campaign[]>([
-    {
-      id: "c1",
-      name: "Q4 Social Blitz",
-      objective: "Increase brand awareness by 40%",
-      budget: 300000,
-      startDate: "2024-10-01",
-      endDate: "2024-12-31",
-      status: "active",
-      channels: ["Social Media", "Email"],
-      roi: 450,
-      notes: "Multi-platform campaign focusing on engagement",
-    },
-    {
-      id: "c2",
-      name: "Email nurture sequence",
-      objective: "Convert leads to customers",
-      budget: 50000,
-      startDate: "2024-11-15",
-      endDate: "2025-02-15",
-      status: "active",
-      channels: ["Email"],
-      roi: 520,
-      notes: "8-week nurture sequence",
-    },
-  ]);
-
-  const statusColors = {
-    planning: "bg-gray-500",
-    active: "bg-green-500",
-    completed: "bg-blue-500",
-    paused: "bg-yellow-500",
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-4 gap-4">
-        {[
-          { status: "planning", label: "Planning", count: 2 },
-          { status: "active", label: "Active", count: campaigns.filter((c) => c.status === "active").length },
-          { status: "completed", label: "Completed", count: 8 },
-          { status: "paused", label: "Paused", count: 1 },
-        ].map((item) => (
-          <Card key={item.status}>
-            <CardContent className="pt-6">
-              <p className="text-sm text-gray-600">{item.label}</p>
-              <p className="text-3xl font-bold">{item.count}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="space-y-3">
-        <h3 className="font-semibold">All Campaigns</h3>
         {campaigns.map((campaign) => (
           <Card key={campaign.id}>
             <CardContent className="pt-6">
               <div className="flex justify-between items-start mb-3">
-                <div className="flex-1">
-                  <h4 className="font-semibold">{campaign.name}</h4>
+                <div>
+                  <h4 className="font-semibold text-lg">{campaign.name}</h4>
                   <p className="text-sm text-gray-600">{campaign.objective}</p>
                 </div>
-                <Badge className={`${statusColors[campaign.status]} text-white`}>{campaign.status}</Badge>
+                <div className="text-right">
+                  <Badge>{campaign.status}</Badge>
+                  <p className="text-sm mt-2">Budget: ETB {campaign.budget.toLocaleString()}</p>
+                </div>
               </div>
-              <div className="grid grid-cols-5 gap-4 text-sm mb-3">
+
+              <div className="grid grid-cols-4 gap-4 text-sm mb-3 py-3 border-y">
                 <div>
-                  <p className="text-gray-600">Budget</p>
-                  <p className="font-semibold">ETB {campaign.budget.toLocaleString()}</p>
+                  <p className="text-gray-600">Start Date</p>
+                  <p className="font-semibold">{campaign.startDate}</p>
+                </div>
+                <div>
+                  <p className="text-gray-600">End Date</p>
+                  <p className="font-semibold">{campaign.endDate}</p>
                 </div>
                 <div>
                   <p className="text-gray-600">Channels</p>
                   <p className="font-semibold">{campaign.channels.join(", ")}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">ROI</p>
-                  <p className="font-semibold text-green-600">{campaign.roi}%</p>
+                  <p className="text-gray-600">Content Items</p>
+                  <p className="font-semibold">{campaign.contentItems}</p>
                 </div>
-                <div>
-                  <p className="text-gray-600">Start</p>
-                  <p className="font-semibold">{campaign.startDate}</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
+                  <span className="text-sm">Manager Approval</span>
+                  <Badge className={campaign.approval.managerStatus === "approved" ? "bg-green-500" : "bg-yellow-500"}>
+                    {campaign.approval.managerStatus}
+                  </Badge>
                 </div>
-                <div>
-                  <p className="text-gray-600">End</p>
-                  <p className="font-semibold">{campaign.endDate}</p>
+                <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
+                  <span className="text-sm">Chief Approval</span>
+                  <Badge className={campaign.approval.chiefStatus === "approved" ? "bg-green-500" : "bg-yellow-500"}>
+                    {campaign.approval.chiefStatus}
+                  </Badge>
                 </div>
               </div>
             </CardContent>
@@ -655,105 +677,192 @@ function CampaignsTab() {
   );
 }
 
-// ============ PRICING CALCULATOR TAB ============
+// ============ PRICING TAB (Detailed Pricing with Approval) ============
 
 function PricingTab() {
-  const [pricing, setPricing] = useState({ serviceType: "", rate: 0, quantity: 0, notes: "" });
-  const total = pricing.rate * pricing.quantity;
+  const user = useCurrentUser();
+  const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([
+    {
+      id: "pt1",
+      service: "Email Campaign",
+      baseRate: 50000,
+      description: "Per 10,000 recipients",
+      minQuantity: 1,
+      maxQuantity: 100,
+      discount: 0,
+      status: "approved",
+      managerApproval: { approvedBy: "Fatima Ali", date: "2024-05-20" },
+      chiefApproval: { approvedBy: "Belayneh Mamush", date: "2024-05-22" },
+    },
+    {
+      id: "pt2",
+      service: "Social Media Content",
+      baseRate: 25000,
+      description: "Per post with design",
+      minQuantity: 1,
+      maxQuantity: 50,
+      discount: 5,
+      status: "pending_manager",
+      managerApproval: undefined,
+      chiefApproval: undefined,
+    },
+  ]);
 
-  const pricingTiers = [
-    { service: "Email Campaign", rate: 50000, unit: "per 10K recipients" },
-    { service: "Social Media Post", rate: 25000, unit: "per post" },
-    { service: "Banner Design", rate: 15000, unit: "per banner" },
-    { service: "Video Production", rate: 150000, unit: "per minute" },
-    { service: "Influencer Partnership", rate: 200000, unit: "per campaign" },
-  ];
+  const [newPricing, setNewPricing] = useState({
+    service: "",
+    baseRate: "",
+    description: "",
+    minQuantity: "",
+    maxQuantity: "",
+    discount: "",
+  });
+
+  const isManager = user?.role === "manager" || user?.role === "director";
+  const isChief = user?.role === "director";
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Pricing Calculator</CardTitle>
+          <CardTitle>Add Pricing Tier</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <Label>Service Type</Label>
-            <Select value={pricing.serviceType} onValueChange={(v) => setPricing({ ...pricing, serviceType: v })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select service" />
-              </SelectTrigger>
-              <SelectContent>
-                {pricingTiers.map((tier) => (
-                  <SelectItem key={tier.service} value={tier.service}>
-                    {tier.service} - ETB {tier.rate.toLocaleString()} {tier.unit}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
+          <Input placeholder="Service Name" value={newPricing.service} onChange={(e) => setNewPricing({ ...newPricing, service: e.target.value })} />
+          <Input
+            placeholder="Description (e.g., per unit)"
+            value={newPricing.description}
+            onChange={(e) => setNewPricing({ ...newPricing, description: e.target.value })}
+          />
+          <div className="grid grid-cols-3 gap-4">
             <div>
-              <Label>Rate (ETB)</Label>
+              <Label>Base Rate (ETB)</Label>
               <Input
                 type="number"
-                value={pricing.rate}
-                onChange={(e) => setPricing({ ...pricing, rate: parseFloat(e.target.value) })}
-                placeholder="0"
+                value={newPricing.baseRate}
+                onChange={(e) => setNewPricing({ ...newPricing, baseRate: e.target.value })}
               />
             </div>
             <div>
-              <Label>Quantity</Label>
+              <Label>Min Quantity</Label>
               <Input
                 type="number"
-                value={pricing.quantity}
-                onChange={(e) => setPricing({ ...pricing, quantity: parseFloat(e.target.value) })}
-                placeholder="0"
+                value={newPricing.minQuantity}
+                onChange={(e) => setNewPricing({ ...newPricing, minQuantity: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label>Max Quantity</Label>
+              <Input
+                type="number"
+                value={newPricing.maxQuantity}
+                onChange={(e) => setNewPricing({ ...newPricing, maxQuantity: e.target.value })}
               />
             </div>
           </div>
-
           <div>
-            <Label>Notes</Label>
-            <Textarea
-              value={pricing.notes}
-              onChange={(e) => setPricing({ ...pricing, notes: e.target.value })}
-              placeholder="Any special requirements or terms"
-              rows={3}
+            <Label>Volume Discount (%)</Label>
+            <Input
+              type="number"
+              value={newPricing.discount}
+              onChange={(e) => setNewPricing({ ...newPricing, discount: e.target.value })}
             />
           </div>
-
-          <div className="border-t pt-4">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-semibold">Total Price:</span>
-              <span className="text-2xl font-bold text-green-600">ETB {total.toLocaleString()}</span>
-            </div>
-            <Button className="w-full">
-              <Download className="h-4 w-4 mr-2" />
-              Generate Quote
-            </Button>
-          </div>
+          <Button className="w-full">
+            <Plus className="h-4 w-4 mr-2" />
+            Submit for Approval
+          </Button>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Standard Pricing Tiers</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {pricingTiers.map((tier) => (
-              <div key={tier.service} className="flex justify-between items-center p-3 bg-gray-50 rounded">
+      <div className="space-y-3">
+        {pricingTiers.map((tier) => (
+          <Card key={tier.id}>
+            <CardContent className="pt-6">
+              <div className="flex justify-between items-start mb-4">
                 <div>
-                  <p className="font-semibold">{tier.service}</p>
-                  <p className="text-sm text-gray-600">{tier.unit}</p>
+                  <h4 className="font-semibold text-lg">{tier.service}</h4>
+                  <p className="text-sm text-gray-600">{tier.description}</p>
                 </div>
-                <p className="text-lg font-bold">ETB {tier.rate.toLocaleString()}</p>
+                <Badge className={tier.status === "approved" ? "bg-green-500" : tier.status === "pending_manager" ? "bg-yellow-500" : "bg-orange-500"}>
+                  {tier.status.replace(/_/g, " ")}
+                </Badge>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+
+              <div className="grid grid-cols-4 gap-4 text-sm mb-4 py-3 border-y">
+                <div>
+                  <p className="text-gray-600">Base Rate</p>
+                  <p className="font-semibold">ETB {tier.baseRate.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-gray-600">Min Order</p>
+                  <p className="font-semibold">{tier.minQuantity}</p>
+                </div>
+                <div>
+                  <p className="text-gray-600">Max Order</p>
+                  <p className="font-semibold">{tier.maxQuantity}</p>
+                </div>
+                <div>
+                  <p className="text-gray-600">Volume Discount</p>
+                  <p className="font-semibold">{tier.discount}%</p>
+                </div>
+              </div>
+
+              {/* APPROVAL WORKFLOW */}
+              <div className="space-y-2">
+                <div className="p-2 bg-blue-50 rounded">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-semibold">Manager Approval</span>
+                    {tier.managerApproval ? (
+                      <div className="text-right">
+                        <Badge className="bg-green-500">Approved</Badge>
+                        <p className="text-xs text-gray-600 mt-1">{tier.managerApproval.approvedBy}</p>
+                      </div>
+                    ) : (
+                      <Badge className="bg-yellow-500">Pending</Badge>
+                    )}
+                  </div>
+                  {!tier.managerApproval && isManager && (
+                    <div className="mt-2 flex gap-2">
+                      <Button size="sm" className="bg-green-600">
+                        Approve
+                      </Button>
+                      <Button size="sm" variant="destructive">
+                        Reject
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                {tier.managerApproval && (
+                  <div className="p-2 bg-orange-50 rounded">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-semibold">Chief Approval</span>
+                      {tier.chiefApproval ? (
+                        <div className="text-right">
+                          <Badge className="bg-green-500">Approved</Badge>
+                          <p className="text-xs text-gray-600 mt-1">{tier.chiefApproval.approvedBy}</p>
+                        </div>
+                      ) : (
+                        <Badge className="bg-yellow-500">Pending</Badge>
+                      )}
+                    </div>
+                    {!tier.chiefApproval && isChief && (
+                      <div className="mt-2 flex gap-2">
+                        <Button size="sm" className="bg-green-600">
+                          Final Approve
+                        </Button>
+                        <Button size="sm" variant="destructive">
+                          Reject
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
@@ -762,48 +871,69 @@ function PricingTab() {
 
 function MarketingUnitPage() {
   const user = useCurrentUser();
-  const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   if (!user) return <div>Loading...</div>;
 
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold">Marketing Unit</h1>
-        <p className="text-gray-600">Manage campaigns, tasks, deals, and digital marketing</p>
+        <h1 className="text-3xl font-bold">Marketing Unit - Professional Workflows</h1>
+        <p className="text-gray-600">Manage content, campaigns, and pricing with approval workflows</p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Tab)}>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+          <TabsTrigger value="communication">Communication</TabsTrigger>
+          <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
+          <TabsTrigger value="pricing">Pricing</TabsTrigger>
           <TabsTrigger value="report">Report</TabsTrigger>
           <TabsTrigger value="tasks">Tasks</TabsTrigger>
           <TabsTrigger value="deals">Deals</TabsTrigger>
-          <TabsTrigger value="digital">Digital</TabsTrigger>
-          <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
-          <TabsTrigger value="pricing">Pricing</TabsTrigger>
         </TabsList>
 
         <TabsContent value="dashboard">
-          <DashboardTab />
+          <Card>
+            <CardContent className="pt-6">
+              <p className="text-gray-600">Dashboard metrics and KPIs</p>
+            </CardContent>
+          </Card>
         </TabsContent>
-        <TabsContent value="report">
-          <ReportTab />
+
+        <TabsContent value="communication">
+          <ContentCalendarTab />
         </TabsContent>
-        <TabsContent value="tasks">
-          <TasksTab />
-        </TabsContent>
-        <TabsContent value="deals">
-          <DealsTab />
-        </TabsContent>
-        <TabsContent value="digital">
-          <DigitalMarketingTab />
-        </TabsContent>
+
         <TabsContent value="campaigns">
-          <CampaignsTab />
+          <CampaignTab />
         </TabsContent>
+
         <TabsContent value="pricing">
           <PricingTab />
+        </TabsContent>
+
+        <TabsContent value="report">
+          <Card>
+            <CardContent className="pt-6">
+              <Button>
+                <Download className="h-4 w-4 mr-2" />
+                Generate Report
+              </Button>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="tasks">
+          <Card>
+            <CardContent className="pt-6">Tasks management</CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="deals">
+          <Card>
+            <CardContent className="pt-6">Deals pipeline</CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
