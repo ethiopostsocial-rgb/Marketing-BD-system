@@ -1,5 +1,5 @@
 {
-  "version": 449,
+  "version": 450,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የብራንዲንግ ግብዓት ባንዲራ እንዲሟሉልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-10-14",
+        "id": "byhzb163",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-07",
+        "status": "pending"
+      },
       {
         "title": "የኦሮሚያ ንግድና ዘርፍ ማህበራት ም/ቤት ባዘጋጀው ዳይሬክቶሪ ላይ አገልግሎት ማግኘታችንን ስለማሳወቅ፣",
         "description": "",
