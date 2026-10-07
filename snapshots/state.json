@@ -1,5 +1,5 @@
 {
-  "version": 451,
+  "version": 452,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የማስታወቅያ ስራዎች እንዲሰሩልን ስለመጠየቅ",
+        "description": "ቢልቦርድ,ከ4 እስከ 7 ሰው የሚይዙ ተሽከርካሪዎች ላይ  \nከአዲስ አበባ አዳማ የፍጥነት መንገድ ላይ",
+        "department": "supply_facility",
+        "dueDate": "2026-10-14",
+        "id": "iplohrqd",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-07",
+        "status": "pending"
+      },
       {
         "title": "የብራንዲንግ ግብዓት ባንዲራ እንዲሟሉልን ስለመጠየቅ",
         "description": "",
