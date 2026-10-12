@@ -1,5 +1,5 @@
 {
-  "version": 457,
+  "version": 458,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "የሞተር ሳጥን ላይ ብራንዲንግ ስራ እንዲሰራልን ስለመጠየቅ",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-10-19",
+        "id": "jli6zy3u",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-12",
+        "status": "pending"
+      },
       {
         "title": "ለሙዚየም ምረቃ ዝግጅት የሚሆን የመስተንግዶ ግብዓት እንዲሟላልን ስለመጠየቅ",
         "description": "የድግስ ወንበር እና የቁም ጠረንጼዛ\t40 ወንበር 5 ክብ ጠረንጼዛ\nአበባ \t50 በፍሬ\n5 የቴብል ክብ\nኮክቴል እና ቡና ቁርስ (snack)\tለ 50 ሰው የሚሆን",
