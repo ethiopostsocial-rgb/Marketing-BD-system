@@ -1,5 +1,5 @@
 {
-  "version": 458,
+  "version": 459,
   "state": {
     "users": [
       {
@@ -1427,6 +1427,16 @@
       }
     ],
     "externalRequests": [
+      {
+        "title": "በውስጥ ማስታወሻ ቁጥር ግክ/ውማ/07/2019 ለተጠየቀው ማብራሪያ ምላሽ ስለመስጠት",
+        "description": "",
+        "department": "supply_facility",
+        "dueDate": "2026-10-19",
+        "id": "ptx8016s",
+        "requestedBy": "u5",
+        "requestedDate": "2026-10-12",
+        "status": "pending"
+      },
       {
         "title": "የሞተር ሳጥን ላይ ብራንዲንግ ስራ እንዲሰራልን ስለመጠየቅ",
         "description": "",
