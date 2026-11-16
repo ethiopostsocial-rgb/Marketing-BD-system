@@ -1,5 +1,5 @@
 {
-  "version": 465,
+  "version": 466,
   "state": {
     "users": [
       {
@@ -127,8 +127,8 @@
         "managerId": "u7",
         "avatarColor": "#ea580c",
         "title": "Junior BD Officer",
-        "password": "ethiopost",
-        "mustChangePassword": false
+        "password": "Meseret.Assefa",
+        "mustChangePassword": true
       },
       {
         "name": "Tigist Bekele",
