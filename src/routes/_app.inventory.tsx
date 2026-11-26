@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useCurrentUser, useStore, canAccessTab } from "@/lib/store";
-import { DISTRICTS, DISTRICT_LABELS, type District, type InventoryItem, type DistributionPlace } from "@/lib/types";
+import { DISTRICTS, DISTRICT_LABELS, type District, type InventoryItem } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Plus, Package, Send, Search, Trash2, MapPin, Pencil } from "lucide-react";
+import { Plus, Package, Send, Search, Trash2, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { Shield } from "lucide-react";
 
@@ -19,15 +18,20 @@ export const Route = createFileRoute("/_app/inventory")({
   component: InventoryPage,
 });
 
+// Defensive: records saved before a schema change may lack the distributions array.
+function distributionsOf(it: InventoryItem) {
+  return it.distributions ?? [];
+}
+
 function totals(it: InventoryItem) {
-  const distributed = it.distributions.reduce((a, d) => a + d.quantity, 0);
-  return { distributed, remaining: it.totalQuantity - distributed };
+  const distributed = distributionsOf(it).reduce((a, d) => a + (d.quantity || 0), 0);
+  return { distributed, remaining: (it.totalQuantity || 0) - distributed };
 }
 
 function byDistrict(it: InventoryItem): Record<District, number> {
   const map: Record<string, number> = {};
   for (const d of DISTRICTS) map[d] = 0;
-  for (const d of it.distributions) map[d.district] = (map[d.district] ?? 0) + d.quantity;
+  for (const d of distributionsOf(it)) map[d.district] = (map[d.district] ?? 0) + (d.quantity || 0);
   return map as Record<District, number>;
 }
 
@@ -39,10 +43,6 @@ function InventoryPage() {
   const deleteItem = useStore((s) => s.deleteInventoryItem);
   const addDist = useStore((s) => s.addDistribution);
   const removeDist = useStore((s) => s.removeDistribution);
-  const distributionPlaces = useStore((s) => s.distributionPlaces);
-  const createPlace = useStore((s) => s.createDistributionPlace);
-  const updatePlace = useStore((s) => s.updateDistributionPlace);
-  const deletePlace = useStore((s) => s.deleteDistributionPlace);
 
   const [q, setQ] = useState("");
   const [createOpen, setCreateOpen] = useState(false);
@@ -62,37 +62,6 @@ function InventoryPage() {
   const [recipient, setRecipient] = useState("");
   const [note, setNote] = useState("");
 
-  // form state — distribution place
-  const [placeOpen, setPlaceOpen] = useState(false);
-  const [editingPlace, setEditingPlace] = useState<DistributionPlace | null>(null);
-  const [placeName, setPlaceName] = useState("");
-  const [placeDistrict, setPlaceDistrict] = useState<District>("addis_ababa");
-  const [placeAddress, setPlaceAddress] = useState("");
-  const [placeContact, setPlaceContact] = useState("");
-  const [placePhone, setPlacePhone] = useState("");
-  const [placeNote, setPlaceNote] = useState("");
-  const [placeSearch, setPlaceSearch] = useState("");
-
-  if (!user) return null;
-  if (!canAccessTab(user, "inventory")) {
-    return (
-      <div className="p-6">
-        <Card>
-          <CardContent className="flex items-center gap-3 p-8">
-            <Shield className="h-6 w-6 text-muted-foreground" />
-            <div>
-              <h2 className="text-lg font-semibold">Restricted</h2>
-              <p className="text-sm text-muted-foreground">Marketing inventory is restricted to the M&amp;C Director, Marketing Manager, and Senior Marketing Officer.</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-  const canManage = user.role === "director" || user.role === "marketing_manager" ||
-  (user.role === "senior_officer" && (user.unit === "marketing" || user.unit === "both"));
-  const canDelete = user.role === "director";
-
   const [fCategory, setFCategory] = useState<string>("all");
   const [fDistrict, setFDistrict] = useState<string>("all");
   const [fFrom, setFFrom] = useState("");
@@ -105,7 +74,7 @@ function InventoryPage() {
     return inventory.filter((i) => {
       if (term && !(i.name.toLowerCase().includes(term) || i.category.toLowerCase().includes(term) || (i.description?.toLowerCase().includes(term) ?? false))) return false;
       if (fCategory !== "all" && i.category !== fCategory) return false;
-      if (fDistrict !== "all" && !i.distributions.some((d) => d.district === fDistrict)) return false;
+      if (fDistrict !== "all" && !distributionsOf(i).some((d) => d.district === fDistrict)) return false;
       if (fFrom && i.createdAt < fFrom) return false;
       if (fTo && i.createdAt > fTo) return false;
       return true;
@@ -118,40 +87,6 @@ function InventoryPage() {
   };
   const resetDist = () => {
     setDistrict("addis_ababa"); setQty(0); setRecipient(""); setNote("");
-  };
-
-  const resetPlace = () => {
-    setPlaceName(""); setPlaceDistrict("addis_ababa"); setPlaceAddress("");
-    setPlaceContact(""); setPlacePhone(""); setPlaceNote(""); setEditingPlace(null);
-  };
-
-  const openEditPlace = (p: DistributionPlace) => {
-    setEditingPlace(p);
-    setPlaceName(p.name); setPlaceDistrict(p.district); setPlaceAddress(p.address ?? "");
-    setPlaceContact(p.contactPerson ?? ""); setPlacePhone(p.contactPhone ?? ""); setPlaceNote(p.note ?? "");
-    setPlaceOpen(true);
-  };
-
-  const submitPlace = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!placeName.trim()) { toast.error("Name is required"); return; }
-    const payload = {
-      name: placeName.trim(),
-      district: placeDistrict,
-      address: placeAddress.trim() || undefined,
-      contactPerson: placeContact.trim() || undefined,
-      contactPhone: placePhone.trim() || undefined,
-      note: placeNote.trim() || undefined,
-    };
-    if (editingPlace) {
-      updatePlace(editingPlace.id, payload);
-      toast.success("Distribution place updated");
-    } else {
-      createPlace(payload);
-      toast.success("Distribution place added");
-    }
-    resetPlace();
-    setPlaceOpen(false);
   };
 
   const submitCreate = (e: React.FormEvent) => {
@@ -187,23 +122,34 @@ function InventoryPage() {
     const map: Record<string, number> = {};
     for (const d of DISTRICTS) map[d] = 0;
     for (const it of inventory) {
-      for (const d of it.distributions) map[d.district] += d.quantity;
+      for (const d of distributionsOf(it)) map[d.district] = (map[d.district] ?? 0) + (d.quantity || 0);
     }
     return map as Record<District, number>;
   }, [inventory]);
 
+  // Early returns live AFTER every hook so the hook order never changes between renders.
+  if (!user) return null;
+  if (!canAccessTab(user, "inventory")) {
+    return (
+      <div className="p-6">
+        <Card>
+          <CardContent className="flex items-center gap-3 p-8">
+            <Shield className="h-6 w-6 text-muted-foreground" />
+            <div>
+              <h2 className="text-lg font-semibold">Restricted</h2>
+              <p className="text-sm text-muted-foreground">Marketing inventory is restricted to the M&amp;C Director, Marketing Manager, and Senior Marketing Officer.</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+  const canManage = user.role === "director" || user.role === "marketing_manager" ||
+    (user.role === "senior_officer" && (user.unit === "marketing" || user.unit === "both"));
+  const canDelete = user.role === "director";
+
   return (
     <div className="p-6 space-y-6">
-      <Tabs defaultValue="inventory">
-        <TabsList>
-          <TabsTrigger value="inventory"><Package className="mr-1.5 h-3.5 w-3.5" />Inventory</TabsTrigger>
-          {user.role === "director" && (
-            <TabsTrigger value="places"><MapPin className="mr-1.5 h-3.5 w-3.5" />Distribution Places</TabsTrigger>
-          )}
-        </TabsList>
-
-        {/* ── INVENTORY TAB ── */}
-        <TabsContent value="inventory" className="mt-6 space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -455,10 +401,10 @@ function InventoryPage() {
           </DialogHeader>
           {detailItem && (
             <div className="max-h-[60vh] space-y-2 overflow-y-auto">
-              {detailItem.distributions.length === 0 && (
+              {distributionsOf(detailItem).length === 0 && (
                 <p className="text-sm text-muted-foreground">No distributions recorded yet.</p>
               )}
-              {[...detailItem.distributions].reverse().map((d) => {
+              {[...distributionsOf(detailItem)].reverse().map((d) => {
                 const u = users.find((x) => x.id === d.byUserId);
                 return (
                   <div key={d.id} className="flex items-start justify-between gap-3 rounded-md border border-border p-3">
@@ -484,111 +430,6 @@ function InventoryPage() {
           )}
         </DialogContent>
       </Dialog>
-        </TabsContent>
-
-        {/* ── DISTRIBUTION PLACES TAB (director only) ── */}
-        {user.role === "director" && (
-          <TabsContent value="places" className="mt-6 space-y-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-muted-foreground">Manage the places where marketing materials are distributed.</p>
-              <div className="flex gap-2">
-                <div className="relative">
-                  <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input value={placeSearch} onChange={(e) => setPlaceSearch(e.target.value)} placeholder="Search places…" className="pl-8 w-56" />
-                </div>
-                <Dialog open={placeOpen} onOpenChange={(o) => { if (!o) { resetPlace(); } setPlaceOpen(o); }}>
-                  <DialogTrigger asChild>
-                    <Button className="gap-2"><Plus className="h-4 w-4" />Add Place</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>{editingPlace ? "Edit distribution place" : "New distribution place"}</DialogTitle>
-                      <DialogDescription>A location where marketing materials are sent.</DialogDescription>
-                    </DialogHeader>
-                    <form onSubmit={submitPlace} className="space-y-3">
-                      <div className="space-y-1.5">
-                        <Label htmlFor="pname">Name *</Label>
-                        <Input id="pname" value={placeName} onChange={(e) => setPlaceName(e.target.value)} required placeholder="e.g. Mekelle Hub" />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label>District *</Label>
-                        <Select value={placeDistrict} onValueChange={(v) => setPlaceDistrict(v as District)}>
-                          <SelectTrigger><SelectValue /></SelectTrigger>
-                          <SelectContent>
-                            {DISTRICTS.map((d) => <SelectItem key={d} value={d}>{DISTRICT_LABELS[d]}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="paddr">Address</Label>
-                        <Input id="paddr" value={placeAddress} onChange={(e) => setPlaceAddress(e.target.value)} placeholder="Street / kebele" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="space-y-1.5">
-                          <Label htmlFor="pcontact">Contact person</Label>
-                          <Input id="pcontact" value={placeContact} onChange={(e) => setPlaceContact(e.target.value)} />
-                        </div>
-                        <div className="space-y-1.5">
-                          <Label htmlFor="pphone">Phone</Label>
-                          <Input id="pphone" value={placePhone} onChange={(e) => setPlacePhone(e.target.value)} />
-                        </div>
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="pnote">Note</Label>
-                        <Textarea id="pnote" value={placeNote} onChange={(e) => setPlaceNote(e.target.value)} rows={2} />
-                      </div>
-                      <DialogFooter>
-                        <Button type="button" variant="ghost" onClick={() => { resetPlace(); setPlaceOpen(false); }}>Cancel</Button>
-                        <Button type="submit">{editingPlace ? "Save changes" : "Add place"}</Button>
-                      </DialogFooter>
-                    </form>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </div>
-
-            {/* Places grid */}
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {distributionPlaces
-                .filter((p) => !placeSearch.trim() || p.name.toLowerCase().includes(placeSearch.toLowerCase()) || DISTRICT_LABELS[p.district].toLowerCase().includes(placeSearch.toLowerCase()))
-                .map((p) => (
-                  <Card key={p.id}>
-                    <CardContent className="flex flex-col gap-3 p-5">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-primary" />
-                            <Badge variant="secondary" className="text-[10px]">{DISTRICT_LABELS[p.district]}</Badge>
-                          </div>
-                          <h3 className="mt-1.5 text-base font-semibold text-foreground">{p.name}</h3>
-                          {p.address && <p className="mt-0.5 text-xs text-muted-foreground">{p.address}</p>}
-                        </div>
-                        <div className="flex gap-1">
-                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEditPlace(p)}>
-                            <Pencil className="h-3.5 w-3.5" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => { if (confirm(`Delete "${p.name}"?`)) { deletePlace(p.id); toast.success("Deleted"); } }}>
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      </div>
-                      {(p.contactPerson || p.contactPhone) && (
-                        <div className="rounded-md bg-muted/40 px-3 py-2 text-xs text-muted-foreground space-y-0.5">
-                          {p.contactPerson && <div>Contact: <span className="font-medium text-foreground">{p.contactPerson}</span></div>}
-                          {p.contactPhone && <div>Phone: <span className="font-medium text-foreground">{p.contactPhone}</span></div>}
-                        </div>
-                      )}
-                      {p.note && <p className="text-xs text-muted-foreground">{p.note}</p>}
-                    </CardContent>
-                  </Card>
-                ))}
-              {distributionPlaces.length === 0 && (
-                <Card><CardContent className="p-8 text-center text-sm text-muted-foreground">No distribution places added yet.</CardContent></Card>
-              )}
-            </div>
-          </TabsContent>
-        )}
-      </Tabs>
     </div>
   );
 }
