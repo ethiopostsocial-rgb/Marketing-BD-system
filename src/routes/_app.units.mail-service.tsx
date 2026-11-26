@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/units/mail-service")({
+export const Route = createFileRoute("/_app/units/mail-service")({
   component: MailServicePage,
 });
 
