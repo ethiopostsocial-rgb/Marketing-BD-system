@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole, DistributionPlace, Department } from "./types";
+import type { Announcement, RoutineJob, Task, User, TaskStatus, Unit, InventoryItem, District, TabKey, ExternalRequest, ExternalRequestStatus, Proposal, ProposalStage, CustomRole, Role, BuiltInRole } from "./types";
 import { ROLE_RANK, ROLE_LABELS, BUILT_IN_ROLES, getTaskAssignees, isTaskOwner } from "./types";
 import { USERS, TASKS, ROUTINES, ANNOUNCEMENTS, INVENTORY, EXTERNAL_REQUESTS, PROPOSALS, CUSTOM_ROLES } from "./seed";
 
@@ -330,23 +330,6 @@ export function getSubordinateIds(userId: string, users: User[]): string[] {
   return direct.flatMap((id) => [id, ...getSubordinateIds(id, users)]);
 }
 
-/** Get all users in the same department as the current user (for staff role). */
-export function getDepartmentMembers(user: User, users: User[]): User[] {
-  if (user.role !== "staff" || !user.departmentId) return [];
-  return users.filter((u) => u.departmentId === user.departmentId);
-}
-
-/** Get tasks visible to a user based on department (for staff role). */
-export function getTasksForDepartment(user: User, tasks: Task[], users: User[]): Task[] {
-  if (user.role !== "staff" || !user.departmentId) return tasks;
-  // Staff sees only tasks assigned to them or to department members
-  const deptMembers = getDepartmentMembers(user, users);
-  const deptMemberIds = new Set([user.id, ...deptMembers.map((m) => m.id)]);
-  return tasks.filter((t) => 
-    t.assignedTo.some((id) => deptMemberIds.has(id))
-  );
-}
-
 export function getVisibleUserIds(user: User, users: User[]): string[] {
   if (user.role === "director") return users.map((u) => u.id);
   if (user.role === "marketing_manager" || user.role === "bd_manager") {
@@ -407,7 +390,7 @@ export function canChangeTaskStatus(actor: User, task: Task): boolean {
 export { getTaskAssignees, isTaskOwner, BUILT_IN_ROLES };
 
 export const ALL_TABS: TabKey[] = [
-  "dashboard", "commercial_dashboard", "tasks", "external_requests", "opportunities", "routines", "inventory", "announcements", "users", "roles", "profile",
+  "dashboard", "commercial_dashboard", "tasks", "external_requests", "opportunities", "routines", "inventory", "ads_campaign", "announcements", "users", "roles", "profile",
 ];
 
 export const TAB_LABELS: Record<TabKey, string> = {
@@ -417,6 +400,7 @@ export const TAB_LABELS: Record<TabKey, string> = {
   opportunities: "Opportunities & Proposals",
   routines: "Routine Check-ups",
   inventory: "Marketing Inventory",
+  ads_campaign: "Ads / Campaign",
   announcements: "Announcements",
   commercial_dashboard: "Commercial Dashboard",
   users: "User Management",
@@ -432,12 +416,7 @@ export function defaultTabsForRole(user: User, customRoles: CustomRole[] = []): 
     if (custom) return custom.defaultTabs;
   }
 
-  // Staff role: department-scoped, minimal access
-  if (user.role === "staff") {
-    return ["tasks", "announcements", "profile"];
-  }
-
-  const base: TabKey[] = ["dashboard", "commercial_dashboard", "tasks", "external_requests", "routines", "announcements", "profile"];
+  const base: TabKey[] = ["dashboard", "commercial_dashboard", "tasks", "external_requests", "routines", "ads_campaign", "announcements", "profile"];
   // Inventory: only Director, Marketing Manager, and Marketing Senior Officer
   const inventoryAllowed =
     user.role === "director" ||
