@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export const Route = createFileRoute("/units/philately-museum")({
+export const Route = createFileRoute("/_app/units/philately-museum")({
   component: PhilatelyMuseumPage,
 });
 
