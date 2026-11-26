@@ -25,6 +25,13 @@ import { Route as AppRolesRouteImport } from './routes/_app.roles'
 import { Route as AppRoutinesRouteImport } from './routes/_app.routines'
 import { Route as AppTasksRouteImport } from './routes/_app.tasks'
 import { Route as AppUsersRouteImport } from './routes/_app.users'
+import { Route as AppUnitsBrandingCommunicationRouteImport } from './routes/_app.units.branding-communication'
+import { Route as AppUnitsEcommerceRouteImport } from './routes/_app.units.ecommerce'
+import { Route as AppUnitsMailServiceRouteImport } from './routes/_app.units.mail-service'
+import { Route as AppUnitsMarketingRouteImport } from './routes/_app.units.marketing'
+import { Route as AppUnitsPartnershipRouteImport } from './routes/_app.units.partnership'
+import { Route as AppUnitsPhilatelyMuseumRouteImport } from './routes/_app.units.philately-museum'
+import { Route as AppUnitsVpsGovernmentRouteImport } from './routes/_app.units.vps-government'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -105,6 +112,42 @@ const AppUsersRoute = AppUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AppRoute,
 } as any)
+const AppUnitsBrandingCommunicationRoute =
+  AppUnitsBrandingCommunicationRouteImport.update({
+    id: '/units/branding-communication',
+    path: '/units/branding-communication',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppUnitsEcommerceRoute = AppUnitsEcommerceRouteImport.update({
+  id: '/units/ecommerce',
+  path: '/units/ecommerce',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUnitsMailServiceRoute = AppUnitsMailServiceRouteImport.update({
+  id: '/units/mail-service',
+  path: '/units/mail-service',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUnitsMarketingRoute = AppUnitsMarketingRouteImport.update({
+  id: '/units/marketing',
+  path: '/units/marketing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUnitsPartnershipRoute = AppUnitsPartnershipRouteImport.update({
+  id: '/units/partnership',
+  path: '/units/partnership',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUnitsPhilatelyMuseumRoute = AppUnitsPhilatelyMuseumRouteImport.update({
+  id: '/units/philately-museum',
+  path: '/units/philately-museum',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUnitsVpsGovernmentRoute = AppUnitsVpsGovernmentRouteImport.update({
+  id: '/units/vps-government',
+  path: '/units/vps-government',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +165,13 @@ export interface FileRoutesByFullPath {
   '/routines': typeof AppRoutinesRoute
   '/tasks': typeof AppTasksRoute
   '/users': typeof AppUsersRoute
+  '/units/branding-communication': typeof AppUnitsBrandingCommunicationRoute
+  '/units/ecommerce': typeof AppUnitsEcommerceRoute
+  '/units/mail-service': typeof AppUnitsMailServiceRoute
+  '/units/marketing': typeof AppUnitsMarketingRoute
+  '/units/partnership': typeof AppUnitsPartnershipRoute
+  '/units/philately-museum': typeof AppUnitsPhilatelyMuseumRoute
+  '/units/vps-government': typeof AppUnitsVpsGovernmentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,6 +189,13 @@ export interface FileRoutesByTo {
   '/routines': typeof AppRoutinesRoute
   '/tasks': typeof AppTasksRoute
   '/users': typeof AppUsersRoute
+  '/units/branding-communication': typeof AppUnitsBrandingCommunicationRoute
+  '/units/ecommerce': typeof AppUnitsEcommerceRoute
+  '/units/mail-service': typeof AppUnitsMailServiceRoute
+  '/units/marketing': typeof AppUnitsMarketingRoute
+  '/units/partnership': typeof AppUnitsPartnershipRoute
+  '/units/philately-museum': typeof AppUnitsPhilatelyMuseumRoute
+  '/units/vps-government': typeof AppUnitsVpsGovernmentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,6 +215,13 @@ export interface FileRoutesById {
   '/_app/routines': typeof AppRoutinesRoute
   '/_app/tasks': typeof AppTasksRoute
   '/_app/users': typeof AppUsersRoute
+  '/_app/units/branding-communication': typeof AppUnitsBrandingCommunicationRoute
+  '/_app/units/ecommerce': typeof AppUnitsEcommerceRoute
+  '/_app/units/mail-service': typeof AppUnitsMailServiceRoute
+  '/_app/units/marketing': typeof AppUnitsMarketingRoute
+  '/_app/units/partnership': typeof AppUnitsPartnershipRoute
+  '/_app/units/philately-museum': typeof AppUnitsPhilatelyMuseumRoute
+  '/_app/units/vps-government': typeof AppUnitsVpsGovernmentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,6 +241,13 @@ export interface FileRouteTypes {
     | '/routines'
     | '/tasks'
     | '/users'
+    | '/units/branding-communication'
+    | '/units/ecommerce'
+    | '/units/mail-service'
+    | '/units/marketing'
+    | '/units/partnership'
+    | '/units/philately-museum'
+    | '/units/vps-government'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -194,6 +265,13 @@ export interface FileRouteTypes {
     | '/routines'
     | '/tasks'
     | '/users'
+    | '/units/branding-communication'
+    | '/units/ecommerce'
+    | '/units/mail-service'
+    | '/units/marketing'
+    | '/units/partnership'
+    | '/units/philately-museum'
+    | '/units/vps-government'
   id:
     | '__root__'
     | '/'
@@ -212,6 +290,13 @@ export interface FileRouteTypes {
     | '/_app/routines'
     | '/_app/tasks'
     | '/_app/users'
+    | '/_app/units/branding-communication'
+    | '/_app/units/ecommerce'
+    | '/_app/units/mail-service'
+    | '/_app/units/marketing'
+    | '/_app/units/partnership'
+    | '/_app/units/philately-museum'
+    | '/_app/units/vps-government'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -335,6 +420,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppUsersRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/units/branding-communication': {
+      id: '/_app/units/branding-communication'
+      path: '/units/branding-communication'
+      fullPath: '/units/branding-communication'
+      preLoaderRoute: typeof AppUnitsBrandingCommunicationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/ecommerce': {
+      id: '/_app/units/ecommerce'
+      path: '/units/ecommerce'
+      fullPath: '/units/ecommerce'
+      preLoaderRoute: typeof AppUnitsEcommerceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/mail-service': {
+      id: '/_app/units/mail-service'
+      path: '/units/mail-service'
+      fullPath: '/units/mail-service'
+      preLoaderRoute: typeof AppUnitsMailServiceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/marketing': {
+      id: '/_app/units/marketing'
+      path: '/units/marketing'
+      fullPath: '/units/marketing'
+      preLoaderRoute: typeof AppUnitsMarketingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/partnership': {
+      id: '/_app/units/partnership'
+      path: '/units/partnership'
+      fullPath: '/units/partnership'
+      preLoaderRoute: typeof AppUnitsPartnershipRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/philately-museum': {
+      id: '/_app/units/philately-museum'
+      path: '/units/philately-museum'
+      fullPath: '/units/philately-museum'
+      preLoaderRoute: typeof AppUnitsPhilatelyMuseumRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/units/vps-government': {
+      id: '/_app/units/vps-government'
+      path: '/units/vps-government'
+      fullPath: '/units/vps-government'
+      preLoaderRoute: typeof AppUnitsVpsGovernmentRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -351,6 +485,13 @@ interface AppRouteChildren {
   AppRoutinesRoute: typeof AppRoutinesRoute
   AppTasksRoute: typeof AppTasksRoute
   AppUsersRoute: typeof AppUsersRoute
+  AppUnitsBrandingCommunicationRoute: typeof AppUnitsBrandingCommunicationRoute
+  AppUnitsEcommerceRoute: typeof AppUnitsEcommerceRoute
+  AppUnitsMailServiceRoute: typeof AppUnitsMailServiceRoute
+  AppUnitsMarketingRoute: typeof AppUnitsMarketingRoute
+  AppUnitsPartnershipRoute: typeof AppUnitsPartnershipRoute
+  AppUnitsPhilatelyMuseumRoute: typeof AppUnitsPhilatelyMuseumRoute
+  AppUnitsVpsGovernmentRoute: typeof AppUnitsVpsGovernmentRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -366,6 +507,13 @@ const AppRouteChildren: AppRouteChildren = {
   AppRoutinesRoute: AppRoutinesRoute,
   AppTasksRoute: AppTasksRoute,
   AppUsersRoute: AppUsersRoute,
+  AppUnitsBrandingCommunicationRoute: AppUnitsBrandingCommunicationRoute,
+  AppUnitsEcommerceRoute: AppUnitsEcommerceRoute,
+  AppUnitsMailServiceRoute: AppUnitsMailServiceRoute,
+  AppUnitsMarketingRoute: AppUnitsMarketingRoute,
+  AppUnitsPartnershipRoute: AppUnitsPartnershipRoute,
+  AppUnitsPhilatelyMuseumRoute: AppUnitsPhilatelyMuseumRoute,
+  AppUnitsVpsGovernmentRoute: AppUnitsVpsGovernmentRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
