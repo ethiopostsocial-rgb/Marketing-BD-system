@@ -35,6 +35,7 @@ const TITLES: Record<string, string> = {
   "/opportunities":        "Opportunities & Proposals",
   "/routines":             "Routine Check-ups",
   "/inventory":            "Marketing Material Inventory",
+  "/ads-campaign":         "Ads / Campaign",
   "/announcements":        "Announcements",
   "/commercial-dashboard": "Commercial Dashboard",
   "/users":                "User Management",
