@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Plus, Download } from "lucide-react";
 
-export const Route = createFileRoute("/units/branding-communication")({
+export const Route = createFileRoute("/_app/units/branding-communication")({
   component: BrandingCommunicationPage,
 });
 
