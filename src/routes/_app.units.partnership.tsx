@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-export const Route = createFileRoute("/units/partnership")({
+export const Route = createFileRoute("/_app/units/partnership")({
   component: PartnershipPage,
 });
 
