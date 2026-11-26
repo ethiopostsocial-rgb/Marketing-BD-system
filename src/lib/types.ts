@@ -1,33 +1,3 @@
-// Internal departments
-export type Department =
-  | "marketing"
-  | "business_development"
-  | "operations"
-  | "finance"
-  | "human_resources"
-  | "it"
-  | "customer_service";
-
-export const DEPARTMENTS: Department[] = [
-  "marketing",
-  "business_development",
-  "operations",
-  "finance",
-  "human_resources",
-  "it",
-  "customer_service",
-];
-
-export const DEPARTMENT_LABELS: Record<Department, string> = {
-  marketing: "Marketing",
-  business_development: "Business Development",
-  operations: "Operations",
-  finance: "Finance",
-  human_resources: "Human Resources",
-  it: "Information Technology",
-  customer_service: "Customer Service",
-};
-
 // Built-in roles. Custom roles created at runtime are also stored as strings.
 export type BuiltInRole =
   | "director"
@@ -35,8 +5,7 @@ export type BuiltInRole =
   | "bd_manager"
   | "supervisor"
   | "senior_officer"
-  | "junior_officer"
-  | "staff";
+  | "junior_officer";
 
 // Role accepts built-in keys plus any custom role key created by the director.
 // The `string & {}` keeps autocomplete for built-ins while accepting any string.
@@ -49,33 +18,9 @@ export const BUILT_IN_ROLES: BuiltInRole[] = [
   "supervisor",
   "senior_officer",
   "junior_officer",
-  "staff",
 ];
 
-export type Unit = 
-  | "marketing" 
-  | "bd" 
-  | "both"
-  | "all"
-  | "branding_communication"
-  | "partnership"
-  | "ecommerce"
-  | "mail_service"
-  | "vps_government"
-  | "philately_museum";
-
-export const UNIT_LABELS: Record<Unit, string> = {
-  marketing: "Marketing",
-  bd: "Business Development",
-  both: "Marketing & BD",
-  all: "All Units",
-  branding_communication: "Branding & Communication",
-  partnership: "Partnership",
-  ecommerce: "E-commerce",
-  mail_service: "Mail Service",
-  vps_government: "VPS & Government",
-  philately_museum: "Philately & Museum",
-};
+export type Unit = "marketing" | "bd" | "both";
 
 export type TaskStatus = "todo" | "in_progress" | "awaiting_approval" | "done";
 
@@ -86,20 +31,12 @@ export type TabKey =
   | "opportunities"
   | "routines"
   | "inventory"
+  | "ads_campaign"
   | "announcements"
   | "commercial_dashboard"
   | "users"
   | "roles"
-  | "profile"
-  // Unit-specific tabs
-  | "unit_dashboard"
-  | "unit_report"
-  | "unit_tasks"
-  | "unit_deals"
-  | "branding_report"
-  | "communication"
-  | "content_management"
-  | "campaign_management";
+  | "profile";
 
 export type ProposalStage =
   | "opportunity"
@@ -145,7 +82,6 @@ export interface User {
   role: Role;
   unit: Unit;
   managerId: string | null;
-  departmentId?: Department;
   avatarColor: string;
   title: string;
   password: string;
@@ -215,7 +151,6 @@ export const ROLE_LABELS: Record<BuiltInRole, string> = {
   supervisor: "Supervisor",
   senior_officer: "Senior Officer",
   junior_officer: "Junior Officer",
-  staff: "Staff",
 };
 
 export const ROLE_RANK: Record<BuiltInRole, number> = {
@@ -225,7 +160,6 @@ export const ROLE_RANK: Record<BuiltInRole, number> = {
   supervisor: 4,
   senior_officer: 2,
   junior_officer: 1,
-  staff: 0,
 };
 
 export type District =
