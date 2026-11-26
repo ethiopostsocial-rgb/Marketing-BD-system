@@ -7,6 +7,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [
+    // Must be first: generates src/routeTree.gen.ts from src/routes/* on every build.
     TanStackRouterVite(),
     react(),
     tailwindcss(),
