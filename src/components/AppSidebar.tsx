@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package, Building2, Briefcase, ShieldCheck, BarChart2, Target } from "lucide-react";
+import { LayoutDashboard, ListChecks, ClipboardCheck, Megaphone, User as UserIcon, LogOut, Users, Package, Building2, Briefcase, ShieldCheck, BarChart2, Target, Heart, Handshake, ShoppingCart, Mail, Server, Stamp } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
   SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,
@@ -23,6 +23,18 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; tab: TabKe
   { to: "/roles",               label: "Roles",                     icon: ShieldCheck,     tab: "roles" },
   { to: "/profile",             label: "Profile Settings",          icon: UserIcon,        tab: "profile" },
 ];
+
+const UNITS: { to: string; label: string; icon: typeof LayoutDashboard }[] = [
+  { to: "/units/marketing", label: "Marketing", icon: Megaphone },
+  { to: "/units/branding-communication", label: "Branding & Communication", icon: Heart },
+  { to: "/units/partnership", label: "Partnership", icon: Handshake },
+  { to: "/units/ecommerce", label: "E-Commerce", icon: ShoppingCart },
+  { to: "/units/mail-service", label: "Mail Service", icon: Mail },
+  { to: "/units/vps-government", label: "VPS & Government", icon: Server },
+  { to: "/units/philately-museum", label: "Philately & Museum", icon: Stamp },
+];
+// Unit pages are visible to the Director and to unit managers.
+const UNIT_VIEW_ROLES = ["director", "marketing_manager", "bd_manager"];
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -58,6 +70,29 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {user && UNIT_VIEW_ROLES.includes(user.role) && (
+          <SidebarGroup>
+            <div className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/60">Units</div>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {UNITS.map((item) => {
+                  const active = path.startsWith(item.to);
+                  return (
+                    <SidebarMenuItem key={item.to}>
+                      <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
+                        <Link to={item.to} className="flex items-center gap-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       {user && (
