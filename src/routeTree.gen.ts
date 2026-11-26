@@ -9,25 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ChangePasswordRouteImport } from './routes/change-password'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppUsersRouteImport } from './routes/_app.users'
-import { Route as AppTasksRouteImport } from './routes/_app.tasks'
-import { Route as AppRoutinesRouteImport } from './routes/_app.routines'
-import { Route as AppRolesRouteImport } from './routes/_app.roles'
-import { Route as AppProfileRouteImport } from './routes/_app.profile'
-import { Route as AppOpportunitiesRouteImport } from './routes/_app.opportunities'
-import { Route as AppInventoryRouteImport } from './routes/_app.inventory'
-import { Route as AppExternalRequestsRouteImport } from './routes/_app.external-requests'
-import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as AppCommercialDashboardRouteImport } from './routes/_app.commercial-dashboard'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as ChangePasswordRouteImport } from './routes/change-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppAdsCampaignRouteImport } from './routes/_app.ads-campaign'
 import { Route as AppAnnouncementsRouteImport } from './routes/_app.announcements'
+import { Route as AppCommercialDashboardRouteImport } from './routes/_app.commercial-dashboard'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppExternalRequestsRouteImport } from './routes/_app.external-requests'
+import { Route as AppInventoryRouteImport } from './routes/_app.inventory'
+import { Route as AppOpportunitiesRouteImport } from './routes/_app.opportunities'
+import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppRolesRouteImport } from './routes/_app.roles'
+import { Route as AppRoutinesRouteImport } from './routes/_app.routines'
+import { Route as AppTasksRouteImport } from './routes/_app.tasks'
+import { Route as AppUsersRouteImport } from './routes/_app.users'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChangePasswordRoute = ChangePasswordRouteImport.update({
@@ -35,63 +40,14 @@ const ChangePasswordRoute = ChangePasswordRouteImport.update({
   path: '/change-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppUsersRoute = AppUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppTasksRoute = AppTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppRoutinesRoute = AppRoutinesRouteImport.update({
-  id: '/routines',
-  path: '/routines',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppRolesRoute = AppRolesRouteImport.update({
-  id: '/roles',
-  path: '/roles',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileRoute = AppProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppOpportunitiesRoute = AppOpportunitiesRouteImport.update({
-  id: '/opportunities',
-  path: '/opportunities',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppInventoryRoute = AppInventoryRouteImport.update({
-  id: '/inventory',
-  path: '/inventory',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppExternalRequestsRoute = AppExternalRequestsRouteImport.update({
-  id: '/external-requests',
-  path: '/external-requests',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCommercialDashboardRoute = AppCommercialDashboardRouteImport.update({
-  id: '/commercial-dashboard',
-  path: '/commercial-dashboard',
+const AppAdsCampaignRoute = AppAdsCampaignRouteImport.update({
+  id: '/ads-campaign',
+  path: '/ads-campaign',
   getParentRoute: () => AppRoute,
 } as any)
 const AppAnnouncementsRoute = AppAnnouncementsRouteImport.update({
@@ -99,11 +55,62 @@ const AppAnnouncementsRoute = AppAnnouncementsRouteImport.update({
   path: '/announcements',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCommercialDashboardRoute = AppCommercialDashboardRouteImport.update({
+  id: '/commercial-dashboard',
+  path: '/commercial-dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExternalRequestsRoute = AppExternalRequestsRouteImport.update({
+  id: '/external-requests',
+  path: '/external-requests',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInventoryRoute = AppInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOpportunitiesRoute = AppOpportunitiesRouteImport.update({
+  id: '/opportunities',
+  path: '/opportunities',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRolesRoute = AppRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRoutinesRoute = AppRoutinesRouteImport.update({
+  id: '/routines',
+  path: '/routines',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTasksRoute = AppTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppUsersRoute = AppUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
+  '/ads-campaign': typeof AppAdsCampaignRoute
   '/announcements': typeof AppAnnouncementsRoute
   '/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/dashboard': typeof AppDashboardRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
+  '/ads-campaign': typeof AppAdsCampaignRoute
   '/announcements': typeof AppAnnouncementsRoute
   '/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/dashboard': typeof AppDashboardRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/change-password': typeof ChangePasswordRoute
   '/login': typeof LoginRoute
+  '/_app/ads-campaign': typeof AppAdsCampaignRoute
   '/_app/announcements': typeof AppAnnouncementsRoute
   '/_app/commercial-dashboard': typeof AppCommercialDashboardRoute
   '/_app/dashboard': typeof AppDashboardRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/'
     | '/change-password'
     | '/login'
+    | '/ads-campaign'
     | '/announcements'
     | '/commercial-dashboard'
     | '/dashboard'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/change-password'
     | '/login'
+    | '/ads-campaign'
     | '/announcements'
     | '/commercial-dashboard'
     | '/dashboard'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/change-password'
     | '/login'
+    | '/_app/ads-campaign'
     | '/_app/announcements'
     | '/_app/commercial-dashboard'
     | '/_app/dashboard'
@@ -211,18 +223,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/change-password': {
-      id: '/change-password'
-      path: '/change-password'
-      fullPath: '/change-password'
-      preLoaderRoute: typeof ChangePasswordRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -232,81 +237,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/change-password': {
+      id: '/change-password'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof ChangePasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/users': {
-      id: '/_app/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AppUsersRouteImport
-      parentRoute: typeof AppRoute
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/tasks': {
-      id: '/_app/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AppTasksRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/routines': {
-      id: '/_app/routines'
-      path: '/routines'
-      fullPath: '/routines'
-      preLoaderRoute: typeof AppRoutinesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/roles': {
-      id: '/_app/roles'
-      path: '/roles'
-      fullPath: '/roles'
-      preLoaderRoute: typeof AppRolesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profile': {
-      id: '/_app/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AppProfileRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/opportunities': {
-      id: '/_app/opportunities'
-      path: '/opportunities'
-      fullPath: '/opportunities'
-      preLoaderRoute: typeof AppOpportunitiesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/inventory': {
-      id: '/_app/inventory'
-      path: '/inventory'
-      fullPath: '/inventory'
-      preLoaderRoute: typeof AppInventoryRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/external-requests': {
-      id: '/_app/external-requests'
-      path: '/external-requests'
-      fullPath: '/external-requests'
-      preLoaderRoute: typeof AppExternalRequestsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/dashboard': {
-      id: '/_app/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/commercial-dashboard': {
-      id: '/_app/commercial-dashboard'
-      path: '/commercial-dashboard'
-      fullPath: '/commercial-dashboard'
-      preLoaderRoute: typeof AppCommercialDashboardRouteImport
+    '/_app/ads-campaign': {
+      id: '/_app/ads-campaign'
+      path: '/ads-campaign'
+      fullPath: '/ads-campaign'
+      preLoaderRoute: typeof AppAdsCampaignRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/announcements': {
@@ -316,10 +265,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAnnouncementsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/commercial-dashboard': {
+      id: '/_app/commercial-dashboard'
+      path: '/commercial-dashboard'
+      fullPath: '/commercial-dashboard'
+      preLoaderRoute: typeof AppCommercialDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/external-requests': {
+      id: '/_app/external-requests'
+      path: '/external-requests'
+      fullPath: '/external-requests'
+      preLoaderRoute: typeof AppExternalRequestsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/inventory': {
+      id: '/_app/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof AppInventoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/opportunities': {
+      id: '/_app/opportunities'
+      path: '/opportunities'
+      fullPath: '/opportunities'
+      preLoaderRoute: typeof AppOpportunitiesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/roles': {
+      id: '/_app/roles'
+      path: '/roles'
+      fullPath: '/roles'
+      preLoaderRoute: typeof AppRolesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/routines': {
+      id: '/_app/routines'
+      path: '/routines'
+      fullPath: '/routines'
+      preLoaderRoute: typeof AppRoutinesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/tasks': {
+      id: '/_app/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AppTasksRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/users': {
+      id: '/_app/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AppUsersRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAdsCampaignRoute: typeof AppAdsCampaignRoute
   AppAnnouncementsRoute: typeof AppAnnouncementsRoute
   AppCommercialDashboardRoute: typeof AppCommercialDashboardRoute
   AppDashboardRoute: typeof AppDashboardRoute
@@ -334,6 +354,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdsCampaignRoute: AppAdsCampaignRoute,
   AppAnnouncementsRoute: AppAnnouncementsRoute,
   AppCommercialDashboardRoute: AppCommercialDashboardRoute,
   AppDashboardRoute: AppDashboardRoute,
