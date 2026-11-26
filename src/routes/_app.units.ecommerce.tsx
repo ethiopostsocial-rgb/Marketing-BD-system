@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/units/ecommerce")({
+export const Route = createFileRoute("/_app/units/ecommerce")({
   component: EcommercePage,
 });
 
