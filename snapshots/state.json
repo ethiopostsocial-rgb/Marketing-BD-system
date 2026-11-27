@@ -1,5 +1,5 @@
 {
-  "version": 474,
+  "version": 475,
   "state": {
     "users": [
       {
@@ -584,7 +584,15 @@
         "id": "ng0tscwc",
         "createdAt": "2026-11-27",
         "createdBy": "u5",
-        "distributions": []
+        "distributions": [
+          {
+            "id": "sfa5eaja",
+            "byUserId": "u5",
+            "district": "addis_ababa",
+            "quantity": 50,
+            "date": "2026-11-27"
+          }
+        ]
       },
       {
         "name": "Light",
