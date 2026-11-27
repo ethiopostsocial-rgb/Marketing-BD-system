@@ -1,5 +1,5 @@
 {
-  "version": 473,
+  "version": 474,
   "state": {
     "users": [
       {
@@ -576,6 +576,16 @@
     ],
     "announcements": [],
     "inventory": [
+      {
+        "name": "New key Holder",
+        "category": "Giveaway",
+        "unit": "pcs",
+        "totalQuantity": 1000,
+        "id": "ng0tscwc",
+        "createdAt": "2026-11-27",
+        "createdBy": "u5",
+        "distributions": []
+      },
       {
         "name": "Light",
         "category": "Digital",
